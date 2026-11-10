@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "plugin_id": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1",
+  "active_cortex": {
+    "label": "Team Yori",
+    "google_drive_folder_id": "REPLACE_WITH_VERIFIED_FOLDER_ID"
+  }
+}

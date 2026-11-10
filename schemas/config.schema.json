@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yori Lite single Cortex config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plugin_id",
+    "active_cortex"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "plugin_id": {
+      "const": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1"
+    },
+    "active_cortex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "google_drive_folder_id"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "google_drive_folder_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

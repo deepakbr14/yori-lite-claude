@@ -1,0 +1,14 @@
+{
+  "name": "yori-lite",
+  "displayName": "Yori Lite",
+  "version": "0.1.0",
+  "description": "A growing shared Yori with one Google Drive Cortex. Skills only; experimental first iteration.",
+  "author": {
+    "name": "Deepak Deo"
+  },
+  "repository": "https://github.com/deepakbr14/yori-lite-claude",
+  "metadata": {
+    "pluginId": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1",
+    "designVersion": "0.6"
+  }
+}
