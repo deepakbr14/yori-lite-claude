@@ -1,7 +1,8 @@
-Version 0.2.2 local checks
-Local package/link/schema checks and YAML parsing are run by the build tools.
-40 unittest cases passed: protocol safety, instruction checks, registry migration and guarded Cortex-guide eligibility models.
-Skill-byte measurement recorded separately in INSTRUCTION_SIZE.json; it is not response-time measurement.
-Actual chat/Drive tests NOT RUN here; see EVIDENCE.md and FRESH_CHAT.md.
-
-Additional verified release checks: official Claude CLI validator passed with the existing ignored-metadata warning; seven configuration/schema, memory-template and marketplace files remained byte-identical to 0.2.1. Isolated GitHub marketplace upgrade from 0.2.1 to 0.2.2 passed, with installed source-byte parity. See MARKETPLACE_INSTALL.md.
+Version 0.2.3 local checks — 2026-11-10
+PASS: 40 existing local regression tests (metadata/concurrency models, guide safety, instruction checks).
+PASS: package identity, config schema, relative links, five skill YAML frontmatters.
+PASS: 14 storage/protocol/configuration/template/marketplace files byte-identical to 0.2.2; see COMPATIBILITY_023.json.
+PASS: official Claude CLI validator, with existing ignored metadata-extension warning.
+REVIEWED: seven requested scenarios against instructions; see BEHAVIOR_023.md. This is editorial coverage, not live Claude execution.
+NOT RUN: live Claude.ai conversations, actual Google account/setup/retry behavior, or saved-memory survival in Drive.
+GitHub upgrade results: see MARKETPLACE_INSTALL.md.

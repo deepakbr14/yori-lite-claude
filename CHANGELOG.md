@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3
+
+- Carry setup authorization through folder creation, initialization, pointer configuration and verification without redundant approvals.
+- Ask one necessary account question and stop; reuse prior answers, explain sharing once as information, and keep routine operations and successful retries quiet.
+- Apply initiative, independent judgment and concise, relevant conversation across all five Skills; examples are illustrative rather than scripts.
+- Preserve storage protocol, configuration, identity, memory templates and safe documentation maintenance unchanged. Live Claude behavior remains a required check.
+
+
 ## 0.2.2
 
 - Promote yori-lite as the entry point for conversation and explicit setup; helpers stay available internally, with namespace limitations documented.

@@ -1,0 +1,20 @@
+{
+  "baseline_commit": "078d65316cdd5bc2f5417da76b601963a945446d",
+  "result": "byte-identical; no live Drive data inspected",
+  "unchanged_files": {
+    ".claude-plugin/marketplace.json": "d247b84d6c5a59d486c5eac097fd3121870c970a4bc5158055f5a3c4685ab065",
+    "STORAGE.md": "e017f9813f0705cdb4c38985905336755efcc1a55e23e7b81ebd1319b703de09",
+    "TURN_EFFICIENCY.md": "5da9ecf43bd37764aa961aec48044a6d553e501218b8701b1d353553ace4067d",
+    "README_MIGRATION.md": "0b37eb3472291bee5bd2851ac27523c45f8c8de5d582cac48d4470c1f0580adf",
+    "schemas/config.schema.json": "1bb8671558a70bc44096918ddbd04ce91cbbde8a61eedd1bdc080b23ff0d0cb6",
+    "templates/prior-revision.md": "305d6ade3b3b3aa992c95ce83b568f6c95830ea64a00971ae9ccb53dd6150957",
+    "templates/topic-snapshot.md": "b66ceb48ad4e5655edfdf1c668e87a41d43a306587fa976f2d96b25f29639630",
+    "templates/config_plugins_README.md": "38a6c15a151f7f2b8fe3a336469c8fdaf56a128f806de6087c8ffafc1b087557",
+    "templates/config.example.json": "0ac7a4d27c1e0b04c4579178292ebe1ebf8cce8e008876648ad4d3dc8df020cf",
+    "templates/history-event.md": "cbc6b9e19d2ba4de229d6d3e17e22f9e852ecc6605bcdd614da4df5c57048e0a",
+    "templates/initial-self.md": "f8c91a9560ccf4117c41adbaf6bdbcd82ad2335862e04d8479c774ec64f20e7b",
+    "references/legacy/cortex-readme-0.2.1.txt": "eb2b5a3ac740240268eb68333be27d8aee9dcd8be041e0245e91768b9fb07ac2",
+    "references/legacy/guide-identities.json": "de272591fba4ff9936171de4664f012b87d8b6984b46cd3e9e43e34ab6276332",
+    "references/legacy/config-readme-0.2.1.txt": "00902afe629144c9e9593175e61f8517f5394b4dd8193cf451b0568f1b0008d1"
+  }
+}

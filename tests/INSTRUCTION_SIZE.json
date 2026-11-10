@@ -1,9 +1,9 @@
 {
   "measurement": "UTF-8 bytes on disk, not tokens or response latency",
   "previous_version": "0.2.1",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "previous_five_skill_bytes": 43817,
-  "new_five_skill_bytes": 26334,
-  "new_shared_contract_bytes": 7295,
+  "new_five_skill_bytes": 28732,
+  "new_shared_contract_bytes": 10032,
   "scope": "five SKILL.md files plus shared contract; other task-specific references excluded"
 }
