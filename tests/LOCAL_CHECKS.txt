@@ -3,3 +3,5 @@ Local package/link/schema checks and YAML parsing are run by the build tools.
 40 unittest cases passed: protocol safety, instruction checks, registry migration and guarded Cortex-guide eligibility models.
 Skill-byte measurement recorded separately in INSTRUCTION_SIZE.json; it is not response-time measurement.
 Actual chat/Drive tests NOT RUN here; see EVIDENCE.md and FRESH_CHAT.md.
+
+Additional verified release checks: official Claude CLI validator passed with the existing ignored-metadata warning; seven configuration/schema, memory-template and marketplace files remained byte-identical to 0.2.1. Isolated GitHub marketplace upgrade from 0.2.1 to 0.2.2 passed, with installed source-byte parity. See MARKETPLACE_INSTALL.md.

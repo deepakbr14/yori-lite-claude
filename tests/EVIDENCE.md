@@ -21,3 +21,5 @@ Official Claude skill docs describe plugin namespaces and bare-name invocation w
 NOT RUN here: 0.2.2 chat setup, authenticated account detection, Drive README visual display, actual guarded trash, ordinary conversation/curiosity, two-account learning, or new response-time measurements. No authenticated Claude.ai UI or its Google connector control is available to this Codex session. No personal Yori or Drive data was accessed or modified during the build.
 
 GitHub CLI installation results are recorded separately in MARKETPLACE_INSTALL.md; they do not prove Claude.ai UI sync or live memory behavior.
+
+Additional verified release checks: official Claude CLI validator passed with the existing ignored-metadata warning; seven configuration/schema, memory-template and marketplace files remained byte-identical to 0.2.1. Isolated GitHub marketplace upgrade from 0.2.1 to 0.2.2 passed, with installed source-byte parity. See MARKETPLACE_INSTALL.md.
