@@ -9,3 +9,4 @@ Conversation examples are editorial fixtures, not model-generated behavioral res
 README migration is modeled locally; actual Google Drive rendering was NOT RUN.
 Latency: user-reported ~35 seconds for Aurora on 0.2.0. No measured 0.2.1 response-time result.
 Actual Claude connector/ordinary-chat tests NOT RUN here; see EVIDENCE.md and FRESH_CHAT.md.
+PASS: isolated GitHub upgrade 0.2.0 -> 0.2.1 and installed source-byte parity; see MARKETPLACE_INSTALL.md.

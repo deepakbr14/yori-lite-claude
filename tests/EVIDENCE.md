@@ -16,4 +16,4 @@ NOT RUN in this Codex session: first-time conversation; config discovery; metada
 
 ## Installation
 
-Earlier 0.2.0 installation results are historical. Current 0.2.1 marketplace results are recorded separately after publication. Detailed checks are reported in MARKETPLACE_INSTALL.md separately from conversation/connector behavior. No Drive memory was created or modified during this code build. Existing personal Yori files, services and Cortex were neither edited nor invoked.
+Earlier 0.2.0 installation results are historical. Current 0.2.1 public GitHub fetch, isolated upgrade from 0.2.0, and installed source-byte parity passed. Detailed checks are reported in MARKETPLACE_INSTALL.md separately from conversation/connector behavior. No Drive memory was created or modified during this code build. Existing personal Yori files, services and Cortex were neither edited nor invoked.
