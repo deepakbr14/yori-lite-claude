@@ -2,13 +2,25 @@
 
 Experimental version 0.1.0, implementing the focused v0.6 brief. A separate skills-only Claude plugin with autonomous selective learning in one Google Drive Cortex. No Yori server, custom MCP, Apps Script, Viewer or personal-Yori dependency.
 
-## Install and start
+## Install from GitHub (primary distribution)
 
-1. In Claude.ai or Claude Desktop chat, open Customize > Plugins and upload `yori-lite-0.1.0.zip` without unzipping it. Organization controls may limit uploads.
-2. Ensure your approved Google Drive connection is available. Google Docs editing can require its separate connector. Setup inspects actual tools; installing this ZIP grants no Google access.
-3. Start a chat and select **yori-lite** through the `/` or `+` skill picker, or say: **Use Yori Lite and help me set up a test Cortex.** If both Yori products are installed, explicitly say Yori Lite.
-4. Provide the link to a disposable Google Drive folder you control. Confirm the group disclosure when shown. Setup verifies folder access, creates Self/People/Knowledge/History and the per-user config, and reports any unsupported connector operation.
-5. Say something worth retaining, then open a fresh chat and follow tests/FRESH_CHAT.md. No-reminder invocation is a separate experiment; use explicit skill selection as recovery, not proof of automatic loading.
+1. In Claude.ai or Claude Desktop chat, open **Customize > Plugins > Add marketplace > Add from a repository** (the Add menu may contain Add marketplace).
+2. Enter `deepakbr14/yori-lite-claude` or `https://github.com/deepakbr14/yori-lite-claude`.
+3. Open the **yori-lite-claude** marketplace and install **Yori Lite** (`yori-lite`).
+4. Start a new chat, select **yori-lite** through the `/` or `+` skill picker, or say **Use Yori Lite and help me set up a test Cortex.** If both Yori products are installed, explicitly say Yori Lite.
+5. Provide a disposable Google Drive folder link. Setup checks actual Drive/Docs capabilities and one-time group consent. Installing the plugin does not grant Google access.
+
+The repository is PRIVATE. Your Claude GitHub integration must be able to fetch it; a local `gh` login does not grant the Claude service access. Anonymous customers cannot install this private repository just by knowing its URL. Organization marketplace restrictions may also block it. If Claude reports unavailable/unauthorized, inspect its GitHub authorization and repository access rather than making the repository public.
+
+Anthropic documents private GitHub organization sync for Team/Enterprise via **Organization settings > Plugins & skills > Marketplaces > Sync from GitHub**, using the Claude GitHub App installed on this repo. That is a distinct route from personal Add from a repository; do not assume one proves the other. See [marketplace testing](tests/MARKETPLACE_INSTALL.md) for the exact observed coverage and limitations.
+
+The marketplace catalog lives in `.claude-plugin/marketplace.json`; its single `source: "./"` entry resolves to the plugin in this same GitHub checkout. Plugin identity, fixed config UUID and Cortex settings remain unchanged. No second private source repo is needed. GitHub is the intended distribution; ZIP upload is only an optional testing fallback.
+
+If you previously installed the ZIP, avoid enabling two copies of Yori Lite concurrently. If Claude lists a separate uploaded copy, disable/remove only that Yori Lite copy, then install from the marketplace. Never remove personal Yori. Drive config and memory remain independent of installation method.
+
+## Optional ZIP fallback
+
+Upload `yori-lite-0.1.0.zip` through Customize > Plugins for isolated testing. The ZIP deliberately excludes the marketplace catalog; it contains one plugin. Continue with step 4 above. No customer ZIP download is required for the intended repository route.
 
 What Yori retains is shared with those permitted to read that Cortex's files. After this one-time choice, ordinary useful learning does not require a steward approval. Claude may still prompt for tool authorization. Nothing runs in the background.
 

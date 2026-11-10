@@ -20,6 +20,12 @@ def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
     assert manifest['name']=='yori-lite' and manifest['version']=='0.1.0'
+    market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
+    assert market['name']=='yori-lite-claude' and market['owner']['name']
+    assert len(market['plugins'])==1
+    entry=market['plugins'][0]
+    assert entry['name']==manifest['name'] and entry['source']=='./' and entry['strict'] is True
+    assert (ROOT/entry['source']/'.claude-plugin/plugin.json').is_file()
     pid=manifest['metadata']['pluginId'];assert str(uuid.UUID(pid[5:]))==pid[5:]
     schema=json.loads((ROOT/'schemas/config.schema.json').read_text())
     assert schema['properties']['plugin_id']['const']==pid

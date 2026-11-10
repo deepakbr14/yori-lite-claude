@@ -1,0 +1,15 @@
+{
+  "name": "yori-lite-claude",
+  "owner": {
+    "name": "Deepak Deo"
+  },
+  "description": "Independent Yori Lite skills for Claude with Google Drive memory.",
+  "plugins": [
+    {
+      "name": "yori-lite",
+      "source": "./",
+      "description": "A growing shared Yori with one Google Drive Cortex. Skills only.",
+      "strict": true
+    }
+  ]
+}
