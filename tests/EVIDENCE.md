@@ -14,4 +14,4 @@ NOT RUN in this Codex session: first-time conversation; config discovery; metada
 
 ## Installation
 
-GitHub marketplace checks are reported in MARKETPLACE_INSTALL.md separately from conversation/connector behavior. No Drive memory was created or modified during this code build. Existing personal Yori files, services and Cortex were neither edited nor invoked.
+Anonymous fresh GitHub installation of 0.2.0 and isolated upgrade from 0.1.0 both passed. Installed source bytes match. Detailed checks are reported in MARKETPLACE_INSTALL.md separately from conversation/connector behavior. No Drive memory was created or modified during this code build. Existing personal Yori files, services and Cortex were neither edited nor invoked.

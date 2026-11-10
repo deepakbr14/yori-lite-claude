@@ -7,7 +7,17 @@ The catalog uses source ./, preserving existing marketplace/plugin identity and 
 
 Local official CLI validation passed with one warning: Claude Code 2.1.197 ignores the custom metadata field in plugin.json. The actual config identity is also explicit in skills and schema, so it does not depend on that host field.
 
-Remote 0.2.0 install/update result will be recorded after the release commit is fetched through GitHub. This is separate from actual Claude.ai chat testing, which is NOT RUN in this Codex session. No authenticated Claude.ai browser control is available.
+Remote tests on 2026-11-10 against release commit 7cc7f32, using official Claude Code 2.1.197:
+
+| Experiment | Observed result |
+| --- | --- |
+| Fresh HTTPS GitHub marketplace add, with Git global/system config disabled and terminal prompts disabled | PASS, anonymous public repository clone and marketplace registration |
+| Install yori-lite@yori-lite-claude into isolated temporary config | PASS, enabled version 0.2.0 |
+| Installed skills, templates, schema and STORAGE.md byte comparison | PASS, match release source |
+| Refresh prior isolated 0.1.0 marketplace and run plugin update | PASS, CLI explicitly reported updated from 0.1.0 to 0.2.0 |
+| Actual Claude.ai UI / live Google metadata operations | NOT RUN, no authenticated Claude chat control in this session |
+
+Fresh installation used /tmp/yori-lite-020-marketplace. Upgrade used the earlier /tmp/yori-lite-marketplace-test-config test installation, not the user's personal Claude setup. No Drive content or personal Yori was touched. These install results do not establish conversational behavior or live connector adherence.
 
 To update in Claude: refresh/re-sync the yori-lite-claude marketplace, update Yori Lite, confirm version 0.2.0, and open a new chat. If an old ZIP-installed copy is separately enabled, disable only that duplicate Yori Lite copy. Do not remove personal Yori or delete any Drive data.
 
