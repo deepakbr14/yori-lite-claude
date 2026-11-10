@@ -19,7 +19,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.0'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.1'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1
@@ -43,6 +43,10 @@ def check():
         assert ('read-back' in s or 'read back' in s) and 'operation_id' in s
         assert len(s.encode())<1_000_000
         assert 'one question at a time' in s and '4,000' in s and 'etag' in s
+        assert 'generic engagement questions' in s and 'reasoned opinions' in s
+        assert 'Do not offer three choices' in s and 'Do not announce every memory' in s
+        assert 'What would you like me to know?' not in s
+        assert 'Share one verified turn context' in s
         assert 'description' in s and 'operation_id' in s
         for link in re.findall(r'\]\(([^)]+)\)',s):
             if '://' not in link: assert (p.parent/link).resolve().is_file(), (p,link)

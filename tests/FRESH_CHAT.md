@@ -1,6 +1,6 @@
-# Claude chat acceptance tests — 0.2.0
+# Claude chat acceptance tests — 0.2.1
 
-Use only disposable folders and dummy information. Select actual installed version 0.2.0. Do not touch production or personal Yori. Record outcomes as PASS / FAIL / BLOCKED / NOT RUN with actual redacted connector receipts and arguments. Never substitute a Google API or Codex connector test.
+Use only disposable folders and dummy information. Select actual installed version 0.2.1. Do not touch production or personal Yori. Record outcomes as PASS / FAIL / BLOCKED / NOT RUN with actual redacted connector receipts and arguments. Never substitute a Google API or Codex connector test.
 
 1. **Natural setup:** Start a new chat with “Hi Yori Lite.” Expect a brief warm opening and one folder question, no technical checklist. Choose an existing disposable folder or ask for a new one. Verify one-time group disclosure, four subfolders, initial Self in description, and config description with the correct ID. Contents may be empty. Verify probe create/read/guarded metadata update; report unavailable fields accurately.
 2. **Fresh config:** Open an unrelated chat without a folder reminder. Say a normal contextual greeting/question. Record whether the skill invokes automatically. If not, mark that case FAIL or NOT INVOKED; explicitly select yori-lite as a separate recovery test. Verify it re-reads config and correct Self rather than trusting prior chat context.
@@ -18,3 +18,11 @@ Use only disposable folders and dummy information. Select actual installed versi
 14. **Reorganization:** Split/merge dummy topics; inject another contribution before source retirement. Expect it reconciled before retirement or the source left active. Originals and History remain accessible. Obsolete means excluded from current synthesis, not secretly deleted.
 
 Keep user experience observations separate from tool evidence: warm/concise, one question at a time, no repeated ordinary-save approvals, truthful failures. Installation alone proves none of these behaviors.
+
+## 0.2.1 refinements to observe in Claude
+
+Run tests/conversation_cases.json as human-reviewed scenarios. Its example responses are editorial fixtures, not actual generated results. Test setup completion, ordinary conversation, reasoned disagreement, learning, correction and fresh-chat recall: no routine follow-up question, no three-choice menu, no per-operation narration, and warranted curiosity only. Judge the actual response and source evidence, not exact wording.
+
+For an initialized disposable 0.2 Cortex, record config/folder/memory/Self/History IDs and content first. Upgrade to 0.2.1, request/read the guide, and verify the new ordinary README opens with body text. Compare all existing IDs/descriptions unchanged; preserve an old metadata-only README. Repeat activation: no duplicate guide, new Cortex or setup probe. Also test an existing custom readable README, failed body create/read, and two ambiguous candidates. No content editing required. These cases remain live NOT RUN until observed.
+
+For latency, use LATENCY_LOG.md and distinguish fresh setup from warm learning. Preserve source/read-back/guard checks. Static call stages do not establish live timing.

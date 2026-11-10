@@ -1,4 +1,8 @@
-# Updating from 0.1 to 0.2
+# Updating to 0.2.1
+
+The selected Cortex, configuration schema/UUID, memory format, Self and History are unchanged. The only additive Drive migration is a human-readable guide, following [README migration](README_MIGRATION.md). Existing readable guides and legacy metadata-only READMEs are preserved; missing readable instructions are added as a new body-filled text file. Installation alone does not operate on Drive. No reinitialization or setup probe is needed for an initialized Cortex.
+
+## Older 0.1 compatibility
 
 Plugin name yori-lite, marketplace yori-lite-claude, fixed plugin UUID, configuration filename and schema_version 1 are unchanged. Updating the plugin does not modify any Drive files by itself. No production data migration is performed by this release.
 

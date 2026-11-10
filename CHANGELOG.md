@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1
+
+- Apply colleague-like dialogue across all skills: no routine engagement questions or three-choice prompts; preserve independent judgment and warranted curiosity.
+- Finish setup naturally without soliciting another topic.
+- Create human-readable README body files; additive repair preserves existing config, Cortex, readable guides and metadata-only originals.
+- Reuse verified context/searches within a turn and schedule independent operations where supported, keeping guard/history/read-back dependencies intact.
+- Document the reported 35-second Aurora latency without claiming an unmeasured speedup.
+
 ## 0.2.0
 
 - Store memories in Google Drive descriptions with empty file contents; target roughly 4,000 characters.

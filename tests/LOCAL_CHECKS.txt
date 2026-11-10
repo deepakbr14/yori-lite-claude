@@ -1,7 +1,11 @@
-Version 0.2.0 local checks
-PASS: five YAML skill frontmatters parsed.
-PASS: 11 protocol model tests (not actual Claude/Google execution).
-PASS WITH WARNING: official Claude Code 2.1.197 marketplace validator; custom plugin metadata ignored by this CLI version. UUID remains in schema and skills.
-PASS: package/config/link checks, eight invalid config cases, ZIP CRC/source parity and runtime-script exclusion.
-PASS: anonymous GitHub marketplace install 0.2.0, source byte parity and isolated upgrade 0.1.0 -> 0.2.0; see MARKETPLACE_INSTALL.md.
-Live conversation and connector cases NOT RUN; user-reported connector experiments listed separately in EVIDENCE.md.
+Version 0.2.1 local checks
+PASS: five skill YAML frontmatters and all relative skill links.
+PASS: package manifest, fixed config identity, valid config plus eight invalid cases.
+PASS: 23 local unittest cases (11 prior protocol-model cases; 12 instruction/README-migration/scheduling checks).
+PASS: all skills contain colleague habits, no generic setup-ending question, shared within-turn context.
+PASS: config schema/example and all memory/Self/history templates byte-identical to the pre-upgrade 0.2.0 source.
+PASS WITH WARNING: official Claude Code 2.1.197 marketplace validator; custom metadata ignored by this older CLI.
+Conversation examples are editorial fixtures, not model-generated behavioral results.
+README migration is modeled locally; actual Google Drive rendering was NOT RUN.
+Latency: user-reported ~35 seconds for Aurora on 0.2.0. No measured 0.2.1 response-time result.
+Actual Claude connector/ordinary-chat tests NOT RUN here; see EVIDENCE.md and FRESH_CHAT.md.
