@@ -19,7 +19,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.3'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.4'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1
@@ -58,7 +58,7 @@ def check():
             s=p.read_text(); assert 'yori-prod-e70c6' not in s and '/mcp/claude' not in s
     contract=(ROOT/'references/operating-contract.md').read_text()
     assert 'Missing configuration is an ordinary setup state' in contract
-    assert 'actual connected Google account' in contract
+    assert 'Account email identification is optional, never a prerequisite' in contract
     assert 'read-back' in contract or 'read back' in contract
     for p in (ROOT/'references').glob('*.md'):
         for link in re.findall(r'\]\(([^)]+)\)',p.read_text()):

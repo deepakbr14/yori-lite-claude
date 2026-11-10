@@ -1,8 +1,6 @@
-Version 0.2.3 local checks — 2026-11-10
-PASS: 40 existing local regression tests (metadata/concurrency models, guide safety, instruction checks).
-PASS: package identity, config schema, relative links, five skill YAML frontmatters.
-PASS: 14 storage/protocol/configuration/template/marketplace files byte-identical to 0.2.2; see COMPATIBILITY_023.json.
-PASS: official Claude CLI validator, with existing ignored metadata-extension warning.
-REVIEWED: seven requested scenarios against instructions; see BEHAVIOR_023.md. This is editorial coverage, not live Claude execution.
-NOT RUN: live Claude.ai conversations, actual Google account/setup/retry behavior, or saved-memory survival in Drive.
-GitHub upgrade results: see MARKETPLACE_INSTALL.md.
+Version 0.2.4 local checks
+40 local regression tests passed; these are static checks and developer models, not Claude behavior.
+All 14 previously tracked storage/configuration/template/marketplace files are byte-identical to 0.2.3.
+Five YAML frontmatters parsed; official CLI validator passed with its existing ignored-metadata warning.
+Actual Claude connector setup, learning and fresh-chat recall: NOT RUN. See LIVE_SETUP_024.md.
+Marketplace upgrade results: see MARKETPLACE_INSTALL.md.

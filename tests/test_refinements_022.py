@@ -68,7 +68,7 @@ class EntryAndInstructionTests(unittest.TestCase):
     def test_contract_is_shared_and_account_not_inferred(self):
         contract=(ROOT/'references/operating-contract.md').read_text()
         self.assertIn('Missing configuration is an ordinary setup state',contract)
-        self.assertIn('BEFORE creating resources',contract)
+        self.assertIn('Account email identification is optional, never a prerequisite',contract)
         self.assertIn('never infer it from an existing file owner',contract)
         for p in (ROOT/'skills').glob('*/SKILL.md'):
             self.assertIn('../../references/operating-contract.md',p.read_text())

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.4
+
+- Fix the account-identification regression: “make one” authorizes setup through the existing Drive connection even when the account email is unknown.
+- Remove unnecessary account questions, unsupported capability claims and repeated internal progress narration; retain actual authentication/scope checks and verified completion.
+- Storage, learning, correction history and concurrency protocol remain unchanged. Actual Claude connector acceptance test remains pending; no static test is represented as end-to-end proof.
+
+
 ## 0.2.3
 
 - Carry setup authorization through folder creation, initialization, pointer configuration and verification without redundant approvals.

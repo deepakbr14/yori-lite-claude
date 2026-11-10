@@ -1,3 +1,5 @@
+> Historical 0.2.3 expectations: account-confirmation gates are superseded by optional account identification in 0.2.4. Use LIVE_SETUP_024.md.
+
 # 0.2.3 scenario review and live acceptance cases
 
 Status: editorial review of all five Skills and the shared contract completed. The seven scenarios below have explicit instruction coverage. These are acceptance expectations, NOT observed Claude outputs. No authenticated Claude.ai session or its Google Drive connector is available here. Platform cards/tool activity are outside Skill narration control.

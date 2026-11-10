@@ -1,5 +1,5 @@
-# Live 0.2.3 checks
+# Live 0.2.4 checks
 
-Follow all seven scenarios and boundary cases in [BEHAVIOR_023.md](BEHAVIOR_023.md), using disposable data only. Record actual Claude client/version, responses, connector outcomes and failures. Do not mark editorial examples as observed outputs. Retain the 0.2.2 entry-point, readable registry guide and conservative legacy cleanup cases from Git history when those paths are exercised; their implementation is unchanged.
+Run [the actual-Claude setup sequence](LIVE_SETUP_024.md). This is pending, not a passed test. It covers “make one,” optional email, complete verified setup, selective learning and fresh-chat recall using disposable data.
 
-Command picker/short alias behavior, real connector operations, conversational compliance and live memory survival remain untested in this build environment. Platform-generated cards/activity may appear even when Yori's narration is quiet.
+Retain the non-account scenarios from BEHAVIOR_023.md: existing configuration reuse, sharing without approval rituals, quiet guarded retries, useful genuine errors, disagreement, corrections and memory survival. Its old account-confirmation requirement is superseded. Do not modify production Cortexes to induce a failure. Platform tool cards and permission prompts are separate from Yori's narration.
