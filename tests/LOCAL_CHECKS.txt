@@ -5,5 +5,5 @@ PASS: five YAML frontmatters parsed using Ruby YAML.
 PASS: all five skills include scope and integrity contract; no runtime MCP, hooks or agents.
 PASS: no personal-Yori service endpoints in package content.
 Package script checks ZIP CRC, manifest placement, source parity and excluded tooling on each build.
-NOT RUN: official Claude CLI validator (not installed).
+PASS WITH WARNING (subsequent marketplace test): official Claude Code 2.1.197 validation; ignores custom plugin metadata. See MARKETPLACE_INSTALL.md.
 NOT RUN: all actual Claude chat and Google connector experiments; see EVIDENCE.md.

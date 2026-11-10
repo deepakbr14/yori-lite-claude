@@ -32,7 +32,7 @@ Knowledge is synthesized from durable evidence, not an endless transcript. Witho
 
 ## Test status
 
-This is ready for user testing, not claimed working end-to-end. Local checks cover package structure, JSON/YAML, references and contract consistency. This Codex session cannot operate your actual Claude chat Google connectors. Actual installation, bootstrap, unprompted invocation, shared recall and concurrent edits remain NOT RUN until observed. See tests/EVIDENCE.md and tests/CONNECTOR_LOG_TEMPLATE.md.
+This is ready for user testing, not claimed working end-to-end. Local checks cover package structure, JSON/YAML, references and contract consistency. This Codex session cannot operate your actual Claude chat Google connectors. GitHub marketplace add/install passed in an isolated Claude Code test. Claude.ai UI installation, bootstrap, unprompted invocation, shared recall and concurrent edits remain NOT RUN until observed. See tests/EVIDENCE.md and tests/CONNECTOR_LOG_TEMPLATE.md.
 
 A read-only connector cannot fulfill the learning contract. If ordinary JSON file operations, verified folder scoping or required writes are missing, setup explains the precise blocker; it does not fall back to another service or claim a saved configuration.
 

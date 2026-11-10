@@ -1,6 +1,6 @@
 # Build evidence
 
-Version 0.1.0 targets the v0.6 build brief. Local package validation is recorded in LOCAL_CHECKS.txt after execution. The official Claude CLI validator is unavailable on this machine; local checks are not its substitute and do not prove host ingestion.
+Version 0.1.0 targets the v0.6 build brief. Local package validation is recorded in LOCAL_CHECKS.txt after execution. A subsequent marketplace test downloaded an isolated official Claude CLI, validated the catalog, and installed from authenticated GitHub. See MARKETPLACE_INSTALL.md for observed results, the metadata warning, and remaining Claude.ai UI limitations.
 
 Actual Claude connector operations: NOT RUN. No Claude chat control tool is available to this Codex session. Codex's Google connector is a different host surface and was deliberately not used as evidence of Claude compatibility.
 
