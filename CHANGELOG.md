@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.2
+
+- Promote yori-lite as the entry point for conversation and explicit setup; helpers stay available internally, with namespace limitations documented.
+- Welcome normal missing-config setup, verify the connected account before resource creation, and keep implementation/URLs out of routine dialogue.
+- Rewrite config_plugins README as a readable, vendor-neutral developer convention with two unrelated plugin examples.
+- Stop creating Cortex READMEs; guard narrowly verified retirement of unchanged setup-generated guides, preserving user files and memory.
+- Consolidate the repeated operating contract and clarify the new-topic call path without dropping contribution/topic records or verification.
+- Apply a purposeful-question check across every skill; preserve real curiosity and reasoned opinions.
+
 ## 0.2.1
 
 - Apply colleague-like dialogue across all skills: no routine engagement questions or three-choice prompts; preserve independent judgment and warranted curiosity.

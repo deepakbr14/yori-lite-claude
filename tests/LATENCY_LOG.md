@@ -5,6 +5,7 @@ Record disposable runs only; no production data. Separate setup/fresh-chat recal
 | Version | Client | Scenario / fresh or warm | User sent | Final reply | Observed elapsed | Connector calls | Retries | Learning/history/read-back verified |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 0.2.0 | user-reported | fictional spaceship Aurora learning | unavailable | unavailable | approximately 35 seconds | unknown | unknown | first learning reported successful |
-| 0.2.1 | | | | | NOT MEASURED | | | |
+| pre-0.2.2, latest user report | user-reported | Aurora reply, contribution + topic creation | unavailable | unavailable | approximately 32 seconds | trace unavailable | unknown | successful memory creation reported |
+| 0.2.2 | | | | | NOT MEASURED | | | |
 
 If tools expose durations, record operation name and start/end, grouping actual parallel calls. Otherwise record only total wall time and visible call count. Compare equivalent dummy tasks and at least three runs where practical; report range/median. Do not turn model-test runtime or dependency counts into a claimed Google speedup.

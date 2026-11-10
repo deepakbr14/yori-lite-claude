@@ -19,7 +19,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.1'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.2'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1
@@ -56,5 +56,13 @@ def check():
         assert not any(x in p.parts for x in ['hooks','agents'])
         if p.suffix in {'.md','.json'}:
             s=p.read_text(); assert 'yori-prod-e70c6' not in s and '/mcp/claude' not in s
+    contract=(ROOT/'references/operating-contract.md').read_text()
+    assert 'Missing configuration is an ordinary setup state' in contract
+    assert 'actual connected Google account' in contract
+    assert 'read-back' in contract or 'read back' in contract
+    for p in (ROOT/'references').glob('*.md'):
+        for link in re.findall(r'\]\(([^)]+)\)',p.read_text()):
+            if '://' not in link: assert (p.parent/link).resolve().is_file(), (p,link)
+    assert not (ROOT/'templates/cortex_README.txt').exists()
     print('PASS: manifest and fixed UUID consistency; five isolated skills; valid config and 8 invalid config cases; scope/integrity contracts; no MCP/hooks/agents or personal service endpoints.')
 if __name__=='__main__':check()

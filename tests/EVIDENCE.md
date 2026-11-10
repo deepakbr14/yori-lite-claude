@@ -1,19 +1,23 @@
-# Evidence for 0.2.1
+# Evidence for 0.2.2
 
-## User-reported live experiments (not rerun by Codex)
+## User-reported, not rerun here
 
-The supplied 0.2 request reports: metadata description updates succeeded through 16,000 characters; stale etags were rejected on guarded updates; moving between folders worked; a move alone did not change etag; duplicate names are allowed. Existing file contents cannot be edited through the tested connector. Raw tool transcripts were not supplied. Description search was not established. These facts motivated the architecture and are not claimed as new verified results from this build.
+Setup and metadata memory creation worked in live Claude tests. Earlier experiments reportedly reached 16,000-character descriptions, rejected stale guarded etags, permitted moves without changing etag, and allowed duplicate filenames. Existing file contents could not be edited through that connector. Description search remains unverified.
 
-The user additionally reported that first actual setup and learning in 0.2.0 worked, and that the fictional Aurora conversation took approximately 35 seconds. No per-tool trace was supplied. This is user-reported evidence, not a Codex measurement or a 0.2.1 result.
+The latest Aurora conversation reportedly took about 32 seconds, including contribution and topic creation. An earlier run was about 35 seconds. No tool traces or per-operation timings were supplied; this is not a controlled speed comparison.
 
-## Local verification
+## Measured locally
 
-See LOCAL_CHECKS.txt, tests/test_metadata_protocol.py and tests/test_refinements_021.py. README migration tests are a creation-only model; conversation fixtures and instruction checks are not live model outputs. The call scheduler checks dependency counts, not actual connector latency. These are a bounded Python model of the intended protocol, not a plugin runtime, Google connector implementation, or test of Claude's actual skill adherence. They exercise conflict preservation, correction history, ambiguous success, guard absence, failed History verification, same-name creation and unchanged-etag moves.
+INSTRUCTION_SIZE.json records UTF-8 file bytes: 43,817 bytes across five previous skills versus 26,334 bytes across the new skills plus 7,295 bytes in their shared contract (33,629 total). This is about 23% less text for that defined scope, not a token estimate or measured response speed. Other task-specific supporting documents are excluded.
 
-## Actual Claude chat operations
+Local instruction/metadata models cover conflict history, retry safety, README preservation and narrowly guarded guide retirement. These models are developer checks, not executable plugin enforcement or live Claude behavioral tests. Tests involving marked/unmarked/changed guides use disposable in-memory fixtures only.
 
-NOT RUN in this Codex session: first-time conversation; config discovery; metadata learning and cross-chat recall; guarded connector writes; two-person shared learning; corrections/Self retrieval; actual simultaneous writes; ordinary-chat skill activation. No authenticated Claude chat UI/connector control is available here. No substitute Codex/Google API operation is used as proof. tests/FRESH_CHAT.md is the acceptance protocol.
+## Platform naming
 
-## Installation
+Official Claude skill docs describe plugin namespaces and bare-name invocation when no conflict exists. yori-lite remains the main skill; helpers are model-available and marked non-user-invocable. No duplicate command file or /yori alias is added. Actual Claude.ai picker/alias handling and helper visibility still require live validation. See ENTRY_POINTS.md.
 
-Earlier 0.2.0 installation results are historical. Current 0.2.1 public GitHub fetch, isolated upgrade from 0.2.0, and installed source-byte parity passed. Detailed checks are reported in MARKETPLACE_INSTALL.md separately from conversation/connector behavior. No Drive memory was created or modified during this code build. Existing personal Yori files, services and Cortex were neither edited nor invoked.
+## Live limits
+
+NOT RUN here: 0.2.2 chat setup, authenticated account detection, Drive README visual display, actual guarded trash, ordinary conversation/curiosity, two-account learning, or new response-time measurements. No authenticated Claude.ai UI or its Google connector control is available to this Codex session. No personal Yori or Drive data was accessed or modified during the build.
+
+GitHub CLI installation results are recorded separately in MARKETPLACE_INSTALL.md; they do not prove Claude.ai UI sync or live memory behavior.

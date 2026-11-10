@@ -1,0 +1,15 @@
+{
+  "cortex_guide_0_2_1": {
+    "name": "README - About this Cortex.txt",
+    "record_type": "human_readme",
+    "role": "cortex_guide",
+    "guide_version": "0.2.1",
+    "body_file": "cortex-readme-0.2.1.txt",
+    "sha256": "eb2b5a3ac740240268eb68333be27d8aee9dcd8be041e0245e91768b9fb07ac2"
+  },
+  "registry_guide_0_2_1": {
+    "name": "README - Plugin settings.txt",
+    "body_file": "config-readme-0.2.1.txt",
+    "sha256": "00902afe629144c9e9593175e61f8517f5394b4dd8193cf451b0568f1b0008d1"
+  }
+}

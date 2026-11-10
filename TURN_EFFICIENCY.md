@@ -2,6 +2,10 @@
 
 This is a scheduling guide for the Skills, not an executable runtime or latency promise.
 
+## Reduce repeated instructions without removing protections
+
+The five skills now reference one shared operating contract instead of embedding its full text five times. Read it once while it remains in the current chat context, and again only if unavailable after context loss. Each skill keeps short direct-entry safety/behavior reminders. This reduces duplicate instruction text, not the obligation to learn or verify. Helpers are internal routes; do not load all five or all templates for every answer.
+
 ## Share current evidence
 
 Fresh chat: resolve config through the convention and load the selected Cortex from Drive. Inside that turn, keep one context with exact config/Cortex/subfolder IDs, relevant tool capability definitions, completed paginated searches, records with description/etag/parents, operation IDs and verified write receipts. Pass that context between skills. Do not rediscover the registry, reload Self, inspect tools, or redo identical queries for each skill.
@@ -38,3 +42,11 @@ Do not announce internal work just to fill a pause. Complete warranted learning 
 The user reported about 35 seconds for the fictional Aurora conversation in 0.2.0. No tool trace or per-call durations were supplied, so the cause and possible seconds saved are unknown. Local test duration measures developer tests only, never Claude/Drive response time.
 
 For a disposable live comparison, record client/version, fresh vs warm chat, user-send time, final response time, available connector start/end times, call names/counts, retries, and required learn/read-back outcomes. Use the same dummy task on equivalent fresh folders; distinguish setup from ordinary learning. Record at least three runs per condition if practical, report observed median/range without inventing unavailable call times. Do not put account IDs or real memory into the public report. tests/LATENCY_LOG.md is the template.
+
+## New-topic path observed by the user
+
+The reported ~32-second Aurora reply created both a contribution and a topic. Those two records have different purposes: immutable attributed evidence versus revisable understanding. Keep both. After relevant same-turn search/scope resolution, this path still requires contribution create/read-back followed by topic create/read-back. The topic needs the verified contribution ID and source; do not delete either verification or merge away attribution just to save a call. No prior snapshot is needed for a genuinely new topic; no reorganization pass, duplicate config discovery or setup probe is warranted.
+
+Request complete scoped metadata fields in one read/list when exposed, reuse completed results, and avoid an extra get for a record already fully returned this turn. Do not replace required write read-backs with echo-only mutation responses. Only rerun search for missing evidence, different topics or invalidated freshness. The eight-call/five-stage existing-revision analysis above is NOT the four-call new-topic path and must not be used to claim measured improvement for Aurora.
+
+The user reported approximately 32 seconds in the latest live test; prior report was approximately 35 seconds. Different runs without trace control do not establish a 3-second improvement. No per-operation or model timing is available here. Inspect actual live call traces using tests/LATENCY_LOG.md; report counts/times only when observed. Autonomous learning, provenance, corrections and etag/parent protections remain mandatory.

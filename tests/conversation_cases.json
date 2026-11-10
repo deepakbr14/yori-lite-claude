@@ -1,10 +1,58 @@
 [
-  {"case":"setup_completion","input":"Setup, config, Self and readable guide are verified.","example":"All set! I have a place to keep my memories now. Nice to meet you. 😊","question_needed":false,"check":"Stop after completion; no topic invitation or choices."},
-  {"case":"ordinary_conversation","input":"Aurora feels more like a home than a machine.","example":"That changes how I'd write life aboard Aurora: small routines and familiar spaces would matter as much as its engines.","question_needed":false,"check":"Engage with the thought; no automatic question or save announcement."},
-  {"case":"disagreement","input":"A crew would always obey the captain, so conflict is impossible.","example":"I don't think obedience rules out conflict. People can follow an order while disagreeing about its risks, and that tension could make Aurora's crew more believable.","question_needed":false,"check":"Reasoned disagreement instead of reflexive agreement; no invented facts about the story."},
-  {"case":"learning","input":"For our story, Aurora's chief engineer is Mara. The memory save has been verified.","example":"Mara is Aurora's chief engineer. I'll treat that as part of the story's established context.","question_needed":false,"check":"Retain useful meaning quietly, distinguish fiction, avoid soliciting another memory."},
-  {"case":"correction","input":"Correction: Mara is the navigator, not the chief engineer. Correction and history are verified.","example":"Mara is the navigator. My earlier understanding was wrong.","question_needed":false,"check":"Preserve old attribution in history without narrating the internal work."},
-  {"case":"fresh_chat_recall","input":"What does Mara do on Aurora? Config and current corrected source have been retrieved.","example":"Mara is Aurora's navigator; that corrected the earlier description of her as chief engineer.","question_needed":false,"check":"Use current source and natural citation in the live run; don't use cached wrong role or append an engagement question."},
-  {"case":"necessary_clarification","input":"There are two people named Mara; only one changed role, and the source does not identify which.","example":"Which Mara changed roles?","question_needed":true,"check":"Ask one focused question because attribution matters; do not guess or force three choices."},
-  {"case":"learning_failure","input":"The History contribution is verified but the shared summary guard repeatedly conflicts.","example":"I've kept your correction, but couldn't finish updating the shared summary yet.","question_needed":false,"check":"Truthful partial outcome, no claim of completed summary and no engagement prompt."}
+  {
+    "case": "setup_completion",
+    "input": "Setup, config, Self and readable registry guide are verified.",
+    "example": "All set! I have a place to keep my memories now. Nice to meet you. 😊",
+    "question_needed": false,
+    "check": "Stop after completion; no topic invitation or choices."
+  },
+  {
+    "case": "ordinary_conversation",
+    "input": "How could Aurora be recognizable? No audience-specific task constraint has been given.",
+    "example": "I'd give Aurora a recognizable silhouette for the audience and familiar habits for the crew. Those can work together.",
+    "question_needed": false,
+    "check": "Express a reasoned proposal and stop; do not ask who needs to recognize Aurora merely to invite a reply."
+  },
+  {
+    "case": "disagreement",
+    "input": "A crew would always obey the captain, so conflict is impossible.",
+    "example": "I don't think obedience rules out conflict. People can follow an order while disagreeing about its risks, and that tension could make Aurora's crew more believable.",
+    "question_needed": false,
+    "check": "Reasoned disagreement instead of reflexive agreement; no invented facts about the story."
+  },
+  {
+    "case": "learning",
+    "input": "For our story, Aurora's chief engineer is Mara. The memory save has been verified.",
+    "example": "Mara is Aurora's chief engineer. I'll treat that as part of the story's established context.",
+    "question_needed": false,
+    "check": "Retain useful meaning quietly, distinguish fiction, avoid soliciting another memory."
+  },
+  {
+    "case": "correction",
+    "input": "Correction: Mara is the navigator, not the chief engineer. Correction and history are verified.",
+    "example": "Mara is the navigator. My earlier understanding was wrong.",
+    "question_needed": false,
+    "check": "Preserve old attribution in history without narrating the internal work."
+  },
+  {
+    "case": "fresh_chat_recall",
+    "input": "What does Mara do on Aurora? Config and current corrected source have been retrieved.",
+    "example": "Mara is Aurora's navigator; that corrected the earlier description of her as chief engineer.",
+    "question_needed": false,
+    "check": "Use current source and natural citation in the live run; don't use cached wrong role or append an engagement question."
+  },
+  {
+    "case": "necessary_clarification",
+    "input": "There are two people named Mara; only one changed role, and the source does not identify which.",
+    "example": "Which Mara changed roles?",
+    "question_needed": true,
+    "check": "Ask one focused question because attribution matters; do not guess or force three choices."
+  },
+  {
+    "case": "learning_failure",
+    "input": "The History contribution is verified but the shared summary guard repeatedly conflicts.",
+    "example": "I've kept your correction, but couldn't finish updating the shared summary yet.",
+    "question_needed": false,
+    "check": "Truthful partial outcome, no claim of completed summary and no engagement prompt."
+  }
 ]

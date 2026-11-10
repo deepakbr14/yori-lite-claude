@@ -5,7 +5,7 @@ from check_package import check,ROOT
 check()
 v=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())['version']
 out=ROOT.parent/f'yori-lite-{v}.zip'
-allowed={'.claude-plugin','skills','schemas','templates','tests'}
+allowed={'.claude-plugin','skills','schemas','templates','tests','references'}
 files=sorted(p for p in ROOT.rglob('*') if p.is_file() and (p.relative_to(ROOT).parts[0] in allowed or p.parent==ROOT and p.suffix=='.md') and not p.name.startswith('private-results') and p.name!='marketplace.json' and '__pycache__' not in p.parts and p.suffix!='.py')
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
     for p in files:z.write(p,p.relative_to(ROOT))

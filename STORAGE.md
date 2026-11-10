@@ -1,4 +1,4 @@
-# Metadata memory protocol 0.2.1
+# Metadata memory protocol 0.2.2
 
 These are model-followed instructions, not a transactional runtime. Every actual operation uses the exposed Claude Google Drive connector. No direct Google API substitute. User reports established that descriptions can be updated to 16,000 characters, stale guarded etags are rejected, moves preserve etags, and duplicate names are allowed. Those reports do not establish description search support or universal tool availability.
 
@@ -29,7 +29,7 @@ External moves are a residual race: the connector's etag does not protect parent
 
 ## Discovery and reconciliation
 
-Recall uses descriptions of current memories AND relevant immutable contributions/corrections. A saved contribution whose synthesis update failed must remain retrievable. Search metadata only when the connector actually supports it; fall back to scoped paginated listing and bounded description reads. Search misses are not proof of absence. File contents are used for legacy read compatibility and human-readable README guides, not for new editable memory/configuration. README instructions do not change memory storage.
+Recall uses descriptions of current memories AND relevant immutable contributions/corrections. A saved contribution whose synthesis update failed must remain retrievable. Search metadata only when the connector actually supports it; fall back to scoped paginated listing and bounded description reads. Search misses are not proof of absence. File contents are used for legacy read compatibility and the human-readable registry README, not for new editable memory/configuration. README instructions do not change memory storage.
 
 Never promise silent-loss prevention solely from skills. This protocol preserves a durable copy before shared replacement and uses guards against stale content; live two-user tests must establish whether the host follows it correctly. No one is told a contribution is retained unless the History read-back verified it.
 

@@ -1,6 +1,10 @@
-# Updating to 0.2.1
+# Updating to 0.2.2
 
-The selected Cortex, configuration schema/UUID, memory format, Self and History are unchanged. The only additive Drive migration is a human-readable guide, following [README migration](README_MIGRATION.md). Existing readable guides and legacy metadata-only READMEs are preserved; missing readable instructions are added as a new body-filled text file. Installation alone does not operate on Drive. No reinitialization or setup probe is needed for an initialized Cortex.
+No configuration, identity or memory-format migration. Same fixed UUID, schema, file IDs and selected Cortex. Internal skill names remain compatible; yori-lite is the public entry point. The registry README becomes developer-facing body text. Only an exact, unchanged, identifiable setup-generated Cortex guide may be recoverably trashed under README_MIGRATION.md; user-authored/customized files remain. No Cortex reinitialization.
+
+## Historical 0.2.1 behavior (superseded for README maintenance)
+
+The selected Cortex, configuration schema/UUID, memory format, Self and History are unchanged. 0.2.1 added a human-readable Cortex guide. In 0.2.2, follow [README maintenance](README_MIGRATION.md) instead: registry-only documentation and narrowly verified Cortex-guide retirement. Installation alone does not operate on Drive. No reinitialization or setup probe is needed for an initialized Cortex.
 
 ## Older 0.1 compatibility
 

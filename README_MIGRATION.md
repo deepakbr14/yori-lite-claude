@@ -1,25 +1,30 @@
-# Readable README installation and repair
+# Registry README and safe Cortex-guide retirement — 0.2.2
 
-READMEs are an intentional exception to metadata memory: their instructions live in ordinary file BODY content. Editable memory and configuration stay in descriptions. Do not require editing any existing file contents, a new connector, Apps Script or a Cortex rebuild.
+The only new README belongs in the user's config_plugins directory. The Cortex holds Self and developing memory, not installation instructions. Never create another Cortex README. Configuration filenames, UUID, schema, pointers and memory descriptions are unchanged.
 
-## New setup
+## Registry guide: readable and vendor-neutral
 
-In the selected Cortex root, create a text/plain UTF-8 file named `README - About this Cortex.txt` with the complete contents of templates/cortex_README.txt as its actual body. In the user's config_plugins folder, when registry instructions are missing, create `README - Plugin settings.txt` with templates/config_plugins_README.md as its actual text body. Normal file creation with initial content through the existing Drive connector is sufficient; do not assume a separate Docs editing capability.
+Use templates/config_plugins_README.md as the actual UTF-8 text/plain BODY of `README - Plugin configuration.txt`. Its section spacing is readable in an ordinary Drive text preview. Description may carry `record_type: human_readme; role: config_guide; guide_version: 0.2.2; operation_id: <stable token>`, not the instructions themselves. Do not require content editing or a separate Docs connector.
 
-A short optional metadata description can identify role: `record_type: human_readme; role: cortex_guide` or `role: config_guide`; it must not be the sole location of the instructions. Add `guide_version: 0.2.1` and a stable per-attempt operation_id for timeout recovery if the tool supports setting description. If not, verify candidate IDs/bodies directly. No change to the config schema or memory descriptions.
+Create and read back the complete body and verified parent. If creation/body reading is unavailable, report that maintenance limitation; do not create an empty substitute or block otherwise working memory. No screenshot or rendered-in-Drive verification is claimed until actually observed.
 
-For each new guide, verify the returned parent/ID and read the actual BODY back through the connector. Compare it with the intended text. A metadata description read-back does not verify a readable README. If the tool cannot create or read body content, leave memory setup intact, report the guide limitation briefly, and do not claim this repair passed. Do not create an empty substitute. Never change permissions to make a guide visible.
+On existing installations, reuse a verified matching guide with the complete current body. If only the known earlier Yori-generated registry guide exists, create this distinct new filename and preserve the old file; existing contents cannot be edited through the tested connector. If an existing guide is customized/user-authored, do not overwrite, rename, or delete it. A new separately titled convention guide may coexist, but never replace someone else's README. Conflicting new-name candidates stop maintenance for resolution. No config file is renamed. Do not change other plugins' settings.
 
-## Existing initialized Cortex
+A timeout is not evidence of failure: re-list the exact parent and compare operation_id, role and full body before retrying. Reuse a verified completed result. Multiple identical guides can be a race; do not silently pick one for destructive cleanup. Maintain once at relevant activation, not every learning turn.
 
-Use the already-resolved exact Cortex/config IDs. Never recreate Self/People/Knowledge/History, rerun first-use initialization, replace the config, or change the active pointer to repair a README. Reuse the normal scoped root listing to identify candidates during the first 0.2.1 activation or explicit guide repair; no additional full-Drive searches and no repeated check per skill/turn. A marked existing guide or known readable README needs no update solely because the plugin version changed.
+## Remove ONLY a known generated Cortex guide
 
-- Existing nonempty readable README body: preserve it byte-for-byte, even if user-customized. Do not overwrite with a template.
-- Legacy README with instructions only in description and an empty body: preserve that file and metadata. Create the distinct body-filled guide name above in the same parent, referencing the old file ID in the new guide's optional metadata. Do not copy unrelated private data into a broader folder.
-- Missing README: create the appropriate body-filled guide only, without reinitializing anything else.
-- Existing new-named candidate with empty body: do not overwrite or create another same-named guide blindly. Explain the incomplete repair and ask for resolution if it cannot be safely distinguished from an in-flight operation.
-- Multiple/ambiguous candidates or a creation timeout: re-list within the same exact parent and inspect operation_id/role and actual body before retrying. Reuse a verified successful result. If uncertainty remains, stop the repair; do not create duplicates or delete any candidate. Concurrent creators can still race because Drive names are not unique. Detect duplicate outcomes and report them, not pretend a transaction existed.
+The user authorized removing the old setup-generated Cortex README. Prefer reversible Trash, NEVER permanent delete. This narrow exception does not authorize deleting memory, Self, History, user-authored documents or the Cortex folder.
 
-Verify the actual body when assessing an unverified/legacy candidate. Once a guide is verified in this chat, retain its ID/outcome in turn context and do not reread it for every learning turn. Future chats can reuse a marked guide from their ordinary listing without reapplying migration. A user-reported blank/deleted guide invalidates that assumption and triggers repair verification.
+Require ALL of the following before trashing:
 
-README maintenance is not memory learning: exclude human_readme documents from topic searches and do not create History contributions for routine guide installation. Unsuccessful guide repair must not block otherwise authorized learning or prompt recreation of the Cortex.
+1. Exact current parent is the selected Cortex root, not config_plugins or another Cortex; non-trashed file ID has been inspected.
+2. Exact expected name is `README - About this Cortex.txt`.
+3. Verified setup provenance: an actual creation receipt for this file ID from prior setup, or the expected generated marker `record_type: human_readme`, `role: cortex_guide`, `guide_version: 0.2.1`. A name alone, filename similarity, or an email guessed as creator is not provenance.
+4. Full actual BODY exactly equals the frozen references/legacy/cortex-readme-0.2.1.txt template. Optional SHA-256 in guide-identities.json is supporting evidence; do not invent a hash check without a tool. Added/changed/removed text, extra meaningful metadata, uncertainty about provenance, or an empty-body/custom README means leave it untouched. Inspect metadata too: preserve anything carrying user content rather than just setup markers/operation ID.
+5. Read fresh etag and parents; recheck expected parent immediately before trash. Use actual connector-supported expected-etag guarding on the trash metadata update. On conflict, stop cleanup or reread and revalidate ALL conditions, never simply retry against a new etag. If guarded trash is not exposed, leave the guide and briefly explain when relevant. Do not substitute unguarded deletion.
+6. Read back `trashed=true` for that same ID. Unknown outcome is reported as unverified; no repeated destructive retries. An unexpected move stops cleanup; a move does not change etag, so this is not a transaction and external-move races remain a limitation.
+
+For unmarked guides with no creation receipt, unknown/custom versions, same-name duplicates, or differing contents: leave them. Ask the user to identify a file only if they want that ambiguity resolved. Never infer it is safe to trash from the word README. Never reset or recreate the Cortex.
+
+Frozen legacy files ship only as comparison evidence for this cleanup; they must NEVER be installed as new Cortex guides. Once no eligible candidate remains, there is no cleanup on ordinary turns. Reuse scoped activation listings and same-turn results; no new global scan or memory event for documentation maintenance.

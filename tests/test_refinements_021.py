@@ -9,7 +9,7 @@ class GuideStore:
     def __init__(self,files=None):self.files=copy.deepcopy(files or {});self.created=[];self.fail_readback=False
     def create(self,parent,body):
         key='guide-'+str(len(self.files)+1)
-        self.files[key]={'parent':parent,'body':body,'role':'cortex_guide','description':'record_type: human_readme'}
+        self.files[key]={'parent':parent,'body':body,'role':'config_guide','description':'record_type: human_readme'}
         self.created.append(key);return key
     def read(self,key):
         if self.fail_readback:raise RuntimeError('read-back failed')
@@ -17,7 +17,7 @@ class GuideStore:
 
 def ensure_guide_model(store,parent,body):
     # Conservative creation-only model of README_MIGRATION.md; no updates/deletions.
-    candidates=[(k,f) for k,f in store.files.items() if f.get('parent')==parent and f.get('role')=='cortex_guide']
+    candidates=[(k,f) for k,f in store.files.items() if f.get('parent')==parent and f.get('role')=='config_guide']
     if len(candidates)>1:raise ValueError('ambiguous')
     if candidates:
         key,f=candidates[0]
@@ -38,33 +38,33 @@ class ReadmeMigrationTests(unittest.TestCase):
             'self':{'parent':'Self','description':'developing identity','body':''},
             'memory':{'parent':'Knowledge','description':'Aurora facts','body':''},
             'history':{'parent':'History','description':'original contribution','body':''},
-            'readme':{'parent':'Cortex','name':'README','description':'old metadata instructions','body':''}}
-        self.body=(ROOT/'templates/cortex_README.txt').read_text()
+            'readme':{'parent':'config_plugins','name':'README','description':'old metadata instructions','body':''}}
+        self.body=(ROOT/'templates/config_plugins_README.md').read_text()
     def test_metadata_readme_gets_additive_readable_body(self):
-        store=GuideStore(self.originals);key=ensure_guide_model(store,'Cortex',self.body)
+        store=GuideStore(self.originals);key=ensure_guide_model(store,'config_plugins',self.body)
         self.assertEqual(store.files[key]['body'],self.body)
         for k,v in self.originals.items():self.assertEqual(store.files[k],v)
     def test_second_run_does_not_duplicate(self):
-        store=GuideStore(self.originals);a=ensure_guide_model(store,'Cortex',self.body);b=ensure_guide_model(store,'Cortex',self.body)
+        store=GuideStore(self.originals);a=ensure_guide_model(store,'config_plugins',self.body);b=ensure_guide_model(store,'config_plugins',self.body)
         self.assertEqual(a,b);self.assertEqual(len(store.created),1)
     def test_existing_custom_readable_readme_untouched(self):
         store=GuideStore(self.originals);store.files['readme']['body']='Our custom guide'
-        before=copy.deepcopy(store.files);self.assertEqual(ensure_guide_model(store,'Cortex',self.body),'readme')
+        before=copy.deepcopy(store.files);self.assertEqual(ensure_guide_model(store,'config_plugins',self.body),'readme')
         self.assertEqual(store.files,before);self.assertEqual(store.created,[])
     def test_failed_readback_does_not_claim_success_or_reset_cortex(self):
         store=GuideStore(self.originals);store.fail_readback=True
-        with self.assertRaises(RuntimeError):ensure_guide_model(store,'Cortex',self.body)
+        with self.assertRaises(RuntimeError):ensure_guide_model(store,'config_plugins',self.body)
         for k,v in self.originals.items():self.assertEqual(store.files[k],v)
-        store.fail_readback=False;ensure_guide_model(store,'Cortex',self.body)
+        store.fail_readback=False;ensure_guide_model(store,'config_plugins',self.body)
         self.assertEqual(len(store.created),1)
     def test_duplicate_guides_stop_without_mutation(self):
-        store=GuideStore(self.originals);store.create('Cortex',self.body);store.create('Cortex',self.body)
+        store=GuideStore(self.originals);store.create('config_plugins',self.body);store.create('config_plugins',self.body)
         before=copy.deepcopy(store.files)
-        with self.assertRaises(ValueError):ensure_guide_model(store,'Cortex',self.body)
+        with self.assertRaises(ValueError):ensure_guide_model(store,'config_plugins',self.body)
         self.assertEqual(store.files,before)
     def test_other_folder_guide_is_not_reused(self):
         store=GuideStore(self.originals);other=store.create('OtherCortex','unrelated')
-        guide=ensure_guide_model(store,'Cortex',self.body)
+        guide=ensure_guide_model(store,'config_plugins',self.body)
         self.assertNotEqual(guide,other);self.assertEqual(store.files[other]['body'],'unrelated')
 
 class InstructionRegressionTests(unittest.TestCase):

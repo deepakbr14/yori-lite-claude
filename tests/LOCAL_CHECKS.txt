@@ -1,12 +1,5 @@
-Version 0.2.1 local checks
-PASS: five skill YAML frontmatters and all relative skill links.
-PASS: package manifest, fixed config identity, valid config plus eight invalid cases.
-PASS: 23 local unittest cases (11 prior protocol-model cases; 12 instruction/README-migration/scheduling checks).
-PASS: all skills contain colleague habits, no generic setup-ending question, shared within-turn context.
-PASS: config schema/example and all memory/Self/history templates byte-identical to the pre-upgrade 0.2.0 source.
-PASS WITH WARNING: official Claude Code 2.1.197 marketplace validator; custom metadata ignored by this older CLI.
-Conversation examples are editorial fixtures, not model-generated behavioral results.
-README migration is modeled locally; actual Google Drive rendering was NOT RUN.
-Latency: user-reported ~35 seconds for Aurora on 0.2.0. No measured 0.2.1 response-time result.
-Actual Claude connector/ordinary-chat tests NOT RUN here; see EVIDENCE.md and FRESH_CHAT.md.
-PASS: isolated GitHub upgrade 0.2.0 -> 0.2.1 and installed source-byte parity; see MARKETPLACE_INSTALL.md.
+Version 0.2.2 local checks
+Local package/link/schema checks and YAML parsing are run by the build tools.
+40 unittest cases passed: protocol safety, instruction checks, registry migration and guarded Cortex-guide eligibility models.
+Skill-byte measurement recorded separately in INSTRUCTION_SIZE.json; it is not response-time measurement.
+Actual chat/Drive tests NOT RUN here; see EVIDENCE.md and FRESH_CHAT.md.
