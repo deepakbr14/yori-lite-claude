@@ -1,20 +1,12 @@
-# <topic> — derived snapshot
+record_type: memory
+kind: <Self / Person / Knowledge / Project / Decision>
+status: current
+operation_id: <most recent contributing operation>
 
-Record type: derived_snapshot
-Status: non-authoritative synthesis of listed inputs
-Coverage: <exact History event/file IDs and source revisions>
-Created time: <verified time or unknown>
+<Concise current understanding. Attribute positions, distinguish fact from opinion and inference, and preserve unresolved disagreement.>
 
-## Current understanding
+What changed and why: <known reasons, dates and provenance; unknown stays unknown>
+Evidence: <verified contribution and prior-revision file IDs; relevant source links>
+Still uncertain: <open questions>
 
-<Concise synthesis, separating facts and viewpoints.>
-
-## Disagreements and changes
-
-<Who holds each view, identity basis, supplied reasons, dates, and corrections.>
-
-## Unresolved and related topics
-
-<Questions, related verified IDs, and missing evidence.>
-
-Read relevant newer History before relying on this snapshot. This file does not supersede evidence or prove complete/latest coverage.
+This is description text, not a file body. Aim for <=4,000 characters including fields. Use guarded description edits and preserve prior meaning in History. File ID remains stable when its label or understanding changes.

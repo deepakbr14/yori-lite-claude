@@ -19,7 +19,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.1.0'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.0'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1
@@ -38,10 +38,14 @@ def check():
     skills=list((ROOT/'skills').glob('*/SKILL.md'));assert len(skills)==5
     for p in skills:
         s=p.read_text();assert s.startswith('---\n') and pid in s
-        assert 'Mandatory scope and truth contract' in s
+        assert 'Conversation and scope — always apply' in s
         assert 'Never silently switch or merge Cortexes.' in s
-        assert 'read-back' in s and 'operation_id' in s
+        assert ('read-back' in s or 'read back' in s) and 'operation_id' in s
         assert len(s.encode())<1_000_000
+        assert 'one question at a time' in s and '4,000' in s and 'etag' in s
+        assert 'description' in s and 'operation_id' in s
+        for link in re.findall(r'\]\(([^)]+)\)',s):
+            if '://' not in link: assert (p.parent/link).resolve().is_file(), (p,link)
     for p in ROOT.rglob('*'):
         if not p.is_file() or '.git' in p.parts:continue
         assert p.name not in {'.mcp.json','mcp.json'}

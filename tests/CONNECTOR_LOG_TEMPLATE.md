@@ -1,20 +1,21 @@
-# Connector operation evidence
+# Live connector evidence — 0.2.0
 
-Keep this report local unless deliberately sharing a redacted copy. Use PASS / FAIL / BLOCKED / NOT RUN. Never include OAuth tokens, private URLs, account emails, real chat excerpts or company content in a repository report.
+Version/client: ___  Test date: ___  Disposable Cortex alias: ___
+Record PASS / FAIL / BLOCKED / NOT RUN. Redact account names/emails, private URLs and tokens before sharing. Do not publish real memory content in GitHub.
 
-| Case | Client and plugin version | Actual tool name | Requested operation | Observed capability/receipt | Read-back | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| Discover owned config folder | | | | | | NOT RUN |
-| Read ordinary JSON | | | | | | NOT RUN |
-| Create folder/file | | | | | | NOT RUN |
-| Update setup probe | | | | | | NOT RUN |
-| Verify parent ancestry | | | | | | NOT RUN |
-| Conditional edit precondition | | | | | | NOT RUN |
-| Fresh chat without reminder | | | | | | NOT RUN |
-| Fresh chat explicit recovery | | | | | | NOT RUN |
-| Two-user shared recall | | | | | | NOT RUN |
-| Concurrent contributions | | | | | | NOT RUN |
-| Denied/read-only/other Cortex | | | | | | NOT RUN |
-| Write failure/timeout retry | | | | | | NOT RUN |
+| Test | Actual tool/guard argument | Observed response and read-back | Status |
+| --- | --- | --- | --- |
+| Conversational setup | | | NOT RUN |
+| Config description persisted/fresh-chat discovery | | | NOT RUN |
+| Metadata contribution and current memory | | | NOT RUN |
+| Second-chat recall | | | NOT RUN |
+| Guarded revision and stale rejection | | | NOT RUN |
+| Distinct users, same Cortex | | | NOT RUN |
+| Correction preserves original | | | NOT RUN |
+| Self revision and recall | | | NOT RUN |
+| Simultaneous updates retain both | | | NOT RUN |
+| Description search/fallback listing | | | NOT RUN |
+| Ordinary unprompted skill activation | | | NOT RUN |
+| Moved-file parent validation | | | NOT RUN |
 
-For each failure: exact redacted error, operation, visible permission prompt, whether any write persisted, and next repair step. Do not infer admin policy from a generic error. Record whether timestamps and contributor identity were tool-verified, self-reported, or unknown.
+For a failure: expected result, exact redacted error, what persisted, what remains uncertain, recovery. Attribution/time basis must say tool-verified, user-reported or unknown. A successful explicit setup prompt does not count as unprompted invocation.

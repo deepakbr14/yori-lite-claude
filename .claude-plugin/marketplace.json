@@ -8,7 +8,7 @@
     {
       "name": "yori-lite",
       "source": "./",
-      "description": "A growing shared Yori with one Google Drive Cortex. Skills only.",
+      "description": "Yori Lite: metadata memory, developing Self and autonomous learning through Google Drive.",
       "strict": true
     }
   ]

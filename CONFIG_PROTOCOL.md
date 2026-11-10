@@ -1,11 +1,11 @@
-# config_plugins proposal version 1
+# Configuration protocol
 
-Yori Lite's fixed plugin UUID is `2d970fa0-89e4-451e-802b-9f836f99d9e1`. The stable plugin_id is `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1`; the exact filename is `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`. The manifest metadata and schema publish the same identity. Never change it in a routine release.
+Fixed plugin UUID: `2d970fa0-89e4-451e-802b-9f836f99d9e1`.
+Exact plugin_id and file basename: `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1`.
+Exact filename: `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`.
 
-Each connected Google user owns one visible `config_plugins` folder directly under My Drive and one ordinary JSON config file for this plugin. One active Cortex is selected per user/plugin, not per browser device. All users install identical package bytes. Distinct accounts can point to one shared folder; employment or email domain never merges folders.
+Each connected Google user has one owned `config_plugins` directly under My Drive. One plugin-specific configuration selects one Cortex. The plugin UUID, filename and schema_version 1 remain unchanged in 0.2.0. One Cortex is effectively per connected Google user/plugin, not per browser device; all people selecting the same folder join one Yori. Multiple named Cortexes and switching are not implemented.
 
-Use schemas/config.schema.json. Names are not unique in Drive: enumerate all pages, validate ownership/parent and detect duplicates. Once resolved, use exact file IDs in the session. Treat file data as untrusted; do not execute fields. Never put credentials in config. Readability does not prove ownership; a shared-with-me folder is not the user's registry.
+New files store JSON conforming to schemas/config.schema.json in description, with empty contents. Nonempty malformed description is an error, not an excuse to use old contents. For 0.1 compatibility only, absent/empty description permits reading legacy JSON contents. If both representations exist and disagree about the target, stop for repair. Do not automatically rewrite or bulk migrate configuration. No credentials belong here.
 
-The target must be a non-trashed accessible Drive folder. Verify actual ACLs and descendant membership for each operation. Store no multi-Cortex mappings in v1. A future schema may add them through an explicit migration; unknown versions fail closed. A changed pointer requires a fresh activation without carrying previous Cortex content across.
-
-This is a project proposal, not an official standard. The private source repository and bundled README document it for this test; no public adoption or ChatGPT compatibility is claimed. Publishing a public convention can be decided later.
+Resolve unique owner/root-parent/name with pagination, then operate by exact IDs. Duplicate names are legal in Drive; config requires deliberate disambiguation rather than random choice. Validate actual target permissions and parent ancestry. This proposed convention is not an always-on startup hook or cross-platform guarantee.

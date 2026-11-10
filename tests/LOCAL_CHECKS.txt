@@ -1,9 +1,6 @@
-Build 0.1.0, 2026-11-10
-PASS: manifest/fixed UUID and config schema consistency.
-PASS: valid example plus eight invalid configuration cases.
-PASS: five YAML frontmatters parsed using Ruby YAML.
-PASS: all five skills include scope and integrity contract; no runtime MCP, hooks or agents.
-PASS: no personal-Yori service endpoints in package content.
-Package script checks ZIP CRC, manifest placement, source parity and excluded tooling on each build.
-PASS WITH WARNING (subsequent marketplace test): official Claude Code 2.1.197 validation; ignores custom plugin metadata. See MARKETPLACE_INSTALL.md.
-NOT RUN: all actual Claude chat and Google connector experiments; see EVIDENCE.md.
+Version 0.2.0 local checks
+PASS: five YAML skill frontmatters parsed.
+PASS: 11 protocol model tests (not actual Claude/Google execution).
+PASS WITH WARNING: official Claude Code 2.1.197 marketplace validator; custom plugin metadata ignored by this CLI version. UUID remains in schema and skills.
+Package/config/link checks and archive checks run through tools/package.py.
+Live conversation and connector cases NOT RUN; user-reported connector experiments listed separately in EVIDENCE.md.
