@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.5
+
+- Require fresh-chat Self retrieval and evidence-based preference continuity; distinguish unknown recall from a new or deliberately revised preference.
+- Explicitly learn Yori's own considered choices and preserve reasons/history without duplicating unchanged preferences.
+- Introduce people naturally after setup when their names are unknown, with existing-record reuse and shared-Cortex identity safeguards.
+- Reuse scoped Self/People evidence across Skills; no storage/schema migration. Incident root cause remains unconfirmed pending actual metadata/Claude traces.
+
+
 ## 0.2.4
 
 - Fix the account-identification regression: “make one” authorizes setup through the existing Drive connection even when the account email is unknown.

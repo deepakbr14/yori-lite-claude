@@ -76,7 +76,7 @@ class EntryAndInstructionTests(unittest.TestCase):
         connect=(ROOT/'skills/yori-lite-connect/SKILL.md').read_text()
         self.assertIn('The Cortex has NO setup README',connect)
         self.assertIn('Show no URL',connect)
-        self.assertIn('And stop.',connect)
+        self.assertIn('Then stop.',connect)
         self.assertFalse((ROOT/'templates/cortex_README.txt').exists())
     def test_registry_guide_is_vendor_neutral_with_two_plugins(self):
         text=(ROOT/'templates/config_plugins_README.md').read_text()

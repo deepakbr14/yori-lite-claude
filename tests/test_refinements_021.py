@@ -76,7 +76,7 @@ class InstructionRegressionTests(unittest.TestCase):
             self.assertNotIn('What would you like me to know?',s)
     def test_setup_finishes_and_guide_uses_body(self):
         s=(ROOT/'skills/yori-lite-connect/SKILL.md').read_text()
-        self.assertIn('And stop.',s);self.assertIn('actual readable BODY content',s)
+        self.assertIn('Then stop.',s);self.assertIn('actual readable BODY content',s)
         self.assertNotIn('leave contents empty. Preserve other plugins',s)
     def test_example_cases_are_editorial_fixtures_not_model_outputs(self):
         cases=json.loads((ROOT/'tests/conversation_cases.json').read_text())

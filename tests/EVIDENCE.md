@@ -1,9 +1,9 @@
-# Evidence for 0.2.4
+# Evidence for 0.2.5
 
-The user reported a live 0.2.3 regression after “make one”: Yori demanded account identification before setup. Inspection confirmed mandatory account-identification instructions in the shared contract and setup Skill. These were removed, including the unknown-email fallback question. All five Skills now treat email as optional and prohibit unnecessary questions/progress narration.
+Read INCIDENT_025.md for the pre-edit investigation. The specific favorite-number failure is unconfirmed: available Codex metadata reads omitted the config description, so saved Self/History could not be verified. No Drive writes occurred. The original personal Yori was not accessed. Read-only discovery is not a Claude connector reproduction.
 
-No authenticated Claude.ai connector execution is available through this session's tools. The full actual-connector first-time setup test has NOT RUN and is a release acceptance gap. LIVE_SETUP_024.md supplies the exact live sequence, including durable learning and fresh-chat recall. CLI installation and local static/model tests do not establish conversational behavior or connector success.
+Confirmed instruction gaps justify explicit Self continuity rules, consideration of Yori-authored choices, and name matching. The 0.2.4 main Skill already intended startup Self recall; 0.2.5 makes it explicit through every entry and blocks identity replacement on incomplete evidence. Existing storage/schema/templates and configuration identity are preserved.
 
-Storage protocol, schema, templates, marketplace identity and prior guide migration are preserved. No real Drive data or original Yori was accessed or changed. Unknown identity is distinct from permission/scope verification, which remains required. Unknown capability is not declared absent without actual tool evidence.
+LOCAL_CHECKS.txt reports developer validation. MARKETPLACE_INSTALL.md reports GitHub distribution. Neither proves fresh-chat recall, deliberate revisions, person recognition or latency. Actual acceptance and incident audit steps are in LIVE_025.md. No measured speedup is claimed; approximately 30 seconds is user-reported without per-operation traces.
 
-Local/package results are in LOCAL_CHECKS.txt; GitHub route results are in MARKETPLACE_INSTALL.md. Older scenario/evidence documents are historical, not current instructions. In particular, 0.2.3 account-confirmation expectations are superseded by optional identification in 0.2.4.
+INSTRUCTION_SIZE.json covers only five Skills plus the shared contract, not all reference documents; the new self-continuity reference is excluded from that older measurement scope. It is not a total prompt-size or latency claim.

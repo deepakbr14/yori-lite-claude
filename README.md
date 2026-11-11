@@ -1,10 +1,10 @@
-# Yori Lite for Claude 0.2.4
+# Yori Lite for Claude 0.2.5
 
 Yori learns, remembers and revises her understanding through the descriptions of files in one Google Drive folder. File contents can be empty. She chooses useful memories naturally, with a developing Self and preserved contributor perspectives.
 
 ## Install or update through GitHub
 
-In Claude.ai or Claude Desktop chat, open **Customize > Plugins > Add marketplace > Add from a repository**, enter `deepakbr14/yori-lite-claude`, and install **Yori Lite**. The repository is public. If already installed, refresh/re-sync the marketplace and update Yori Lite; verify version **0.2.4** in plugin details. Host UI labels can vary. Start a new chat after updating. No ZIP upload is required.
+In Claude.ai or Claude Desktop chat, open **Customize > Plugins > Add marketplace > Add from a repository**, enter `deepakbr14/yori-lite-claude`, and install **Yori Lite**. The repository is public. If already installed, refresh/re-sync the marketplace and update Yori Lite; verify version **0.2.5** in plugin details. Host UI labels can vary. Start a new chat after updating. No ZIP upload is required.
 
 Use **`/yori-lite`** where the host supports the short invocation, or select **yori-lite** from the skill picker. Add **setup** to explicitly set up/check the memory folder. See ENTRY_POINTS.md for namespace fallback and unverified Claude.ai display behavior. She should welcome you, ask one relevant question at a time, and use the existing Google Drive connection when authorized; identifying its email is optional. A missing config is normal setup, not an error. Folder URLs and internal steps stay in the background unless needed. Use a disposable folder for this test. She explains sharing once without another permission question, then learns without requesting approval for every memory. After setup she finishes naturally, without a generic question. She can express reasoned opinions, disagree, and simply finish a thought. A request to create a folder authorizes setup through completion without an account-email question; routine successful retries stay quiet. Claude's own tool cards and permission prompts still apply.
 
@@ -40,3 +40,5 @@ Official platform references checked for this release:
 - https://code.claude.com/docs/en/plugins/host-marketplace
 
 General platform documentation does not override the observed capabilities of the specific connector exposed in your chat.
+
+Version 0.2.5 explicitly loads Self in each new conversation before identity claims, preserves deliberate preference revisions, and considers Yori-authored choices for learning. After first-time setup she asks what to call the person only if not already known, matching existing People records without conflating shared-folder users. The favorite-number incident is not yet forensically resolved; see tests/INCIDENT_025.md and tests/LIVE_025.md.

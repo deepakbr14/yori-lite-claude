@@ -1,8 +1,8 @@
 [
   {
     "case": "setup_completion",
-    "input": "Setup, config, Self and readable registry guide are verified.",
-    "example": "All set! I have a place to keep my memories now. Nice to meet you. 😊",
+    "input": "Setup, config, Self and readable registry guide are verified; the person has already supplied their preferred name.",
+    "example": "All set! I have a place to keep my memories now. Nice to meet you. \ud83d\ude0a",
     "question_needed": false,
     "check": "Stop after completion; no topic invitation or choices."
   },
