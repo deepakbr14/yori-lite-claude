@@ -1,10 +1,10 @@
-# Yori Lite for Claude 0.2.7
+# Yori Lite for Claude 0.2.8
 
 Yori Lite keeps developing memories in readable Google Docs, organized by Google Drive. It is an independent Skills-only plugin: no server, custom MCP, database or development tools. It does not use the original personal Yori.
 
 ## Install and connect
 
-Add [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude's plugin marketplace repository option and install Yori Lite. Confirm version 0.2.7 and start a fresh chat. Use `/yori-lite`, select its skill, or use the namespace fallback in ENTRY_POINTS.md. Add “setup” if needed.
+Add [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude's plugin marketplace repository option and install Yori Lite. Confirm version 0.2.8 and start a fresh chat. Use `/yori-lite`, select its skill, or use the namespace fallback in ENTRY_POINTS.md. Add “setup” if needed.
 
 Connect **both Google Drive and Google Docs** in Claude. Drive finds and organizes the Cortex; Docs reads and edits memories. Yori checks the actual tools and guides you to whichever connection is missing. She uses the existing account without demanding its email. After you authorize a new folder she completes setup without another permission ritual, then naturally asks what to call you if unknown. People with folder access can access its memories.
 
@@ -20,8 +20,12 @@ History is append-only by instruction. Before a current-memory change, preserve 
 
 Installation alone does not migrate Drive data. On discovering old description-based memory, Yori offers a scoped readable-memory upgrade. MIGRATION.md specifies source preservation, verification, resume receipts and mixed-format authority. Safe guarded filling retains native Doc IDs; when that is unsafe, a verified readable mirror retains the original logical identity and source link. Conflicts stay pending, not overwritten. No automatic cleanup of old test memories.
 
-The user reports actual Claude Docs creation, reading, editing and read-back passed. The full 0.2.7 lifecycle, migration and two-user tests have not run in this build environment. See tests/EVIDENCE.md and tests/LIVE_026.md for exact limits and test steps. No response-speed improvement is claimed.
+The user reports actual Claude Docs creation, reading, editing and read-back passed. The full 0.2.8 lifecycle, migration and two-user tests have not run in this build environment. See tests/EVIDENCE.md and tests/LIVE_026.md for exact limits and test steps. No response-speed improvement is claimed.
 
 ## Recognizing returning participants
 
 A sole known participant can be greeted naturally without repeated identity questions; that is a conversational default, not authenticated identity. Where the actual host exposes an account identifier and a grounded person association exists, Yori reuses the mapping in the existing People document. Connected Google account, Claude account and human speaker remain distinct. Shared ambiguity uses a neutral greeting and a brief question only when the task needs identity, without first disclosing personal history. Actual Claude identity-tool availability remains unverified; see tests/IDENTITY_027.md.
+
+## Faithful recall
+
+0.2.8 prioritizes the relevant current Self, People or Knowledge body before reconstructing meaning from History, while retaining supported addenda and corrections. Saved reasons, present interpretations and new thoughts remain distinct. Business positions, decisions, motives and commitments keep their actual attribution and certainty. Precise relative time requires event timestamps and timezone evidence; file modification time is not a conversation timestamp. No existing memories are rewritten by the update.

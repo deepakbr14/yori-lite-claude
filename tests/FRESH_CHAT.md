@@ -1,5 +1,5 @@
-# 0.2.7 fresh conversation checks
+# 0.2.8 fresh-chat fidelity acceptance
 
-Run LIVE_027.md: sole participant, returning mapped participant, multiple participants, unknown guest and missing identity tools. Verify contextual versus authenticated-account versus self-reported bases and no personal-history disclosure during shared ambiguity.
+Run LIVE_028.md in Claude. It covers current Self retrieval, faithful original reason, explicitly new interpretation, business positions/motives/decision status, time grounding and misleading History. Relevant corrections/addenda must still be used.
 
-Retain the Docs storage, migration and Self tests from LIVE_026.md. Actual-Claude recognition tests have NOT RUN here; the local policy model does not certify model behavior.
+Real disposable Docs read-back/retrieval was tested via Codex (REAL_DOCS_028.md), not a fresh Claude conversation. Preserve 0.2.7 participant-recognition and 0.2.6 storage/migration safeguards.

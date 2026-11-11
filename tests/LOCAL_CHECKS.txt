@@ -1,6 +1,6 @@
-Yori Lite 0.2.7 local validation
-PASS: 84 local tests, including 17 new participant-recognition policy cases and 67 existing protocol/integrity/migration/regression tests.
-PASS: 10 storage/configuration/template/marketplace files byte-identical to 0.2.6; no storage/config migration.
-PASS: package identity/schema/links and five Skill frontmatters; official CLI result recorded with distribution evidence.
-OBSERVED: one read-only Codex Google Drive profile call returned account ID/email/name fields. No private values in repo; no Cortex mutation.
-NOT VERIFIED: actual Claude user/profile tool interface, account-key stability across Claude chats, live greetings/mapping writes/disclosure behavior. See IDENTITY_027.md and LIVE_027.md.
+Yori Lite 0.2.8 local/source validation
+PASS: 102 local tests, including 18 new source/semantic/time policy tests and 84 prior tests. Structured test semantics do not prove natural-language model behavior.
+PASS: 13 storage/configuration/recognition/template/marketplace files byte-identical to 0.2.7.
+PASS: package identities/schema/links and five Skill YAML frontmatters; official CLI validation recorded separately.
+REAL DOCS: 8 synthetic native Docs created/read back exactly in a new disposable four-folder fixture via Codex Google tools. Current Self lookup after a red History distractor and separate present-interpretation read passed. Business sources and original History reread unchanged. 70 connector calls; see REAL_DOCS_028.md.
+NOT RUN: fresh Claude conversation, independent answer-generation fidelity assessment, actual Claude source selection/temporal wording. No experimental/production memory repair or config repointing.

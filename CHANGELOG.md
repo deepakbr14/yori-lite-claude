@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.8
+
+- Route established-memory recall to the relevant current Self/People/Knowledge record before History; require targeted lookup for History-only hits.
+- Separate saved meaning from present interpretations and new reasoning without forcing verbatim replies or constraining independent Self development.
+- Preserve business speaker/motive/decision/commitment status and qualify temporal wording using actual event/timezone evidence.
+- Keep storage, migration, participant recognition, autonomous learning and History safeguards unchanged. Existing experimental memories are not repaired.
+
+
 ## 0.2.7
 
 - Recognize a sole known participant conversationally without repeated identity questions or sharing disclaimers; preserve the inferred basis.

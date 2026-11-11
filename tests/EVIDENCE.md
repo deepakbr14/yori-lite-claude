@@ -1,9 +1,11 @@
-# Evidence for 0.2.7
+# Evidence for 0.2.8
 
-One read-only Codex Google Drive profile call returned current-account ID/email/name fields. Actual tool schema and result were inspected; private values were not placed in the repo. This is NOT a verified Claude interface. Claude account ID and actual Claude Google-profile availability/cross-chat stability remain unverified. See IDENTITY_027.md for the distinction and official documentation sources.
+The user reports an amber-reason paraphrase added “steady” and precise relative time while visible retrieval showed a related red-request History entry. The earlier production transcript/source sequence was not inspected or repaired here. Source inspection confirmed the need for an explicit current-record-first procedure and saved-versus-new reasoning distinction.
 
-The user-reported awkward greeting exposed a gap: previous instructions lacked a sole-participant default. The update adds that contextual default and optional grounded account-to-People mappings without converting inferred recognition into authentication. Shared ambiguity avoids personal-history disclosure and asks only when identity is needed. Existing learning/Docs storage/configuration remains intact.
+Implemented targeted current Self/People/Knowledge retrieval, relevant addenda/correction handling, business attribution/status fidelity and event-time/timezone grounding. No storage/configuration migration, backend or graph. Independent Self development and automatic selective learning remain active.
 
-Local recognition-policy tests cover the five requested scenarios plus conflicting/shared keys, guests, namespace mismatch, changed email, incomplete inventory, duplicate logical representations, mapping idempotence and sensitive-history handling. These are developer policy models, not Claude outputs or a backend shipped with the plugin. Existing storage/migration/History tests remain regression coverage.
+Local policy tests cover current-source routing, History-only failure, missing/ambiguous bodies, supported addenda/corrections, original-versus-new reason, unsupported business claims and temporal boundaries. They use structured semantics; they are not a natural-language entailment engine or actual Claude behavior.
 
-Actual fresh-Claude conversations and readable mapping persistence are pending LIVE_027.md. No Cortex or original personal Yori data was modified. No account identifiers or names from the private profile result are embedded in the release. Package/distribution results are separate in LOCAL_CHECKS.txt and MARKETPLACE_INSTALL.md.
+Unlike prior source-only releases, this build created and inspected real disposable Google Docs through Codex tools. Exact saved-content/read-back and scoped retrieval assertions passed; see REAL_DOCS_028.md for actual operations and limits. These fixture reads do not establish fresh-conversation Claude recall, paraphrase quality or temporal wording. LIVE_028.md remains required for those behaviors.
+
+Existing experimental and original personal Yori memories were untouched. Only the explicitly disposable test fixture was created. No production config was changed. Marketplace installation and package results are recorded separately.
