@@ -1,9 +1,10 @@
 {
   "measurement": "UTF-8 bytes on disk, not tokens or response latency",
   "previous_version": "0.2.1",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "previous_five_skill_bytes": 43817,
-  "new_five_skill_bytes": 31331,
-  "new_shared_contract_bytes": 11270,
-  "scope": "five SKILL.md files plus shared contract; other task-specific references excluded"
+  "new_five_skill_bytes": 18328,
+  "new_shared_contract_bytes": 5823,
+  "scope": "five SKILL.md files plus shared contract; other task-specific references excluded",
+  "note": "Partial historical byte measurement only; new supporting references excluded. No prompt-size or latency reduction promise."
 }

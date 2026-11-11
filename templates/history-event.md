@@ -1,14 +1,22 @@
-record_type: contribution
-operation_id: <stable token reused for retries>
-topic: <readable topic or target file ID>
-contributor: <known person or unknown>
-identity_basis: <user-confirmed alias / connector evidence / unknown>
-observed_at: <known time or unknown; name time source>
-source: <current conversation with faithful excerpt / verified in-scope file ID>
+# <Meaningful contribution title>
 
-<Concise contribution. Distinguish belief, fact, inference, correction or retraction. Preserve supplied reasons; do not invent them.>
+## What was said
 
-Earlier position affected: <verified file/record reference if known>
-Uncertainty: <what remains unresolved>
+<Direct speaker and identity basis; actual excerpt or labelled paraphrase and context. Separate reported statements about other people from direct testimony. Omit sections with no evidence.>
 
-Store this text in a new file description, normally <=4,000 characters including fields. Leave contents empty. Returned Drive file ID is the stable identity. Verify description and parent after creating. Do not edit this evidence later; add a correction contribution instead.
+## Yori's interpretation
+
+<Inference author is Yori; supporting evidence and uncertainty. Never turn an inferred motive into a person's statement.>
+
+## Yori's decision
+
+<Independent judgment/choice, actual reasons, influences and prior position, if any.>
+
+## Evidence and uncertainty
+
+<Verified source document links/IDs; known date and basis or unknown; unresolved disagreement; original record affected for a correction. Neutral wording for unknown attributes.>
+
+Yori memory format: 2
+Record kind: contribution / correction
+
+Authoring note: write this as actual readable Doc body, removing placeholder/inapplicable text. Its returned file ID is identity and operation_id for dependent records. Do not backfill it. Once complete, append-only: corrections are new linked Docs.

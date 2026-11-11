@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def validate(value,schema):
     if 'const' in schema and (type(value)!=type(schema['const']) or value!=schema['const']): raise ValueError('const')
+    if 'enum' in schema and value not in schema['enum']:raise ValueError('enum')
     t=schema.get('type')
     if t=='object':
         if not isinstance(value,dict): raise ValueError('object')
@@ -19,7 +20,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.5'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.6'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1
@@ -30,7 +31,9 @@ def check():
     schema=json.loads((ROOT/'schemas/config.schema.json').read_text())
     assert schema['properties']['plugin_id']['const']==pid
     good=json.loads((ROOT/'templates/config.example.json').read_text());validate(good,schema)
-    invalid=[{},dict(good,schema_version=2),dict(good,plugin_id='yori_wrong'),dict(good,cortices={}),dict(good,schema_version=True),dict(good,active_cortex={'label':'x','google_drive_folder_id':'https://drive.google.com/folders/x'}),dict(good,active_cortex={'label':' ','google_drive_folder_id':'x'}),dict(good,active_cortex={'label':'x','google_drive_folder_id':'x','extra':True})]
+    legacy=dict(good);legacy.pop('storage_format');validate(legacy,schema)
+    for fmt in ['metadata-v1','mixed-v1-v2','docs-v2']:validate(dict(good,storage_format=fmt),schema)
+    invalid=[{},dict(good,schema_version=2),dict(good,storage_format='invented'),dict(good,plugin_id='yori_wrong'),dict(good,cortices={}),dict(good,schema_version=True),dict(good,active_cortex={'label':'x','google_drive_folder_id':'https://drive.google.com/folders/x'}),dict(good,active_cortex={'label':' ','google_drive_folder_id':'x'}),dict(good,active_cortex={'label':'x','google_drive_folder_id':'x','extra':True})]
     for bad in invalid:
         try:validate(bad,schema)
         except ValueError:pass
@@ -42,7 +45,7 @@ def check():
         assert 'Never silently switch or merge Cortexes.' in s
         assert ('read-back' in s or 'read back' in s) and 'operation_id' in s
         assert len(s.encode())<1_000_000
-        assert 'one question at a time' in s and '4,000' in s and 'etag' in s
+        assert 'one question at a time' in s and 'Google Docs' in s and 'etag' in s
         assert 'generic engagement questions' in s and 'reasoned opinions' in s
         assert 'Do not offer three choices' in s and 'Do not announce every memory' in s
         assert 'What would you like me to know?' not in s
@@ -64,5 +67,5 @@ def check():
         for link in re.findall(r'\]\(([^)]+)\)',p.read_text()):
             if '://' not in link: assert (p.parent/link).resolve().is_file(), (p,link)
     assert not (ROOT/'templates/cortex_README.txt').exists()
-    print('PASS: manifest and fixed UUID consistency; five isolated skills; valid config and 8 invalid config cases; scope/integrity contracts; no MCP/hooks/agents or personal service endpoints.')
+    print('PASS: manifest and fixed UUID consistency; five isolated skills; valid config and 9 invalid config cases; scope/integrity contracts; no MCP/hooks/agents or personal service endpoints.')
 if __name__=='__main__':check()

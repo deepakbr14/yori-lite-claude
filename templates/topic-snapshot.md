@@ -1,12 +1,22 @@
-record_type: memory
-kind: <Self / Person / Knowledge / Project / Decision>
-status: current
-operation_id: <most recent contributing operation>
+# <Meaningful memory title>
 
-<Concise current understanding. Attribute positions, distinguish fact from opinion and inference, and preserve unresolved disagreement.>
+## Remembered information
 
-What changed and why: <known reasons, dates and provenance; unknown stays unknown>
-Evidence: <verified contribution and prior-revision file IDs; relevant source links>
-Still uncertain: <open questions>
+<Concise current understanding. Distinguish person statements, attributed reports, Yori inferences and Yori decisions. Preserve disagreement and neutral wording for unknown attributes.>
 
-This is description text, not a file body. Aim for <=4,000 characters including fields. Use guarded description edits and preserve prior meaning in History. File ID remains stable when its label or understanding changes.
+## Reasons and context
+
+<Why this matters and why understanding changed, using only actual reasons and known dates.>
+
+## Evidence
+
+<Verified contribution/source/prior-state links and IDs, with contribution ID as operation_id. For an addendum include “Updates: <baseline logical ID/link>”; it is supporting current memory, not a new person identity.>
+
+## Still uncertain
+
+<Unresolved questions, competing evidence or limited coverage.>
+
+Yori memory format: 2
+Record kind: Self / Person / Knowledge / addendum
+
+Authoring note: actual readable body. Do not store main meaning in description. Follow STORAGE.md for every change; preserve prior state and use a revision guard or non-destructive addendum. Remove placeholders/inapplicable sections.

@@ -1,44 +1,23 @@
-# Yori Lite for Claude 0.2.5
+# Yori Lite for Claude 0.2.6
 
-Yori learns, remembers and revises her understanding through the descriptions of files in one Google Drive folder. File contents can be empty. She chooses useful memories naturally, with a developing Self and preserved contributor perspectives.
+Yori Lite keeps developing memories in readable Google Docs, organized by Google Drive. It is an independent Skills-only plugin: no server, custom MCP, database or development tools. It does not use the original personal Yori.
 
-## Install or update through GitHub
+## Install and connect
 
-In Claude.ai or Claude Desktop chat, open **Customize > Plugins > Add marketplace > Add from a repository**, enter `deepakbr14/yori-lite-claude`, and install **Yori Lite**. The repository is public. If already installed, refresh/re-sync the marketplace and update Yori Lite; verify version **0.2.5** in plugin details. Host UI labels can vary. Start a new chat after updating. No ZIP upload is required.
+Add [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude's plugin marketplace repository option and install Yori Lite. Confirm version 0.2.6 and start a fresh chat. Use `/yori-lite`, select its skill, or use the namespace fallback in ENTRY_POINTS.md. Add “setup” if needed.
 
-Use **`/yori-lite`** where the host supports the short invocation, or select **yori-lite** from the skill picker. Add **setup** to explicitly set up/check the memory folder. See ENTRY_POINTS.md for namespace fallback and unverified Claude.ai display behavior. She should welcome you, ask one relevant question at a time, and use the existing Google Drive connection when authorized; identifying its email is optional. A missing config is normal setup, not an error. Folder URLs and internal steps stay in the background unless needed. Use a disposable folder for this test. She explains sharing once without another permission question, then learns without requesting approval for every memory. After setup she finishes naturally, without a generic question. She can express reasoned opinions, disagree, and simply finish a thought. A request to create a folder authorizes setup through completion without an account-email question; routine successful retries stay quiet. Claude's own tool cards and permission prompts still apply.
+Connect **both Google Drive and Google Docs** in Claude. Drive finds and organizes the Cortex; Docs reads and edits memories. Yori checks the actual tools and guides you to whichever connection is missing. She uses the existing account without demanding its email. After you authorize a new folder she completes setup without another permission ritual, then naturally asks what to call you if unknown. People with folder access can access its memories.
 
-If both Yori products are installed, explicitly say Yori Lite when ambiguous. Neither installation method nor version 0.2 contacts personal Yori. The plugin has no custom MCP/server, database, graph, embeddings, Apps Script or Viewer. Only the actual Claude Google Drive connector is used; editing existing file contents is not needed.
+## Human-readable memory
 
-## Storage
+Self, People, Knowledge and History remain separate folders in the selected Cortex. Memory bodies have useful headings, context, reasons, attribution, references and uncertainty. Main semantic memory no longer goes in descriptions. Stable config_plugins filename and plugin UUID are unchanged. No Cortex README or permanent setup probe is created.
 
-Self/People/Knowledge hold current memories; History holds immutable meaningful contributions and prior revisions. Knowledge lives in description, usually about 4,000 characters or fewer. The user reports successful 16,000-character tests; this is not a promise for every host. Description search remains unverified, so recall also supports scoped metadata listing.
+Automatic selective learning remains active. Yori recalls Self before identity claims, distinguishes established preferences from deliberate revisions or uncertain recall, and learns her own considered choices. She can disagree and reconsider. Person identity is not inferred from a shared folder or account owner.
 
-Each shared description revision uses the connector's actual expected-etag precondition. On conflict, Yori re-reads, reconciles and retries within a small limit. Contributions are retained and verified before changing shared summaries; failures leave recoverable evidence. Merges and splits preserve originals until replacements are verified. Logical retirement is preferred because moving a file does not change its etag. See STORAGE.md for limitations, including external-move races and lack of transactions.
+History is append-only by instruction. Before a current-memory change, preserve the prior state and verify new evidence. Use actual Docs revision guards when available. Without them, verified readable addenda preserve new learning without overwriting the baseline; recall includes them. This may leave several readable documents until safe consolidation is available. It is not an atomic transaction or protection against external editors.
 
-The config_plugins convention and fixed UUID remain stable. New config JSON lives in description. Older body-based config is readable without editing it; no automatic migration or Cortex switching. See CONFIG_PROTOCOL.md and MIGRATION.md.
+## Existing Cortexes
 
-## Readable guide and efficient turns
+Installation alone does not migrate Drive data. On discovering old description-based memory, Yori offers a scoped readable-memory upgrade. MIGRATION.md specifies source preservation, verification, resume receipts and mixed-format authority. Safe guarded filling retains native Doc IDs; when that is unsafe, a verified readable mirror retains the original logical identity and source link. Conflicts stay pending, not overwritten. No automatic cleanup of old test memories.
 
-Only config_plugins gets a readable developer-facing convention guide. No new Cortex README is created. An unchanged, identified setup-generated old Cortex guide can be moved to Trash with guarded verification; user-authored or uncertain files remain. All config/memory data is preserved. See README_MIGRATION.md.
-
-Skills share verified configuration/search results inside a turn and avoid repeated setup probes. Guarded updates, source preservation and write read-backs remain required. The latest reported Aurora response took about 32 seconds (an earlier run was about 35); no controlled before/after or per-call timing is available. The shared contract reduces duplicate instruction text without removing learning. See TURN_EFFICIENCY.md for the static call analysis and live timing protocol.
-
-## Evidence and tests
-
-User-reported live connector results are recorded separately from tests performed by Codex. Local protocol simulations test conflicts, corrections, retry recovery and parent moves; they are NOT live connector validation or proof that a language model follows the skills. Actual Claude chat onboarding, ordinary-chat activation, metadata learning and two-user behavior need the tests in tests/FRESH_CHAT.md. See tests/EVIDENCE.md for exact status.
-
-Developer checks: `python3 tools/check_package.py`, `ruby tools/check_frontmatter.rb`, `python3 -m unittest discover -s tests -p 'test_*.py'`. These developer tools are not a plugin runtime. `python3 tools/package.py` builds an optional test ZIP; GitHub marketplace is primary.
-
-## Remove
-
-Remove only Yori Lite through Claude's plugin controls. This does not delete Drive memory/config or affect personal Yori. Delete disposable test resources only when you intentionally choose to; do not remove a shared Cortex without its group's authorization.
-
-Official platform references checked for this release:
-- https://support.claude.com/en/articles/13837440-use-plugins-in-claude
-- https://support.claude.com/en/articles/10166901-use-google-workspace-connectors
-- https://code.claude.com/docs/en/plugins/host-marketplace
-
-General platform documentation does not override the observed capabilities of the specific connector exposed in your chat.
-
-Version 0.2.5 explicitly loads Self in each new conversation before identity claims, preserves deliberate preference revisions, and considers Yori-authored choices for learning. After first-time setup she asks what to call the person only if not already known, matching existing People records without conflating shared-folder users. The favorite-number incident is not yet forensically resolved; see tests/INCIDENT_025.md and tests/LIVE_025.md.
+The user reports actual Claude Docs creation, reading, editing and read-back passed. The full 0.2.6 lifecycle, migration and two-user tests have not run in this build environment. See tests/EVIDENCE.md and tests/LIVE_026.md for exact limits and test steps. No response-speed improvement is claimed.

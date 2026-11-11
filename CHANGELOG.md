@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.6
+
+- Move primary memory to readable Google Docs bodies; onboarding guides connection of both Google Drive and Google Docs.
+- Preserve automatic selective learning, independent Self continuity, neutral attributes and claim-level provenance.
+- Keep History append-only; snapshot before guarded edits, with verified non-destructive addenda when revision controls are absent.
+- Add resumable metadata-to-body migration, source retention, stable logical identity and per-record verified authority. Optional config storage_format distinguishes legacy/mixed/docs-v2.
+- Preserve config filename/UUID and four Cortex folders. No automatic old-data cleanup, graph, server or custom MCP.
+- User-reported Claude Docs create/read/edit/read-back passed; full lifecycle/migration/concurrency/latency remains live validation.
+
 ## 0.2.5
 
 - Require fresh-chat Self retrieval and evidence-based preference continuity; distinguish unknown recall from a new or deliberately revised preference.

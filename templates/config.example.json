@@ -4,5 +4,6 @@
   "active_cortex": {
     "label": "Team Yori",
     "google_drive_folder_id": "REPLACE_WITH_VERIFIED_FOLDER_ID"
-  }
+  },
+  "storage_format": "docs-v2"
 }

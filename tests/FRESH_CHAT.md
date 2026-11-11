@@ -1,5 +1,5 @@
-# Live 0.2.5 acceptance
+# Fresh-chat acceptance for readable Docs 0.2.6
 
-Run LIVE_025.md for Self choice, fresh-chat continuity, deliberate revision, uncertainty, person recognition and timings. Its introduction behavior supersedes the older unconditional setup-completion stop: ask what to call a person only when unknown. Account identity stays optional as in 0.2.4. Existing storage and concurrency safeguards still apply.
+Run LIVE_026.md using the actual Claude Drive + Docs connectors and a disposable Cortex. Verify both-service onboarding, person names/preferences, Self continuity, independent preference changes, provenance, append-only History, guard-free addenda, mixed-format migration and operation timings.
 
-Use actual Claude connector evidence. These tests have NOT RUN in this environment.
+User-reported connector create/read/edit/read-back passed. The full released plugin lifecycle has NOT RUN here. Use actual saved document bodies and source IDs as evidence, not just Yori's successful-save statement. Historical metadata-only acceptance files are superseded for new writes.

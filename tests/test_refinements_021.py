@@ -76,7 +76,7 @@ class InstructionRegressionTests(unittest.TestCase):
             self.assertNotIn('What would you like me to know?',s)
     def test_setup_finishes_and_guide_uses_body(self):
         s=(ROOT/'skills/yori-lite-connect/SKILL.md').read_text()
-        self.assertIn('Then stop.',s);self.assertIn('actual readable BODY content',s)
+        self.assertIn('Then stop.',s);self.assertIn('readable Google Doc body',s)
         self.assertNotIn('leave contents empty. Preserve other plugins',s)
     def test_example_cases_are_editorial_fixtures_not_model_outputs(self):
         cases=json.loads((ROOT/'tests/conversation_cases.json').read_text())
@@ -92,16 +92,16 @@ class InstructionRegressionTests(unittest.TestCase):
         self.assertEqual(schema['required'],['schema_version','plugin_id','active_cortex'])
 
 class SchedulingModelTests(unittest.TestCase):
-    def test_eight_calls_can_form_five_dependency_stages(self):
+    def test_eight_calls_can_form_six_dependency_stages(self):
         deps={'create_contribution':set(),'read_base':set(),
-              'verify_contribution':{'create_contribution'},'create_snapshot':{'read_base'},
+              'verify_contribution':{'create_contribution'},'create_snapshot':{'read_base','verify_contribution'},
               'verify_snapshot':{'create_snapshot'},'parent_check':{'read_base','create_snapshot'},
               'patch':{'verify_contribution','verify_snapshot','parent_check'},'verify_patch':{'patch'}}
         done=set();stages=[]
         while len(done)<len(deps):
             stage={k for k,v in deps.items() if k not in done and v<=done}
             self.assertTrue(stage);stages.append(stage);done|=stage
-        self.assertEqual(len(done),8);self.assertEqual(len(stages),5)
+        self.assertEqual(len(done),8);self.assertEqual(len(stages),6)
         self.assertLess(next(i for i,s in enumerate(stages) if 'verify_snapshot' in s),next(i for i,s in enumerate(stages) if 'patch' in s))
         self.assertEqual(stages[-1],{'verify_patch'})
     def test_safety_checks_not_replaced_by_latency_target(self):

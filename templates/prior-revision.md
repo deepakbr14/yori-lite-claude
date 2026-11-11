@@ -1,10 +1,19 @@
-record_type: prior_revision
-operation_id: <upcoming update's stable token>
-source_file_id: <verified target ID>
-source_etag: <exact observed etag>
-observed_at: <known time and basis or unknown>
-part: <1 of 1, or numbered parts for a larger snapshot>
+# Earlier state — <topic>
 
-<Faithful complete previous description, including attribution and uncertainty.>
+## Source
 
-This preserves an observed version, not proof that the proposed update committed. Store in a new History file description and verify before guarded replacement. Never drop meaningful text to meet the size target; use verified numbered parts.
+<Verified source Doc ID/link, exact title, observed Docs revision if exposed or unknown, capture date/basis, verified contribution ID as operation_id.>
+
+## Preserved earlier content
+
+<Complete previous meaningful body text and structure from all relevant tabs/sections, including original reasons, attribution, uncertainty and links. Number parts if needed; never truncate.>
+
+## What this establishes
+
+This is the state observed before a proposed change, not proof that the change succeeded.
+
+Yori memory format: 2
+Record kind: prior state
+Part: <number of total>
+
+Authoring note: actual body in History, verified before dependent current editing/addendum. Never edit this committed History Doc; append a linked correction if needed.

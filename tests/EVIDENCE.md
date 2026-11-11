@@ -1,9 +1,17 @@
-# Evidence for 0.2.5
+# Evidence for 0.2.6 — Google Docs bodies
 
-Read INCIDENT_025.md for the pre-edit investigation. The specific favorite-number failure is unconfirmed: available Codex metadata reads omitted the config description, so saved Self/History could not be verified. No Drive writes occurred. The original personal Yori was not accessed. Read-only discovery is not a Claude connector reproduction.
+## User-reported actual-Claude result
 
-Confirmed instruction gaps justify explicit Self continuity rules, consideration of Yori-authored choices, and name matching. The 0.2.4 main Skill already intended startup Self recall; 0.2.5 makes it explicit through every entry and blocks identity replacement on incomplete evidence. Existing storage/schema/templates and configuration identity are preserved.
+The user confirmed Google Drive and Google Docs creating, reading, editing existing document contents and verifying read-back all worked. This supersedes the earlier blocked design. It is sufficient to proceed with the readable-body architecture; it is not a test of strict concurrency controls, full migration or the released Skills.
 
-LOCAL_CHECKS.txt reports developer validation. MARKETPLACE_INSTALL.md reports GitHub distribution. Neither proves fresh-chat recall, deliberate revisions, person recognition or latency. Actual acceptance and incident audit steps are in LIVE_025.md. No measured speedup is claimed; approximately 30 seconds is user-reported without per-operation traces.
+## Implementation and local validation
 
-INSTRUCTION_SIZE.json covers only five Skills plus the shared contract, not all reference documents; the new self-continuity reference is excluded from that older measurement scope. It is not a total prompt-size or latency claim.
+Five Skills now use readable Google Docs for semantic memory and Drive for scope/configuration/organization. Both connectors are required and onboarding guides a missing connection. Revision guards are optional: when unavailable, verified readable addenda retain learning without destructive baseline edits. Same config UUID/filename and four memory folders; optional storage_format accepts legacy/mixed/docs-v2. No backend, custom MCP, database or graph was added.
+
+Local tests include legacy regression/protocol models, new claim/History integrity fault models and Docs body/migration models. They exercise snapshots, conflicting writes, no-guard addenda, two contributors, immutable History, stable logical IDs, interrupted/resumed migration, divergent bodies, changed legacy sources and preservation of later Docs learning. They are NOT a Claude model run or actual connector execution. Structured test claims cannot prove correct interpretation of real conversation.
+
+The full lifecycle, rendered Google Docs appearance, actual migration, fresh-conversation recall, two-user guard behavior and latency remain live acceptance in LIVE_026.md. No Drive operations were executed by this build agent and no existing memory/test data was repaired. Original Yori was not accessed or changed. The user-provided capability result is not presented as an independently reproduced test.
+
+No atomic multi-file transactions, server-enforced History immutability or parent isolation are claimed. Unguarded initial creation/migration-mirror races and ambiguous create outcomes remain explicit limits; uncertain completion is not authority. Provider IDs identify records; no generated-looking manual codes. Without safe config marker editing, per-record receipts determine mixed authority.
+
+Package and GitHub upgrade results: LOCAL_CHECKS.txt and MARKETPLACE_INSTALL.md. Instruction byte figures cover a partial scope only and are not latency claims.

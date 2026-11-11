@@ -1,58 +1,15 @@
-# Turn efficiency without weaker memory
+# Efficient two-connector operation
 
-This is a scheduling guide for the Skills, not an executable runtime or latency promise.
+No latency target overrides autonomous selective learning, Self continuity, attribution, snapshots or verification. User reports earlier ordinary turns around 30 seconds; no 0.2.6 live timing trace is available here.
 
-## Reduce repeated instructions without removing protections
+Resolve Drive config/Cortex once per fresh chat, retain exact IDs and then use scoped body retrieval. Share one verified turn context across Skills: folder IDs, capability signatures, source bodies/revisions, evidence and operation receipts. No repeated global discovery or same-turn Self reload at a handoff. A later turn validates known config/target access; use known IDs instead of name searches. Account change, permission failure, source move, new revision or incomplete results invalidate affected evidence.
 
-The five skills now reference one shared operating contract instead of embedding its full text five times. Read it once while it remains in the current chat context, and again only if unavailable after context loss. Each skill keeps short direct-entry safety/behavior reminders. This reduces duplicate instruction text, not the obligation to learn or verify. Helpers are internal routes; do not load all five or all templates for every answer.
+Read relevant Docs in bounded groups; independent reads may overlap when the host supports them. Cache only actual complete same-turn reads. Do not list every History document for each small topic, but include referenced/pending evidence and addenda before claiming a preference. Unknown coverage is not absence. No blanket full-Cortex scan except an explicitly scoped full audit/migration.
 
-## Share current evidence
+For one new topic, the minimum verified path after discovery is contribution create/read-back followed by current-doc create/read-back. Empty-file initialization or placement may add operations depending on actual connector tools. With an existing current Doc: contribution and initial body read can overlap; verify contribution before a snapshot incorporates its ID; verify snapshot and immediate scope check before guarded edit or addendum creation; final read-back stays after the write. Never omit a guard or a required read-back for speed. Do not assume native Google Docs edits and Drive metadata changes share a transaction.
 
-Fresh chat: resolve config through the convention and load the selected Cortex from Drive. Inside that turn, keep one context with exact config/Cortex/subfolder IDs, relevant tool capability definitions, completed paginated searches, records with description/etag/parents, operation IDs and verified write receipts. Pass that context between skills. Do not rediscover the registry, reload Self, inspect tools, or redo identical queries for each skill.
+Use a returned complete body as a read result only when it really includes the needed contents; an edit acknowledgement is not verification. Prefer scoped edits for guarded bodies, preserving unrelated sections. Keep one contribution for one coherent exchange when provenance can be separated clearly; separate independent sources when necessary. No contribution or snapshot for unchanged recall, no repeated initial-Self rewrite, no duplicate People identity, and no extra write solely to mark a read. A technical current-body edit still requires its snapshot. Committed History is never rewritten to shorten it.
 
-Later turns in the SAME chat may address previously resolved IDs directly instead of searching by name again. Before the first Cortex operation in a later turn, validate the config by its known ID (and parent/owner) and selected folder access; do not repeat this check at every skill boundary. A fresh chat still discovers the pointer anew. Missing permissions, an account change, different config/target, an incomplete result, a move or an unexpected revision invalidates affected context; stop or re-resolve rather than silently switching. Never persist this cache in another store or infer current content from a prior chat.
+No guard means a verified readable addendum, not skipped learning or a destructive unguarded edit. Consolidation is optional work when needed, not mandatory every turn. Migration uses verified per-source receipts to resume rather than recopy; don't run a bulk migration at each activation.
 
-Only use a retrieved description as the initial update base when it includes the full description, exact etag and verified ancestry from this turn and has not been invalidated. If there has been an intervening user message/pause, a failed operation, known change or incomplete response, obtain a fresh read. Keep the immediate pre-update parent/trashed check and post-update full metadata read-back. A stale etag still causes a fresh-read reconcile, not blind retry. These rules do not claim parent isolation against external moves.
-
-## Scheduling with preserved dependencies
-
-For one shared revision after discovery, without reuse, the existing protocol has eight essential calls:
-
-1. create contribution
-2. verify contribution by read-back
-3. read target base
-4. create prior snapshot
-5. verify snapshot by read-back
-6. check target parent/trashed state
-7. guarded patch
-8. read back target
-
-The prior simple serial schedule is 8 dependent waiting stages when executed literally. The same eight calls can take 5 waiting stages IF the actual host supports independent calls in parallel: (create contribution + read base), (verify contribution + create snapshot), (verify snapshot + parent check), guarded patch, target read-back. Reusing a complete same-turn base avoids its duplicate get entirely. All evidence verification and parent checking are hard prerequisites of the patch. Multiple snapshot parts add operations; conflicts and network failures add retries. These are static call/dependency counts, NOT measured Google latency or a guaranteed speedup.
-
-Do not parallelize dependent writes, patches with their snapshots, or a write with its read-back. Never omit a guard or a required read-back to meet a call budget. Use returned metadata to avoid duplicate gets only for discovery/initial bases when complete; creates and writes still have their required read-backs. Do not rerun setup probes or README repairs during ordinary learning.
-
-## Retrieval and writes
-
-Reuse a completed same-turn scoped query and its descriptions. Search again for a different subject, missing fields, explicit new evidence, incomplete pagination or relevant changes; a cached miss is not permanent. No blanket full-Cortex scan or reload for a small learning update. Keep bounded retrieval plus relevant pending History contributions. If a meaningful claim is unchanged, avoid manufacturing another event; a new reason, correction or dissent remains worth preserving.
-
-Do not announce internal work just to fill a pause. Complete warranted learning in the current turn. A no-op learning decision is not a reason to ask an engagement question.
-
-## Latency evidence
-
-The user reported about 35 seconds for the fictional Aurora conversation in 0.2.0. No tool trace or per-call durations were supplied, so the cause and possible seconds saved are unknown. Local test duration measures developer tests only, never Claude/Drive response time.
-
-For a disposable live comparison, record client/version, fresh vs warm chat, user-send time, final response time, available connector start/end times, call names/counts, retries, and required learn/read-back outcomes. Use the same dummy task on equivalent fresh folders; distinguish setup from ordinary learning. Record at least three runs per condition if practical, report observed median/range without inventing unavailable call times. Do not put account IDs or real memory into the public report. tests/LATENCY_LOG.md is the template.
-
-## New-topic path observed by the user
-
-The reported ~32-second Aurora reply created both a contribution and a topic. Those two records have different purposes: immutable attributed evidence versus revisable understanding. Keep both. After relevant same-turn search/scope resolution, this path still requires contribution create/read-back followed by topic create/read-back. The topic needs the verified contribution ID and source; do not delete either verification or merge away attribution just to save a call. No prior snapshot is needed for a genuinely new topic; no reorganization pass, duplicate config discovery or setup probe is warranted.
-
-Request complete scoped metadata fields in one read/list when exposed, reuse completed results, and avoid an extra get for a record already fully returned this turn. Do not replace required write read-backs with echo-only mutation responses. Only rerun search for missing evidence, different topics or invalidated freshness. The eight-call/five-stage existing-revision analysis above is NOT the four-call new-topic path and must not be used to claim measured improvement for Aurora.
-
-The user reported approximately 32 seconds in the latest live test; prior report was approximately 35 seconds. Different runs without trace control do not establish a 3-second improvement. No per-operation or model timing is available here. Inspect actual live call traces using tests/LATENCY_LOG.md; report counts/times only when observed. Autonomous learning, provenance, corrections and etag/parent protections remain mandatory.
-
-## 0.2.5: continuity without duplicate work
-
-Mandatory fresh-chat Self loading shares the same bootstrap and retrieved records with recall and learning; never run a second bootstrap for identity. Retain the relevant preference evidence and People candidate results in the verified turn context. Repeat a read only for incomplete fields, invalidation, required pre-update parent checks or write verification. Unchanged recalled preferences need no contribution or Self rewrite. A new choice needs the existing contribution + topic verification path; revising one needs the existing history/guard protocol. Do not rewrite initial Self just to list each new preference, or create another People record for a name already attributable to an existing record. Scoped Self/History investigation expands only as needed; unknown coverage cannot be traded for a faster invented answer.
-
-The user reports ordinary turns around 30 seconds. No Claude operation trace is available here. Redundant retrieval, unnecessary writes and repeated discovery are possible costs, not established causes of that timing. Codex read-only discovery durations are not Claude learning benchmarks. Record actual operation start/end times, repeated queries, missing-field reads, retries, dependency waits and verified learning outcomes using tests/LIVE_025.md before claiming speedup. Parallelize only independent scoped reads supported by the host; all existing mutation dependencies stay intact.
+Measure in actual Claude: client/plugin version, fresh/warm chat, user-send and final-response times, actual Drive and Docs tool names/start/end, read/write counts, retries, scope checks, pending outcomes and required evidence. Separate setup, unchanged recall, new learning, guarded revision and no-guard addendum. Compare at least three equivalent runs if practical and report median/range; missing instrumentation stays unknown. Static dependency counts and local test duration are NOT measured Google latency. Historical 35/32-second reports do not establish a 3-second improvement. No speedup is claimed in this release.

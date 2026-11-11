@@ -69,7 +69,7 @@ class EntryAndInstructionTests(unittest.TestCase):
         contract=(ROOT/'references/operating-contract.md').read_text()
         self.assertIn('Missing configuration is an ordinary setup state',contract)
         self.assertIn('Account email identification is optional, never a prerequisite',contract)
-        self.assertIn('never infer it from an existing file owner',contract)
+        self.assertIn('Do not assume the account owner and speaker are the same person',contract)
         for p in (ROOT/'skills').glob('*/SKILL.md'):
             self.assertIn('../../references/operating-contract.md',p.read_text())
     def test_one_step_setup_and_no_new_cortex_guide(self):
@@ -90,13 +90,12 @@ class EntryAndInstructionTests(unittest.TestCase):
         self.assertIn("I'd give Aurora a recognizable silhouette",text)
     def test_new_topic_learning_and_verification_not_removed(self):
         text=(ROOT/'TURN_EFFICIENCY.md').read_text()
-        self.assertIn('Keep both.',text)
-        self.assertIn('contribution create/read-back followed by topic create/read-back',text)
+        self.assertIn('No latency target overrides autonomous selective learning',text)
+        self.assertIn('contribution create/read-back followed by current-doc create/read-back',text)
         self.assertIn('do not establish a 3-second improvement',text)
-    def test_static_text_measurement_honest_and_smaller(self):
+    def test_static_text_measurement_honest(self):
         m=json.loads((ROOT/'tests/INSTRUCTION_SIZE.json').read_text())
         self.assertEqual(m['new_five_skill_bytes'],sum(len(p.read_bytes()) for p in (ROOT/'skills').glob('*/SKILL.md')))
         self.assertEqual(m['new_shared_contract_bytes'],len((ROOT/'references/operating-contract.md').read_bytes()))
-        self.assertLess(m['new_five_skill_bytes']+m['new_shared_contract_bytes'],m['previous_five_skill_bytes'])
 
 if __name__=='__main__':unittest.main()

@@ -1,7 +1,7 @@
-Version 0.2.5 local validation
-PASS: 40 existing local regression tests (protocol/concurrency models, guide safety, instruction/package contracts).
-PASS: five Skill YAML frontmatters, package manifest/schema/links, official Claude CLI validator with existing ignored-metadata warning.
-PASS: storage protocol, guide migration, marketplace, config schema and all six templates byte-identical to 0.2.4.
-REVIEWED: new Self continuity instruction branches for established/revised/unset/unknown, own-choice learning, name matching and shared-person ambiguity. This is editorial review, not model execution.
-OBSERVED READ-ONLY: Codex Drive found Lite config but omitted requested description; empty body cannot establish missing memory. No further Cortex scope inferred, no Drive writes.
-NOT RUN: actual Claude Self learning, fresh-chat recall, deliberate revisions, name recognition, concurrency execution or response latency. Incident root cause unresolved. See INCIDENT_025.md and LIVE_025.md.
+Yori Lite 0.2.6 — readable Docs local validation
+PASS: 67 local tests, comprising legacy regression models/checks, 12 integrity fault-model tests and 15 Docs/migration fault-model tests.
+PASS: config schema accepts existing schema_version 1 configurations and optional metadata-v1/mixed-v1-v2/docs-v2 format values; rejects unsupported formats. Existing pointer fields and fixed UUID unchanged.
+PASS: five Skill YAML frontmatters, package identities and linked resources; official Claude CLI validation with existing ignored-metadata-extension warning.
+USER-REPORTED LIVE PASS: Claude Drive/Docs creation, reading, editing existing body and read-back.
+NOT RUN HERE: complete live onboarding/migration/Self/People lifecycle, two-user concurrency, Google Docs visual inspection or latency. No Drive operations or dataset repairs performed by this build agent.
+See MARKETPLACE_INSTALL.md for isolated GitHub upgrade results and LIVE_026.md for outstanding actual-Claude acceptance.

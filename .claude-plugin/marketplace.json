@@ -8,7 +8,7 @@
     {
       "name": "yori-lite",
       "source": "./",
-      "description": "Yori Lite: metadata memory, developing Self and autonomous learning through Google Drive.",
+      "description": "Yori Lite: readable Google Docs memory and autonomous learning with Google Drive organization.",
       "strict": true
     }
   ]
