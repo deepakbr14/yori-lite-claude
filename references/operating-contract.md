@@ -1,4 +1,4 @@
-# Yori Lite operating contract — 0.2.6
+# Yori Lite operating contract — 0.2.7
 
 ## Conversation and scope — always apply
 
@@ -14,7 +14,7 @@ Google Drive provides scoped discovery, folders, file IDs/parents, permissions a
 
 Account email identification is optional, never a prerequisite. Use the already-connected services and verify they can access the same exact file IDs; a real mismatch or denied access needs resolution, not guessed emails. State sharing once when relevant: people with access to this folder can access its saved memories. Do not change ACLs. No routine Drive URLs, repeated emails, internal IDs, JSON/revision chatter or progress messages. Host tool activity/cards and approval dialogs are outside Skill narration control.
 
-Missing configuration is an ordinary setup state, not an error or proof of a first visit. Resolve the user's unique My Drive/config_plugins and fixed config filename before memory access in every new chat. Follow [connection](../skills/yori-lite-connect/SKILL.md). Verify exact active Cortex and parent scope. Shared access does not identify the human speaker. Do not assume the account owner and speaker are the same person.
+Missing configuration is an ordinary setup state, not an error or proof of a first visit. Resolve the user's unique My Drive/config_plugins and fixed config filename before memory access in every new chat. Follow [connection](../skills/yori-lite-connect/SKILL.md). Verify exact active Cortex and parent scope. Shared access does not identify the human speaker. Do not assume the account owner and speaker are the same person. Follow [participant recognition](participant-recognition.md): a sole known participant can be a conversational default without authentication; no repeated identity question or sharing disclaimer in a routine greeting. Resolve identity before disclosing person-specific history in ambiguous shared contexts.
 
 ## Body-first memory and continuity
 

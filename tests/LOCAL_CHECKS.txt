@@ -1,7 +1,6 @@
-Yori Lite 0.2.6 — readable Docs local validation
-PASS: 67 local tests, comprising legacy regression models/checks, 12 integrity fault-model tests and 15 Docs/migration fault-model tests.
-PASS: config schema accepts existing schema_version 1 configurations and optional metadata-v1/mixed-v1-v2/docs-v2 format values; rejects unsupported formats. Existing pointer fields and fixed UUID unchanged.
-PASS: five Skill YAML frontmatters, package identities and linked resources; official Claude CLI validation with existing ignored-metadata-extension warning.
-USER-REPORTED LIVE PASS: Claude Drive/Docs creation, reading, editing existing body and read-back.
-NOT RUN HERE: complete live onboarding/migration/Self/People lifecycle, two-user concurrency, Google Docs visual inspection or latency. No Drive operations or dataset repairs performed by this build agent.
-See MARKETPLACE_INSTALL.md for isolated GitHub upgrade results and LIVE_026.md for outstanding actual-Claude acceptance.
+Yori Lite 0.2.7 local validation
+PASS: 84 local tests, including 17 new participant-recognition policy cases and 67 existing protocol/integrity/migration/regression tests.
+PASS: 10 storage/configuration/template/marketplace files byte-identical to 0.2.6; no storage/config migration.
+PASS: package identity/schema/links and five Skill frontmatters; official CLI result recorded with distribution evidence.
+OBSERVED: one read-only Codex Google Drive profile call returned account ID/email/name fields. No private values in repo; no Cortex mutation.
+NOT VERIFIED: actual Claude user/profile tool interface, account-key stability across Claude chats, live greetings/mapping writes/disclosure behavior. See IDENTITY_027.md and LIVE_027.md.

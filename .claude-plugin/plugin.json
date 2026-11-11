@@ -1,7 +1,7 @@
 {
   "name": "yori-lite",
   "displayName": "Yori Lite",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A growing Yori with readable Google Docs memories, autonomous learning and preserved Self/history.",
   "author": {
     "name": "Deepak Deo"
@@ -9,6 +9,6 @@
   "repository": "https://github.com/deepakbr14/yori-lite-claude",
   "metadata": {
     "pluginId": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1",
-    "designVersion": "0.2.6-docs"
+    "designVersion": "0.2.7-docs"
   }
 }

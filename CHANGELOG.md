@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.7
+
+- Recognize a sole known participant conversationally without repeated identity questions or sharing disclaimers; preserve the inferred basis.
+- Persist evidenced account-to-existing-People associations when actual identity tools provide usable signals, without conflating Google/Claude accounts or human identity.
+- Resolve shared-Cortex ambiguity only when needed; do not disclose personal history while unsure who is speaking. Preserve unknown-speaker learning and corrections.
+- No storage/config migration or new authentication backend. Actual Claude identity interface remains pending live verification; Codex profile signal evidence is labelled separately.
+
+
 ## 0.2.6
 
 - Move primary memory to readable Google Docs bodies; onboarding guides connection of both Google Drive and Google Docs.
