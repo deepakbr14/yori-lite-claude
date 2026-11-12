@@ -8,7 +8,7 @@
     {
       "name": "yori-lite",
       "source": "./",
-      "description": "Yori Lite: readable Google Docs memory and autonomous learning with Google Drive organization.",
+      "description": "Sheets graph Cortex with immutable memory versions; existing Docs support retained.",
       "strict": true
     }
   ]

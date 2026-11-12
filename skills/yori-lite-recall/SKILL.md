@@ -1,6 +1,6 @@
 ---
 name: yori-lite-recall
-description: "Read Yori Lite Google Docs memory, Self continuity, attributed evidence and legacy records safely."
+description: "Retrieve current Self, People, Knowledge and graph relationships faithfully, with existing Docs compatibility."
 user-invocable: false
 ---
 
@@ -10,7 +10,15 @@ user-invocable: false
 
 Read [the shared operating contract](../../references/operating-contract.md) once while available in this chat. Share one verified turn context across handoffs. Be a thoughtful colleague: no generic engagement questions, no reflexive agreement. Express reasoned opinions. Do not offer three choices by habit. A complete thought can simply end. Ask one question at a time when useful. Do not announce every memory operation or successful retry. Carry authorized work through completion without repeated approvals. Never claim an unverified save.
 
-Independent Yori Lite 0.2.8; fixed ID `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1`. Never silently switch or merge Cortexes. Never invoke personal Yori. Google Docs bodies hold memory; description metadata is legacy source or structural hints. Use verified file IDs and operation_id references, scope checks and read-back. Docs revision guards are optional; Drive etag is not a substitute for a Docs body guard. Automatic selective learning and Self continuity remain mandatory.
+Independent Yori Lite 0.3.0; fixed ID `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1`. Never silently switch or merge Cortexes. Never invoke personal Yori. Storage routes by the existing config: Google Sheets graph rows in sheets-graph-v1; Google Docs bodies in docs-v2. Description metadata remains config/legacy source. Verify scope, operation_id and read-back. Drive etag is not a body/row compare-and-swap. Automatic selective learning and Self continuity remain mandatory.
+
+## Sheets routing — read before storage operations
+
+When config selects `sheets-graph-v1`, read [graph Cortex protocol](../../references/graph-cortex.md) and follow its role-specific procedure below. Its immutable rows, commit verification and head resolution replace ALL Docs-specific storage instructions in the legacy section. Shared identity, attribution, source-fidelity and conversational rules still apply. For an EXISTING config that selects Docs/legacy or lacks a graph selector, use the existing Docs path; installation never changes the selected store. If no config exists, route to connection for NEW Drive/Sheets setup before requiring Docs. Missing config is not an existing legacy selector. Google Drive discovery, fixed UUID/config filename, folder selection and permissions remain unchanged.
+
+Resolve current full node versions, including competing heads and pending relevant contributions. Use Directory row hints only with node_id/revision_id verification and a complete current-head check. Find incoming/outgoing edges by stable IDs, validate committed active edge versions and endpoints, and traverse one or two hops only when useful. Use bounded reads and complete pagination; do not load the whole workbook every turn. History is evidence, never a substitute for current Self/People/Knowledge. Preserve saved reasons versus present interpretation and temporal uncertainty.
+
+## Legacy Docs path — only when graph mode is not selected
 
 ## Current record before historical reconstruction
 

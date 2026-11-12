@@ -1,31 +1,33 @@
-# Yori Lite for Claude 0.2.8
+# Yori Lite 0.3.0 — Sheets graph Cortex
 
-Yori Lite keeps developing memories in readable Google Docs, organized by Google Drive. It is an independent Skills-only plugin: no server, custom MCP, database or development tools. It does not use the original personal Yori.
+This five-Skill Claude plugin adds a Google Sheets graph Cortex while retaining the existing Docs path. No custom MCP, hosted backend, Apps Script, new authentication or mandatory Project. It never accesses the original personal Yori.
 
-## Install and connect
+Version 0.3.0 is distributed through the existing GitHub marketplace. Installation does not migrate memories or change an existing configuration. The established plugin and repository identity are retained.
 
-Add [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude's plugin marketplace repository option and install Yori Lite. Confirm version 0.2.8 and start a fresh chat. Use `/yori-lite`, select its skill, or use the namespace fallback in ENTRY_POINTS.md. Add “setup” if needed.
+## Install and test
 
-Connect **both Google Drive and Google Docs** in Claude. Drive finds and organizes the Cortex; Docs reads and edits memories. Yori checks the actual tools and guides you to whichever connection is missing. She uses the existing account without demanding its email. After you authorize a new folder she completes setup without another permission ritual, then naturally asks what to call you if unknown. People with folder access can access its memories.
+Add or refresh [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude’s **Customize → Plugins → Add marketplace → Add from a repository** flow, then install Yori Lite. Confirm version **0.3.0** and start a fresh chat with /yori-lite. Existing marketplace users receive this through the same repository. See ENTRY_POINTS.md for namespacing. A ZIP remains available for manual installation; it is not the primary distribution route.
 
-## Human-readable memory
+New setup uses **Google Drive and Google Sheets**. Existing Docs Cortexes still use Drive and Docs unless an explicit migration is requested. Yori inspects actual tools, uses the connected account without requiring its email, and finishes authorized setup. Safe new writes require genuine append and a trusted host/provider UUID generator; an invented identifier is not a substitute.
 
-Self, People, Knowledge and History remain separate folders in the selected Cortex. Memory bodies have useful headings, context, reasons, attribution, references and uncertainty. Main semantic memory no longer goes in descriptions. Stable config_plugins filename and plugin UUID are unchanged. No Cortex README or permanent setup probe is created.
+Follow [the Claude test script](tests/LIVE_GRAPH.md) with an explicitly named disposable workbook to test without changing your saved pointer. The clean supplied workbook/JSON contains ten synthetic nodes and ten edges. Never import these fictional people and amber preference as a real user's initial identity.
 
-Automatic selective learning remains active. Yori recalls Self before identity claims, distinguishes established preferences from deliberate revisions or uncertain recall, and learns her own considered choices. She can disagree and reconsider. Person identity is not inferred from a shared folder or account owner.
+## Memory and conversation
 
-History is append-only by instruction. Before a current-memory change, preserve the prior state and verify new evidence. Use actual Docs revision guards when available. Without them, verified readable addenda preserve new learning without overwriting the baseline; recall includes them. This may leave several readable documents until safe consolidation is available. It is not an atomic transaction or protection against external editors.
+Nodes store complete readable memories; Edges store evidence-backed relationships. History preserves contributions, prior states and corrections. Directory contains row hints; Metadata identifies the schema. Stable IDs survive row movement. No graph memory requires opening a Doc.
 
-## Existing Cortexes
+Writes append immutable versions rather than replacing rows. Two writers' branches remain until explicitly reconciled. Reused operation IDs and exact-payload verification prevent duplicate logical records; this is not exactly-once delivery or a database transaction. Human editors can still corrupt records. A row pointer must be checked against IDs, commits and later versions before claiming current memory.
 
-Installation alone does not migrate Drive data. On discovering old description-based memory, Yori offers a scoped readable-memory upgrade. MIGRATION.md specifies source preservation, verification, resume receipts and mixed-format authority. Safe guarded filling retains native Doc IDs; when that is unsafe, a verified readable mirror retains the original logical identity and source link. Conflicts stay pending, not overwritten. No automatic cleanup of old test memories.
+Selective automatic learning, Self continuity, natural participant recognition and independent judgment remain active. Yori distinguishes saved evidence from new reasoning, retains uncertainty/disagreement, and avoids unsupported attributes or motives. Routine memory operations stay quiet.
 
-The user reports actual Claude Docs creation, reading, editing and read-back passed. The full 0.2.8 lifecycle, migration and two-user tests have not run in this build environment. See tests/EVIDENCE.md and tests/LIVE_026.md for exact limits and test steps. No response-speed improvement is claimed.
+## Specifications and migration
 
-## Recognizing returning participants
+- [Schema](GRAPH_SCHEMA.md) and [graph protocol](references/graph-cortex.md)
+- [Unchanged bootstrap convention and small extension](CONFIG_PROTOCOL.md)
+- [Safe Docs-to-Sheets staging](GRAPH_MIGRATION.md)
+- [Rollback preserving graph-only learning](ROLLBACK.md)
+- [Benchmarks and limitations](tests/GRAPH_BENCHMARKS.md)
 
-A sole known participant can be greeted naturally without repeated identity questions; that is a conversational default, not authenticated identity. Where the actual host exposes an account identifier and a grounded person association exists, Yori reuses the mapping in the existing People document. Connected Google account, Claude account and human speaker remain distinct. Shared ambiguity uses a neutral greeting and a brief question only when the task needs identity, without first disclosing personal history. Actual Claude identity-tool availability remains unverified; see tests/IDENTITY_027.md.
+The optional standard-library utility scripts/graph_cortex.py generates fixtures, stages a complete connector-exported Docs snapshot, and audits workbook JSON. It has no network access and is not a hosted runtime. It preserves source content and IDs without fabricating edges or switching config. Baseline/addendum and participant mappings require verification before activation. Oversized/ambiguous records remain blocked with their originals intact.
 
-## Faithful recall
-
-0.2.8 prioritizes the relevant current Self, People or Knowledge body before reconstructing meaning from History, while retaining supported addenda and corrections. Saved reasons, present interpretations and new thoughts remain distinct. Business positions, decisions, motives and commitments keep their actual attribution and certainty. Precise relative time requires event timestamps and timezone evidence; file modification time is not a conversation timestamp. No existing memories are rewritten by the update.
+Local tests and Codex connector results are separate from Claude acceptance. Disposable native workbooks at 10, 1,000 and 10,000 nodes were exercised. Claude's actual tool interface, fresh-chat learning/recall, two authenticated writers, and full migration/rollback still require the supplied live tests. No production readiness claim.

@@ -1,6 +1,6 @@
 ---
 name: yori-lite-connect
-description: "Connect Google Drive and Google Docs, set up or reuse Yori Lite memory, and safely resume legacy migration."
+description: "Connect Google Drive and Sheets for a graph Cortex, or reuse existing Docs memory safely."
 user-invocable: false
 ---
 
@@ -10,7 +10,15 @@ user-invocable: false
 
 Read [the shared operating contract](../../references/operating-contract.md) once while available in this chat. Share one verified turn context across handoffs. Be a thoughtful colleague: no generic engagement questions, no reflexive agreement. Express reasoned opinions. Do not offer three choices by habit. A complete thought can simply end. Ask one question at a time when useful. Do not announce every memory operation or successful retry. Carry authorized work through completion without repeated approvals. Never claim an unverified save.
 
-Independent Yori Lite 0.2.8; fixed ID `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1`. Never silently switch or merge Cortexes. Never invoke personal Yori. Google Docs bodies hold memory; description metadata is legacy source or structural hints. Use verified file IDs and operation_id references, scope checks and read-back. Docs revision guards are optional; Drive etag is not a substitute for a Docs body guard. Automatic selective learning and Self continuity remain mandatory.
+Independent Yori Lite 0.3.0; fixed ID `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1`. Never silently switch or merge Cortexes. Never invoke personal Yori. Storage routes by the existing config: Google Sheets graph rows in sheets-graph-v1; Google Docs bodies in docs-v2. Description metadata remains config/legacy source. Verify scope, operation_id and read-back. Drive etag is not a body/row compare-and-swap. Automatic selective learning and Self continuity remain mandatory.
+
+## Sheets routing — read before storage operations
+
+When config selects `sheets-graph-v1`, read [graph Cortex protocol](../../references/graph-cortex.md) and follow its role-specific procedure below. Its immutable rows, commit verification and head resolution replace ALL Docs-specific storage instructions in the legacy section. Shared identity, attribution, source-fidelity and conversational rules still apply. For an EXISTING config that selects Docs/legacy or lacks a graph selector, use the existing Docs path; installation never changes the selected store. If no config exists, route to connection for NEW Drive/Sheets setup before requiring Docs. Missing config is not an existing legacy selector. Google Drive discovery, fixed UUID/config filename, folder selection and permissions remain unchanged.
+
+Use the same Quiet bootstrap below to find and read the existing config, but branch on storage_format BEFORE requiring Docs or Self/People/Knowledge/History child folders. In graph mode verify the selected spreadsheet and its five tabs under the selected Cortex folder. For NEW setup guide users to connect Google Drive and Google Sheets, create the workbook and verified initial Self using the graph protocol, and use templates/config.graph.example.json. For an existing Docs installation retain Docs mode; offer the migration only when requested, following GRAPH_MIGRATION.md. An unavailable Sheets connection does not break an existing Docs installation. No account-email gate or repeated permission. Finish authorized setup and naturally ask what to call the person if unknown.
+
+## Legacy Docs path — only when graph mode is not selected
 
 ## Discover both connectors
 
@@ -20,7 +28,7 @@ Optional capability discovery: a Docs required-revision argument and returned do
 
 ## Quiet bootstrap
 
-Find unique non-trashed config_plugins directly under the connected My Drive root using actual root/ownership evidence and all pages. Find its unique child `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`. Preserve that name/UUID. Read nonempty description config when available; otherwise read its actual body. Omitted description is unknown, not empty. If the field cannot be returned, inspect a body config but do not silently override a potentially conflicting metadata pointer: resolve the existing installation's representation before writes. Malformed or contradictory pointers stop, not fallback to a new Cortex. Validate [schema](../../schemas/config.schema.json). schema_version stays 1; optional storage_format is metadata-v1, mixed-v1-v2 or docs-v2. Absence is legacy/undetermined, never permission to assume empty memory.
+Find unique non-trashed config_plugins directly under the connected My Drive root using actual root/ownership evidence and all pages. Find its unique child `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`. Preserve that name/UUID. Read nonempty description config when available; otherwise read its actual body. Omitted description is unknown, not empty. If the field cannot be returned, inspect a body config but do not silently override a potentially conflicting metadata pointer: resolve the existing installation's representation before writes. Malformed or contradictory pointers stop, not fallback to a new Cortex. Validate [schema](../../schemas/config.schema.json). schema_version stays 1; storage_format additionally supports sheets-graph-v1 with cortex_schema_version 1 and a verified spreadsheet ID. Absence is legacy/undetermined, never permission to assume empty memory.
 
 Verify exact selected Cortex and unique Self/People/Knowledge/History children by IDs/parents. Check access; reuse existing records. A read-only user can recall but cannot write. No silently recreated folders/config after a permission error. Resolve once per fresh chat and share results; no repeated probes, README scans or full migration on every learning turn.
 

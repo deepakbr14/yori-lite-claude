@@ -1,14 +1,14 @@
 {
   "name": "yori-lite",
   "displayName": "Yori Lite",
-  "version": "0.2.8",
-  "description": "A growing Yori with readable Google Docs memories, autonomous learning and preserved Self/history.",
+  "version": "0.3.0",
+  "description": "Sheets graph Cortex with immutable memory versions; existing Docs support retained.",
   "author": {
     "name": "Deepak Deo"
   },
   "repository": "https://github.com/deepakbr14/yori-lite-claude",
   "metadata": {
     "pluginId": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1",
-    "designVersion": "0.2.8-docs"
+    "designVersion": "0.3.0-sheets-graph"
   }
 }

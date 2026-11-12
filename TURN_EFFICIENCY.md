@@ -1,5 +1,7 @@
 # Efficient two-connector operation
 
+For `sheets-graph-v1`, use [graph protocol](references/graph-cortex.md) and [Docs-to-Sheets migration](GRAPH_MIGRATION.md). The Docs-specific mechanics below remain unchanged for legacy installations only.
+
 No latency target overrides autonomous selective learning, Self continuity, attribution, snapshots or verification. User reports earlier ordinary turns around 30 seconds; no 0.2.6 live timing trace is available here.
 
 Resolve Drive config/Cortex once per fresh chat, retain exact IDs and then use scoped body retrieval. Share one verified turn context across Skills: folder IDs, capability signatures, source bodies/revisions, evidence and operation receipts. No repeated global discovery or same-turn Self reload at a handoff. A later turn validates known config/target access; use known IDs instead of name searches. Account change, permission failure, source move, new revision or incomplete results invalidate affected evidence.

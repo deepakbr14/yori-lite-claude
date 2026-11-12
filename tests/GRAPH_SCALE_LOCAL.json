@@ -1,0 +1,161 @@
+{
+  "environment": "local Python only; full in-memory materialization is test harness, NOT recommended runtime retrieval",
+  "results": [
+    {
+      "initial_nodes": 10,
+      "initial_edges": 10,
+      "build_seconds": 0.000897957943379879,
+      "offline_full_audit": {
+        "median_ms": 0.295375008136034,
+        "range_ms": [
+          0.25808392092585564,
+          0.3285827115178108
+        ]
+      },
+      "offline_direct_hint": {
+        "median_ms": 0.001125037670135498,
+        "range_ms": [
+          0.0005420297384262085,
+          0.0014579854905605316
+        ]
+      },
+      "offline_ID_linear_scan": {
+        "median_ms": 0.000541098415851593,
+        "range_ms": [
+          0.00041583552956581116,
+          0.0009159557521343231
+        ]
+      },
+      "offline_keyword_scan": {
+        "median_ms": 0.0005420297384262085,
+        "range_ms": [
+          0.0004577450454235077,
+          0.0010826624929904938
+        ]
+      },
+      "offline_one_hop_including_full_audit": {
+        "median_ms": 0.2615000121295452,
+        "range_ms": [
+          0.25583337992429733,
+          0.26308419182896614
+        ]
+      },
+      "offline_two_hops_including_full_audit": {
+        "median_ms": 0.25454210117459297,
+        "range_ms": [
+          0.25366712361574173,
+          0.25862501934170723
+        ]
+      },
+      "offline_create_node_edge_verify_ms": 0.42070820927619934,
+      "offline_revision_verify_ms": 0.3543752245604992,
+      "exact_integrity_pass": true,
+      "google_calls": 0,
+      "claude_response_latency": null
+    },
+    {
+      "initial_nodes": 1000,
+      "initial_edges": 1000,
+      "build_seconds": 0.07918154122307897,
+      "offline_full_audit": {
+        "median_ms": 26.506334077566862,
+        "range_ms": [
+          25.947249960154295,
+          26.94604080170393
+        ]
+      },
+      "offline_direct_hint": {
+        "median_ms": 0.00033387914299964905,
+        "range_ms": [
+          0.00029103830456733704,
+          0.0016656704246997833
+        ]
+      },
+      "offline_ID_linear_scan": {
+        "median_ms": 0.03045797348022461,
+        "range_ms": [
+          0.026708003133535385,
+          0.03258325159549713
+        ]
+      },
+      "offline_keyword_scan": {
+        "median_ms": 0.034207943826913834,
+        "range_ms": [
+          0.03395788371562958,
+          0.03700004890561104
+        ]
+      },
+      "offline_one_hop_including_full_audit": {
+        "median_ms": 26.829249691218138,
+        "range_ms": [
+          26.192542165517807,
+          28.40991597622633
+        ]
+      },
+      "offline_two_hops_including_full_audit": {
+        "median_ms": 28.27712520956993,
+        "range_ms": [
+          27.17412495985627,
+          29.794790782034397
+        ]
+      },
+      "offline_create_node_edge_verify_ms": 26.364583056420088,
+      "offline_revision_verify_ms": 28.84516678750515,
+      "exact_integrity_pass": true,
+      "google_calls": 0,
+      "claude_response_latency": null
+    },
+    {
+      "initial_nodes": 10000,
+      "initial_edges": 10000,
+      "build_seconds": 0.7940909592434764,
+      "offline_full_audit": {
+        "median_ms": 293.27370785176754,
+        "range_ms": [
+          286.2065411172807,
+          298.4028747305274
+        ]
+      },
+      "offline_direct_hint": {
+        "median_ms": 0.0003748573362827301,
+        "range_ms": [
+          0.0002919696271419525,
+          0.0015827827155590057
+        ]
+      },
+      "offline_ID_linear_scan": {
+        "median_ms": 0.3031659871339798,
+        "range_ms": [
+          0.29054097831249237,
+          0.7039159536361694
+        ]
+      },
+      "offline_keyword_scan": {
+        "median_ms": 0.3613326698541641,
+        "range_ms": [
+          0.34858426079154015,
+          0.4851659759879112
+        ]
+      },
+      "offline_one_hop_including_full_audit": {
+        "median_ms": 292.2934996895492,
+        "range_ms": [
+          286.05283331125975,
+          292.9045418277383
+        ]
+      },
+      "offline_two_hops_including_full_audit": {
+        "median_ms": 293.3409162797034,
+        "range_ms": [
+          281.4329997636378,
+          298.11650002375245
+        ]
+      },
+      "offline_create_node_edge_verify_ms": 289.8152908310294,
+      "offline_revision_verify_ms": 294.94912503287196,
+      "exact_integrity_pass": true,
+      "google_calls": 0,
+      "claude_response_latency": null
+    }
+  ]
+}

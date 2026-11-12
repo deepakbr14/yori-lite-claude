@@ -4,10 +4,12 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def validate(value,schema):
+
     if 'const' in schema and (type(value)!=type(schema['const']) or value!=schema['const']): raise ValueError('const')
     if 'enum' in schema and value not in schema['enum']:raise ValueError('enum')
     t=schema.get('type')
-    if t=='object':
+    if t=='object' and not isinstance(value,dict):raise ValueError('object')
+    if isinstance(value,dict):
         if not isinstance(value,dict): raise ValueError('object')
         if not set(schema.get('required',[]))<=value.keys(): raise ValueError('required')
         if schema.get('additionalProperties') is False and value.keys()-schema.get('properties',{}).keys(): raise ValueError('additional')
@@ -16,11 +18,17 @@ def validate(value,schema):
     if t=='string':
         if not isinstance(value,str) or len(value)<schema.get('minLength',0):raise ValueError('string')
         if 'pattern' in schema and re.search(schema['pattern'],value) is None:raise ValueError('pattern')
+    for branch in schema.get('allOf',[]):
+        if 'if' in branch:
+            try:validate(value,branch['if'])
+            except ValueError:validate(value,branch.get('else',{}))
+            else:validate(value,branch.get('then',{}))
+        else:validate(value,branch)
 
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.2.8'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.3.0'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1

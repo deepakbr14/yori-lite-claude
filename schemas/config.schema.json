@@ -32,6 +32,11 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "google_sheets_spreadsheet_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_-]+$"
         }
       }
     },
@@ -40,8 +45,38 @@
       "enum": [
         "metadata-v1",
         "mixed-v1-v2",
-        "docs-v2"
+        "docs-v2",
+        "sheets-graph-v1"
       ]
+    },
+    "cortex_schema_version": {
+      "const": 1
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "storage_format"
+        ],
+        "properties": {
+          "storage_format": {
+            "const": "sheets-graph-v1"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "cortex_schema_version"
+        ],
+        "properties": {
+          "active_cortex": {
+            "required": [
+              "google_sheets_spreadsheet_id"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

@@ -1,3 +1,7 @@
+# 0.3.0 — Sheets graph Cortex
+
+Standard GitHub marketplace update. Adds full node/edge version rows, append-only logical commits, Directory hints with ID checks, conflict branches, bounded traversal, staged Docs migration and rollback. Keeps existing configuration/bootstrap and all Docs behavior unless graph storage is explicitly selected. Actual Claude capabilities, fresh-chat recall, two-user conflicts and scale acceptance remain pending.
+
 # Changelog
 
 ## 0.2.8

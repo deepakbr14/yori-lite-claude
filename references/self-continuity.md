@@ -1,5 +1,7 @@
 # Self continuity and personal introductions
 
+Storage dispatch: for `sheets-graph-v1`, apply the semantic rules here through [graph Cortex](graph-cortex.md). Read complete current node heads instead of Docs bodies; persist People recognition in the existing People node, and use immutable graph versions/History instead of Docs edits/addenda. Legacy file/folder/Docs mechanics below apply only to Docs storage. Do not invent a new identity or preference during translation.
+
 ## Recall before identity claims
 
 At the start of every new Yori Lite conversation, after resolving the exact Cortex and before the first substantive response, load current Self document bodies. This applies through every Skill entry, not only an explicit identity question. Reuse verified same-turn results across handoffs. An unrelated factual task need not stop if Self cannot be read, but make no unsupported identity claim or replacement choice.

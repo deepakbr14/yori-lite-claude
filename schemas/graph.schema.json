@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yori Lite graph workbook staging format",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "Nodes",
+    "Edges",
+    "History",
+    "Directory",
+    "Metadata"
+  ],
+  "properties": {
+    "Nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "node_id",
+          "revision_id",
+          "operation_id",
+          "kind",
+          "title",
+          "content",
+          "subject",
+          "contributor",
+          "attribution",
+          "source",
+          "created_at",
+          "updated_at",
+          "event_time",
+          "base_revision_ids",
+          "version",
+          "status"
+        ],
+        "properties": {
+          "node_id": {
+            "type": "string"
+          },
+          "revision_id": {
+            "type": "string"
+          },
+          "operation_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "contributor": {
+            "type": "string"
+          },
+          "attribution": {
+            "enum": [
+              "explicit_statement",
+              "external_evidence",
+              "inference",
+              "decision",
+              "mixed",
+              "unknown"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "event_time": {
+            "type": "string"
+          },
+          "base_revision_ids": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "enum": [
+              "active",
+              "retired"
+            ]
+          }
+        }
+      },
+      "x-column-order": [
+        "node_id",
+        "revision_id",
+        "operation_id",
+        "kind",
+        "title",
+        "content",
+        "subject",
+        "contributor",
+        "attribution",
+        "source",
+        "created_at",
+        "updated_at",
+        "event_time",
+        "base_revision_ids",
+        "version",
+        "status"
+      ]
+    },
+    "Edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "edge_id",
+          "revision_id",
+          "operation_id",
+          "from_node_id",
+          "to_node_id",
+          "relation",
+          "strength",
+          "evidence",
+          "contributor",
+          "attribution",
+          "created_at",
+          "base_revision_ids",
+          "version",
+          "status"
+        ],
+        "properties": {
+          "edge_id": {
+            "type": "string"
+          },
+          "revision_id": {
+            "type": "string"
+          },
+          "operation_id": {
+            "type": "string"
+          },
+          "from_node_id": {
+            "type": "string"
+          },
+          "to_node_id": {
+            "type": "string"
+          },
+          "relation": {
+            "type": "string"
+          },
+          "strength": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "contributor": {
+            "type": "string"
+          },
+          "attribution": {
+            "enum": [
+              "explicit_statement",
+              "external_evidence",
+              "inference",
+              "decision",
+              "mixed",
+              "unknown"
+            ]
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "base_revision_ids": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "enum": [
+              "active",
+              "retired"
+            ]
+          }
+        }
+      },
+      "x-column-order": [
+        "edge_id",
+        "revision_id",
+        "operation_id",
+        "from_node_id",
+        "to_node_id",
+        "relation",
+        "strength",
+        "evidence",
+        "contributor",
+        "attribution",
+        "created_at",
+        "base_revision_ids",
+        "version",
+        "status"
+      ]
+    },
+    "History": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "operation_id",
+          "event_type",
+          "entity_id",
+          "content",
+          "contributor",
+          "attribution",
+          "source",
+          "recorded_at",
+          "base_revision_ids",
+          "manifest"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string"
+          },
+          "operation_id": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "entity_id": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "contributor": {
+            "type": "string"
+          },
+          "attribution": {
+            "enum": [
+              "explicit_statement",
+              "external_evidence",
+              "inference",
+              "decision",
+              "mixed",
+              "unknown"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "recorded_at": {
+            "type": "string"
+          },
+          "base_revision_ids": {
+            "type": "string"
+          },
+          "manifest": {
+            "type": "string"
+          }
+        }
+      },
+      "x-column-order": [
+        "event_id",
+        "operation_id",
+        "event_type",
+        "entity_id",
+        "content",
+        "contributor",
+        "attribution",
+        "source",
+        "recorded_at",
+        "base_revision_ids",
+        "manifest"
+      ]
+    },
+    "Directory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hint_id",
+          "node_id",
+          "revision_id",
+          "row_number",
+          "operation_id",
+          "verified_at"
+        ],
+        "properties": {
+          "hint_id": {
+            "type": "string"
+          },
+          "node_id": {
+            "type": "string"
+          },
+          "revision_id": {
+            "type": "string"
+          },
+          "row_number": {
+            "type": "integer",
+            "minimum": 2
+          },
+          "operation_id": {
+            "type": "string"
+          },
+          "verified_at": {
+            "type": "string"
+          }
+        }
+      },
+      "x-column-order": [
+        "hint_id",
+        "node_id",
+        "revision_id",
+        "row_number",
+        "operation_id",
+        "verified_at"
+      ]
+    },
+    "Metadata": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record_id",
+          "key",
+          "value",
+          "recorded_at"
+        ],
+        "properties": {
+          "record_id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "recorded_at": {
+            "type": "string"
+          }
+        }
+      },
+      "x-column-order": [
+        "record_id",
+        "key",
+        "value",
+        "recorded_at"
+      ]
+    }
+  }
+}

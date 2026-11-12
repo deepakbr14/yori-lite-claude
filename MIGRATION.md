@@ -1,5 +1,7 @@
 # Safe migration to readable Docs — format 2
 
+For `sheets-graph-v1`, use [graph protocol](references/graph-cortex.md) and [Docs-to-Sheets migration](GRAPH_MIGRATION.md). The Docs-specific mechanics below remain unchanged for legacy installations only.
+
 Installing 0.2.6 alone changes no Drive data. Preserve the fixed plugin UUID, config filename, selected Cortex ID, Self/People/Knowledge/History and all original sources. Do not create a new Cortex because an old body is blank. Never migrate original personal Yori. Migration requires authorization for the selected Lite Cortex and actual Drive description reads plus Docs body create/read/edit capability. User-tested Docs support establishes the design; unavailable source fields block affected conversions, not the whole installation.
 
 ## Version and authority

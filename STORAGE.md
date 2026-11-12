@@ -1,5 +1,7 @@
 # Readable Google Docs memory protocol — 0.2.6
 
+For `sheets-graph-v1`, use [graph protocol](references/graph-cortex.md) and [Docs-to-Sheets migration](GRAPH_MIGRATION.md). The Docs-specific mechanics below remain unchanged for legacy installations only.
+
 Google Drive handles files, scope and config; Google Docs handles authoritative memory bodies. The user reports successful actual-Claude creation, reading, editing an existing document and read-back. Revision preconditions were not confirmed. Inspect actual tools and use the strongest exposed behavior; never invent an API parameter. No new backend, MCP, graph or server is introduced.
 
 ## Representation and authority

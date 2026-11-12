@@ -1,5 +1,7 @@
 # Retrieve the right source; distinguish memory from new thought
 
+Storage dispatch: for `sheets-graph-v1`, apply the semantic rules here through [graph Cortex](graph-cortex.md). Read complete current node heads instead of Docs bodies; persist People recognition in the existing People node, and use immutable graph versions/History instead of Docs edits/addenda. Legacy file/folder/Docs mechanics below apply only to Docs storage. Do not invent a new identity or preference during translation.
+
 Use this procedure for memory-backed answers. It is a small retrieval/answering rule, not a new store, graph, mandatory audit report or restriction on independent Self development. Keep responses natural; the checks are internal.
 
 ## Resolve the current subject first
