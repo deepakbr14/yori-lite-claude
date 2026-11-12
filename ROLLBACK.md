@@ -1,3 +1,7 @@
+# Roll back 0.3.1 to 0.3.0
+
+Reinstall the retained 0.3.0 package or use repository commit `a8486ca` in a separate checkout/package. Do not reset the shared repository or restore an old workbook over newer learning. Both releases use schema-1 manifests and immutable node versions; the timing of the commit append changes, not its readable format. No config, workbook or permission migration is performed by this upgrade. Retain all new granular nodes, History and conflicts. Validate current Self and People recall after reinstalling. The older release may resume redundant snapshots and extra calls. No production data was affected, so no migration backup was required.
+
 # Rollback to Docs
 
 Installing 0.3.0 does not change existing Docs selection or data. If no graph pointer was activated, reinstall the retained 0.2.8 package or keep 0.3.0 in Docs mode. No memory rollback is needed.

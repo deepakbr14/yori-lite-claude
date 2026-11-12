@@ -1,3 +1,11 @@
+# 0.3.1 — Smaller memories, fewer sequential calls
+
+- Save focused preference nodes anchored to existing participants; preserve profiles and stable identities.
+- Capability-gated atomic append of Nodes, Edges, History and the existing commit marker, followed by grouped verification; safe staged fallback remains.
+- Reference immutable prior versions instead of redundant snapshots; preserve attribution, branches and uncertain-response reconciliation.
+- No routine Directory writes. Normal graph instructions route through the main Skill and graph protocol; additional references load when needed.
+- Same schema and bootstrap, no migration or production memory edits. Measured Codex results and pending Claude acceptance are separated in tests/BATCH_031.md.
+
 # 0.3.0 — Sheets graph Cortex
 
 Standard GitHub marketplace update. Adds full node/edge version rows, append-only logical commits, Directory hints with ID checks, conflict branches, bounded traversal, staged Docs migration and rollback. Keeps existing configuration/bootstrap and all Docs behavior unless graph storage is explicitly selected. Actual Claude capabilities, fresh-chat recall, two-user conflicts and scale acceptance remain pending.

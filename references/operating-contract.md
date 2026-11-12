@@ -1,4 +1,4 @@
-# Yori Lite operating contract — 0.3.0
+# Yori Lite operating contract — 0.3.1
 
 ## Conversation and scope — always apply
 

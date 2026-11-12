@@ -1,3 +1,7 @@
+# Evidence for 0.3.1
+
+133 local tests passed. Five real Codex atomic saves and grouped verifications passed; rejected-batch atomicity, immutable originals, conflicting branches and recovery lookup were checked on disposable data. See [measurements and limits](BATCH_031.md). Actual Claude interface, fresh-chat recall, two authenticated writers and end-to-end latency remain pending [live acceptance](LIVE_031.md). No production Cortex or configuration was modified.
+
 # Evidence for 0.3.0
 
 121 local tests passed, including the offline graph utility and prior regression tests. Real Codex Google Sheets fixtures at 10, 1,000 and 10,000 nodes were exercised; see GRAPH_BENCHMARKS.md for exact coverage and timings. New versions preserved both simulated stale-writer contributions. This is not actual Claude or two-authenticated-user acceptance. LIVE_GRAPH.md remains required. Source/config conventions and Docs behavior are retained; no existing user memories or config pointers were changed.

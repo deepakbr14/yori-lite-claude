@@ -8,7 +8,7 @@
     {
       "name": "yori-lite",
       "source": "./",
-      "description": "Sheets graph Cortex with immutable memory versions; existing Docs support retained.",
+      "description": "Yori Lite with granular graph memories and verified batch learning.",
       "strict": true
     }
   ]

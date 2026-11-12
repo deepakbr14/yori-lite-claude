@@ -1,12 +1,16 @@
-# Yori Lite 0.3.0 — Sheets graph Cortex
+# Yori Lite 0.3.1 — Sheets graph Cortex
 
 This five-Skill Claude plugin adds a Google Sheets graph Cortex while retaining the existing Docs path. No custom MCP, hosted backend, Apps Script, new authentication or mandatory Project. It never accesses the original personal Yori.
 
-Version 0.3.0 is distributed through the existing GitHub marketplace. Installation does not migrate memories or change an existing configuration. The established plugin and repository identity are retained.
+Version 0.3.1 is distributed through the existing GitHub marketplace. Installation does not migrate memories or change an existing configuration. The established plugin and repository identity are retained.
+
+Ordinary learning now saves a small preference node rather than rewriting a profile. With a verified atomic connector interface, payloads and their commit marker use one batch write and one grouped verification. Prior node versions remain intact; History references them instead of duplicating them. Directory updates are optional. The staged fallback remains available.
+
+See [0.3.1 measurements](tests/BATCH_031.md), [Claude acceptance procedure](tests/LIVE_031.md), and [rollback](ROLLBACK.md). The two-call target excludes necessary discovery, reads and ID preparation; actual Claude latency remains unmeasured.
 
 ## Install and test
 
-Add or refresh [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude’s **Customize → Plugins → Add marketplace → Add from a repository** flow, then install Yori Lite. Confirm version **0.3.0** and start a fresh chat with /yori-lite. Existing marketplace users receive this through the same repository. See ENTRY_POINTS.md for namespacing. A ZIP remains available for manual installation; it is not the primary distribution route.
+Add or refresh [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude’s **Customize → Plugins → Add marketplace → Add from a repository** flow, then install Yori Lite. Confirm version **0.3.1** and start a fresh chat with /yori-lite. Existing marketplace users receive this through the same repository. See ENTRY_POINTS.md for namespacing. A ZIP remains available for manual installation; it is not the primary distribution route.
 
 New setup uses **Google Drive and Google Sheets**. Existing Docs Cortexes still use Drive and Docs unless an explicit migration is requested. Yori inspects actual tools, uses the connected account without requiring its email, and finishes authorized setup. Safe new writes require genuine append and a trusted host/provider UUID generator; an invented identifier is not a substitute.
 
