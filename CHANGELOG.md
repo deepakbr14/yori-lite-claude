@@ -1,3 +1,11 @@
+# 0.4.0 — FAST single-tab Cortex
+
+- Adds compact NODE/EDGE/REVISION rows through Claude append_values; one related-row append plus verification when supported.
+- Removes normal FAST Bash preparation, per-cell JSON, hashes, duplicate History and commit markers. Part/total completeness and exact stable-ID retries handle partial operations.
+- Preserves conflicting revisions, attribution and original meaning; adds in-chat ID/topic/relationship maps and tail refresh.
+- Reads existing five-tab graphs unchanged, including old History and revisions. Optional dual reader preserves original IDs; activation is explicit after validation, never automatic migration.
+- Disposable native workbook correctness tests and local scale tests passed. Actual Claude benchmarks and two authenticated writers remain pending; limits on model-generated IDs, manual edits, cold scans and exactly-once delivery are explicit.
+
 # 0.3.2 — Compact save requests
 
 - Remove every per-cell formatting block, omit trailing empty cells, use positional empty cells, and combine History contribution/commit in one append request.

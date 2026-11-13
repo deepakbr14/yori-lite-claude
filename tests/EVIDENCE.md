@@ -1,3 +1,7 @@
+# Evidence for 0.4.0
+
+178 local tests passed, plus disposable native workbook tests of incomplete operations, retries, conflicting versions and retrieval. See [FAST evidence](FAST_EVIDENCE.md) for actual tools, limitations and the pending [Claude test](LIVE_FAST.md). No production migration or latency claim.
+
 # Evidence for 0.3.2
 
 142 local tests passed, including compact wire round-trip, unchanged schema-1 verification, literal formula-looking strings/Unicode, exact retry reuse, preserved competing revisions and attribution requirements. ZIP/package checks are separate. No actual Claude save benchmark was run: no Claude connector is exposed here, and the installed CLI reports no authenticated session. User-reported Claude timings are recorded in LIVE_032.md; PAYLOAD_032.json contains only local serialized-byte measurements, not latency. No production Cortex/config, old records or personal Yori was modified.

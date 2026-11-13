@@ -1,0 +1,34 @@
+{
+  "measurement": "Local serialization and Python index time; not Claude or Sheets performance",
+  "payload_compact_bytes": 423,
+  "payload_default_spacing_bytes": 453,
+  "user_reported_previous_compact_graph_bytes": 3857,
+  "payload_reduction_percent": 89.0,
+  "scale": [
+    {
+      "nodes": 10,
+      "physical_rows": 19,
+      "cold_index_ms": 0.168,
+      "warm_topic_plus_all_high_degree_edges_median_ms": 0.001,
+      "index_cells_A_I": 171,
+      "remote_calls": "not measured"
+    },
+    {
+      "nodes": 1000,
+      "physical_rows": 1999,
+      "cold_index_ms": 8.93,
+      "warm_topic_plus_all_high_degree_edges_median_ms": 0.091,
+      "index_cells_A_I": 17991,
+      "remote_calls": "not measured"
+    },
+    {
+      "nodes": 10000,
+      "physical_rows": 19999,
+      "cold_index_ms": 89.337,
+      "warm_topic_plus_all_high_degree_edges_median_ms": 0.968,
+      "index_cells_A_I": 179991,
+      "remote_calls": "not measured"
+    }
+  ],
+  "warm_remote_strategy": "tail refresh plus ID/topic/endpoint maps; cold range-only chats scan index once"
+}

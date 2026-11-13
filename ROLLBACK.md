@@ -1,3 +1,7 @@
+# Roll back 0.4.0
+
+If no FAST pointer was activated, reinstall 0.3.2; existing graph/Docs data and config are unchanged. If FAST learning exists, do not downgrade blindly: 0.3.2 cannot read sheets-log-v1. Retain the workbook, exact config backup, all pending operations and legacy source. Keep 0.4.0 for recall until an explicitly authorized export/reconciliation to the older format has been verified, including every new version, conflicting branch, edge and source. A pointer reset alone is not lossless rollback. Never overwrite an old workbook with a stale backup or delete Memory/legacy tabs. Coordinate writers during any config switch. No existing user Cortex was switched by this release.
+
 # Roll back 0.3.2
 
 Reinstall the retained 0.3.1 ZIP (repository commit 57ae039) without changing the workbook or config. The row headers and schema-1 manifest format are unchanged; old readers accept blank optional marker fields and new History references. All existing nodes, edges and contributions remain. Do not restore old workbook contents over newer learning. No migration or production data edits occurred in this release. Keep the saved plan for any uncertain operation and reconcile it before another write; do not regenerate its IDs after rollback.

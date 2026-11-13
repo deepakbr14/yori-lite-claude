@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "plugin_id": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1",
+  "storage_format": "sheets-log-v1",
+  "cortex_schema_version": 1,
+  "active_cortex": {
+    "label": "Yori Lite",
+    "google_drive_folder_id": "VERIFIED_FOLDER_ID",
+    "google_sheets_spreadsheet_id": "VERIFIED_SPREADSHEET_ID"
+  }
+}

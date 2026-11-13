@@ -1,37 +1,23 @@
-# Yori Lite 0.3.2 — Sheets graph Cortex
+# Yori Lite 0.4.0 — FAST Cortex
 
-This five-Skill Claude plugin adds a Google Sheets graph Cortex while retaining the existing Docs path. No custom MCP, hosted backend, Apps Script, new authentication or mandatory Project. It never accesses the original personal Yori.
+Yori learns into readable, compact Google Sheets rows. One **Memory** tab stores NODE, EDGE and REVISION records. Facts stay small; relationships, contributor attribution and the history of changes remain intact. No custom MCP, Apps Script, backend, Bash preparation or mandatory Claude Project.
 
-Version 0.3.2 is distributed through the existing GitHub marketplace. Installation does not migrate memories or change an existing configuration. The established plugin and repository identity are retained.
+## Install
 
-Ordinary learning now saves a small preference node rather than rewriting a profile. With a verified atomic connector interface, payloads and their commit marker use one batch write and one grouped verification. Prior node versions remain intact; History references them instead of duplicating them. Directory updates are optional. The staged fallback remains available.
+Use the existing [GitHub marketplace](https://github.com/deepakbr14/yori-lite-claude), install Yori Lite **0.4.0**, then start a fresh Claude chat. A ZIP is also available. New setup guides connection of Google Drive and Google Sheets. Existing Cortex configuration is reused; installing this version never migrates or resets it.
 
-Version 0.3.2 removes cell styling and redundant marker text, compresses empty values, and packages a fixed compact-intent helper. Local request size fell 67.5% for a comparable encoder fixture; actual Claude speed is unmeasured. See [payload measurements](tests/PAYLOAD_032.json), [Claude acceptance procedure](tests/LIVE_032.md), and [rollback](ROLLBACK.md). The two-call target excludes necessary discovery, reads and ID preparation; actual Claude latency remains unmeasured.
+FAST writes use Claude's actual `append_values` shape: short row arrays, one call for related rows, then one small verification read when receipts/coverage allow. No per-cell wrappers, checksums, duplicate History snapshots or commit manifests. Every row carries an operation token, part and total. Missing rows stay pending; retries preserve IDs; competing revisions remain visible.
 
-## Install and test
+## Test before switching an existing Cortex
 
-Add or refresh [deepakbr14/yori-lite-claude](https://github.com/deepakbr14/yori-lite-claude) through Claude’s **Customize → Plugins → Add marketplace → Add from a repository** flow, then install Yori Lite. Confirm version **0.3.2** and start a fresh chat with /yori-lite. Existing marketplace users receive this through the same repository. See ENTRY_POINTS.md for namespacing. A ZIP remains available for manual installation; it is not the primary distribution route.
+Run [this short Claude test](tests/LIVE_FAST.md) on a disposable workbook. Local and disposable Codex correctness tests have passed, but Claude timing and append semantics still need that test. A representative node-plus-edge request is **423 compact JSON bytes**. This is not a measured latency improvement: under 10 seconds, ideally 3–5, remains a target.
 
-New setup uses **Google Drive and Google Sheets**. Existing Docs Cortexes still use Drive and Docs unless an explicit migration is requested. Yori inspects actual tools, uses the connected account without requiring its email, and finishes authorized setup. Safe new writes require genuine append and a trusted host/provider UUID generator; an invented identifier is not a substitute.
+The old five-tab graph and Docs readers remain. After validation and an explicit switch request, FAST can read the old graph as a retained source and link new revisions to its original IDs. No old data needs deletion or bulk conversion. Configuration switching has no assumed CAS; coordinate writers. [Compatibility and rollback](ROLLBACK.md).
 
-Follow [the Claude test script](tests/LIVE_GRAPH.md) with an explicitly named disposable workbook to test without changing your saved pointer. The clean supplied workbook/JSON contains ten synthetic nodes and ten edges. Never import these fictional people and amber preference as a real user's initial identity.
+## Honest limits
 
-## Memory and conversation
+Incomplete/mismatched appends and observed ID collisions are detected; this is not exactly-once delivery, guaranteed unique model-generated IDs or tamper-proof storage. Later well-formed manual edits are not always detectable without hashes. Fresh chats may need an O(N) index scan if Claude lacks exact server search; warm chats reuse maps and refresh the append tail. Source attribution is evidence, not authentication. [Evidence and measurements](tests/FAST_EVIDENCE.md).
 
-Nodes store complete readable memories; Edges store evidence-backed relationships. History preserves contributions, prior states and corrections. Directory contains row hints; Metadata identifies the schema. Stable IDs survive row movement. No graph memory requires opening a Doc.
+Five Skills, unchanged plugin UUID/bootstrap, independent from the original personal Yori. Automatic selective learning, Self continuity, natural conversation and independent judgment stay active. The developer Python verifier is optional offline tooling, not a Claude runtime dependency.
 
-Writes append immutable versions rather than replacing rows. Two writers' branches remain until explicitly reconciled. Reused operation IDs and exact-payload verification prevent duplicate logical records; this is not exactly-once delivery or a database transaction. Human editors can still corrupt records. A row pointer must be checked against IDs, commits and later versions before claiming current memory.
-
-Selective automatic learning, Self continuity, natural participant recognition and independent judgment remain active. Yori distinguishes saved evidence from new reasoning, retains uncertainty/disagreement, and avoids unsupported attributes or motives. Routine memory operations stay quiet.
-
-## Specifications and migration
-
-- [Schema](GRAPH_SCHEMA.md) and [graph protocol](references/graph-cortex.md)
-- [Unchanged bootstrap convention and small extension](CONFIG_PROTOCOL.md)
-- [Safe Docs-to-Sheets staging](GRAPH_MIGRATION.md)
-- [Rollback preserving graph-only learning](ROLLBACK.md)
-- [Benchmarks and limitations](tests/GRAPH_BENCHMARKS.md)
-
-The optional standard-library utility scripts/graph_cortex.py generates fixtures, stages a complete connector-exported Docs snapshot, and audits workbook JSON. It has no network access and is not a hosted runtime. It preserves source content and IDs without fabricating edges or switching config. Baseline/addendum and participant mappings require verification before activation. Oversized/ambiguous records remain blocked with their originals intact.
-
-Local tests and Codex connector results are separate from Claude acceptance. Disposable native workbooks at 10, 1,000 and 10,000 nodes were exercised. Claude's actual tool interface, fresh-chat learning/recall, two authenticated writers, and full migration/rollback still require the supplied live tests. No production readiness claim.
+[FAST row format and save procedure](references/fast-cortex.md) · [Legacy graph schema](GRAPH_SCHEMA.md) · [Config protocol](CONFIG_PROTOCOL.md)

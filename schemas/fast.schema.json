@@ -1,0 +1,23 @@
+{
+  "title": "Yori Lite FAST immutable row",
+  "type": "array",
+  "minItems": 13,
+  "maxItems": 14,
+  "x-column-order": [
+    "op",
+    "part",
+    "total",
+    "type",
+    "id",
+    "parents",
+    "kind",
+    "subject",
+    "object",
+    "text",
+    "by",
+    "basis",
+    "source",
+    "at"
+  ],
+  "description": "See references/fast-cortex.md; complete operations require all distinct parts, exact duplicate checks and resolved references."
+}

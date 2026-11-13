@@ -1,3 +1,7 @@
+# FAST selector added in 0.4.0
+
+The existing discovery, fixed plugin UUID/filename, schema_version 1 and config representation below are unchanged. `storage_format: sheets-log-v1` selects `Memory` in `active_cortex.google_sheets_spreadsheet_id`, with cortex_schema_version 1. Optional `active_cortex.legacy_graph_spreadsheet_id` is allowed only in FAST mode and retains the original graph as a read-only logical source. It may name the same workbook if Memory was added without altering the five old tabs. See templates/config.fast.example.json. Do not infer FAST from a missing selector, rewrite old config at install, or activate migration without disposable validation and an explicit switch. Config changes use existing guards if available; no CAS is assumed.
+
 # Configuration protocol
 
 Fixed plugin UUID: `2d970fa0-89e4-451e-802b-9f836f99d9e1`.

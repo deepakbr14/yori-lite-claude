@@ -10,6 +10,8 @@ Independent Yori Lite; fixed plugin_id `yori_2d970fa0-89e4-451e-802b-9f836f99d9e
 
 ## Storage dispatch takes precedence
 
+FAST sheets-log-v1 follows [FAST Cortex](fast-cortex.md); skip all legacy graph/Docs write mechanics. Existing selectors remain unchanged.
+
 Read config using the unchanged CONFIG_PROTOCOL.md bootstrap. `sheets-graph-v1` requires [graph Cortex](graph-cortex.md): full immutable node/edge versions, append-only History, verified logical commits and Directory hints. In this mode the Docs-specific mechanics below and in continuity/identity/integrity references are LEGACY ONLY; apply their semantic rules using graph node IDs, versions and History. New installations use Drive and Sheets; existing Docs installations remain on Drive and Docs until an explicitly authorized, verified migration. Never apply both storage protocols to the same write. No automatic production switch or migration.
 
 ## Both services, quiet setup
