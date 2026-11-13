@@ -1,0 +1,11 @@
+{
+  "measurement": "UTF-8 compact JSON bytes, not tokens or time",
+  "baseline": "0.3.1 encoder, same new granular payload rows and IDs",
+  "baseline_bytes": 10147,
+  "optimized_bytes": 3297,
+  "reduction_percent": 67.5,
+  "intent_bytes": 448,
+  "legacy_requests": 4,
+  "optimized_requests": 3,
+  "claude_latency": "not measured; actual Claude connection unavailable"
+}

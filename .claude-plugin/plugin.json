@@ -1,7 +1,7 @@
 {
   "name": "yori-lite",
   "displayName": "Yori Lite",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Sheets graph memory with granular learning, atomic batch saves, preserved history and Docs compatibility.",
   "author": {
     "name": "Deepak Deo"
@@ -9,6 +9,6 @@
   "repository": "https://github.com/deepakbr14/yori-lite-claude",
   "metadata": {
     "pluginId": "yori_2d970fa0-89e4-451e-802b-9f836f99d9e1",
-    "designVersion": "0.3.1-sheets-graph"
+    "designVersion": "0.3.2-sheets-graph"
   }
 }

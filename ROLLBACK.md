@@ -1,3 +1,7 @@
+# Roll back 0.3.2
+
+Reinstall the retained 0.3.1 ZIP (repository commit 57ae039) without changing the workbook or config. The row headers and schema-1 manifest format are unchanged; old readers accept blank optional marker fields and new History references. All existing nodes, edges and contributions remain. Do not restore old workbook contents over newer learning. No migration or production data edits occurred in this release. Keep the saved plan for any uncertain operation and reconcile it before another write; do not regenerate its IDs after rollback.
+
 # Roll back 0.3.1 to 0.3.0
 
 Reinstall the retained 0.3.0 package or use repository commit `a8486ca` in a separate checkout/package. Do not reset the shared repository or restore an old workbook over newer learning. Both releases use schema-1 manifests and immutable node versions; the timing of the commit append changes, not its readable format. No config, workbook or permission migration is performed by this upgrade. Retain all new granular nodes, History and conflicts. Validate current Self and People recall after reinstalling. The older release may resume redundant snapshots and extra calls. No production data was affected, so no migration backup was required.

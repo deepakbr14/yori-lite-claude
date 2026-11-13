@@ -28,7 +28,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.3.1'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.3.2'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1

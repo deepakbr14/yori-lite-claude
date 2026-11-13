@@ -17,7 +17,7 @@ class BatchMemoryTests(unittest.TestCase):
   target=self.book if book is None else book
   for tab,r in plan['records']:target[tab].append(copy.deepcopy(r))
  def test_one_batch_contains_payload_and_commit_no_directory(self):
-  p=b.prepare(self.fact(),self.ids,g.TIME);self.assertEqual(len(p['requests']),3)
+  p=b.prepare(self.fact(),self.ids,g.TIME);self.assertEqual(len(p['requests']),2)
   self.assertTrue(all('appendCells' in r for r in p['requests']));self.assertEqual(p['records'][-1][1]['event_type'],'commit')
   self.apply(p);self.assertTrue(b.verify(p,self.book));g.audit(self.book)
   self.assertEqual(self.book['Directory'],self.original['Directory'])

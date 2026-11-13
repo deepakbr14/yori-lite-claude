@@ -1,3 +1,12 @@
+# 0.3.2 — Compact save requests
+
+- Remove every per-cell formatting block, omit trailing empty cells, use positional empty cells, and combine History contribution/commit in one append request.
+- Save a small node plus supported edge; History points to its immutable revision instead of copying its text. Remove descriptive bookkeeping from commit markers, preserving required schema-1 checks.
+- Package a fixed small-intent preparation helper with durable local retry plans; no newly generated Bash scripts, hand-built transactions or extra hash tools.
+- Replace the long ordinary save procedure with five steps; recovery details load only on exceptions. Keep one necessary grouped verification.
+- Preserve config, schema, prior versions, attribution, branches, Self and original personal Yori. No migration.
+- Comparable encoder input: 10,147 → 3,297 compact JSON bytes (67.5% smaller). This is not the user's exact 4,037-byte request and is not a Claude timing benchmark. Claude acceptance remains pending tests/LIVE_032.md.
+
 # 0.3.1 — Smaller memories, fewer sequential calls
 
 - Save focused preference nodes anchored to existing participants; preserve profiles and stable identities.

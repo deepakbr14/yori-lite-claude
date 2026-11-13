@@ -1,0 +1,15 @@
+# Claude acceptance — 0.3.2
+
+Actual Claude performance has **not** been measured for this release. No Claude connector/session is exposed to this Codex chat; the installed Claude CLI reports loggedIn=false. Codex connector timings are not substituted. The user's baseline observations were 182-byte save/verification 11.7 seconds, 4,037-byte graph save 40.4 seconds, and same-size padded write 30.4 seconds. These establish a plausible payload bottleneck, not a proven latency model or a measured improvement.
+
+Paste in Claude after installing 0.3.2:
+
+> Use a fresh disposable Yori Lite test workbook only; do not change my production pointer. Inspect the actual Sheets write/read tool schemas and report their names. Run three already-scoped saves of a small synthetic person's preference, each with one node, an evidence-grounded about edge, attribution and History. Use the packaged compact save path. Record the exact final write argument byte length, write and verification elapsed times where observable, all other tools/approval waits, and full response time. Do not count local preparation time as total model time. Show unknown measurements as unknown. Do not create a new program or duplicate records to prepare the save. Compare with the previous 182-byte/4,037-byte observations without claiming matched conditions unless they are matched.
+>
+> Verify the saved node and edge, correct attribution, prior-version retention on a correction, matching commit and exact contents. Simulate a lost acknowledgment and reconcile the same operation ID without blindly appending. Test two stale-base corrections; preserve both branches. Restart the conversation and retrieve the current preference, source and unresolved branches. Distinguish an actual second user from a simulation. Keep necessary verification even if the target is missed.
+
+Report under-10-second and near-3-second targets as achieved only if actual end-to-end measurements support them. The 182-byte baseline already exceeds 10 seconds; no proportional speedup or floor is inferred from one trial.
+
+## Specific interface limits
+
+The known `appendCells` representation requires a CellData object per populated cell. Removing styling is safe; replacing it with bare row arrays is not valid for that interface. A connector-specific compact append can be used only if actually exposed with the needed atomic multi-tab behavior. Range updates to guessed rows are not a safe substitute. Schema-1 persisted manifests require SHA-256 or full-payload checks; dropping both would break existing verification. The fixed helper computes only the required hashes, avoiding a second copy of payloads. It has no authority to call Claude tools, so its result still passes through the connector. A file-reference/compact-value forwarding feature cannot be assumed. If Claude cannot access the packaged Python helper or a trusted provider preparation facility, this must be reported as a real preparation blocker rather than inventing IDs/checksums.

@@ -1,3 +1,7 @@
+# Evidence for 0.3.2
+
+142 local tests passed, including compact wire round-trip, unchanged schema-1 verification, literal formula-looking strings/Unicode, exact retry reuse, preserved competing revisions and attribution requirements. ZIP/package checks are separate. No actual Claude save benchmark was run: no Claude connector is exposed here, and the installed CLI reports no authenticated session. User-reported Claude timings are recorded in LIVE_032.md; PAYLOAD_032.json contains only local serialized-byte measurements, not latency. No production Cortex/config, old records or personal Yori was modified.
+
 # Evidence for 0.3.1
 
 133 local tests passed. Five real Codex atomic saves and grouped verifications passed; rejected-batch atomicity, immutable originals, conflicting branches and recovery lookup were checked on disposable data. See [measurements and limits](BATCH_031.md). Actual Claude interface, fresh-chat recall, two authenticated writers and end-to-end latency remain pending [live acceptance](LIVE_031.md). No production Cortex or configuration was modified.
