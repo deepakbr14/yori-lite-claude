@@ -96,3 +96,56 @@ class RetirementTests(unittest.TestCase):
  def test_retired_edge_history_not_active_traversal(self):
   rows=f.fixture(2);rows.append(['retireedge',1,1,'REVISION','fixture00000001:2','fixture00000001:2','!about','fixture00000001:1','fixture0:1','Retired: relation no longer holds.','Yori','D','test',''])
   i=f.Index(rows);self.assertEqual(i.neighbors('fixture0:1'),[]);self.assertEqual(i.by_id('fixture00000001:2')[0]['status'],'retired')
+
+class CorrectnessFixes041(unittest.TestCase):
+ """Regressions for the 0.4.1 correctness fixes (handoff findings 1-2, live Sheets literal finding)."""
+ def edge_rev(self,op,kind):
+  return [op,1,1,'REVISION','fixture00000001:2','fixture00000001:2',kind,'fixture00000001:1','fixture0:1',kind+' by concurrent writer.','Yori','D','test','']
+ def test_concurrent_active_and_retired_edge_heads(self):
+  rows=f.fixture(2)+[self.edge_rev('activeedge1','about'),self.edge_rev('retireedge1','!about')]
+  i=f.Index(rows);n=i.neighbors('fixture0:1')
+  self.assertEqual([v['status'] for v in n],['active'])
+  self.assertTrue(i.contested('fixture00000001:2'))
+  self.assertEqual(sorted(v['status'] for v in i.history('fixture0:1')),['active','retired'])
+ def test_only_retired_heads_no_neighbors_but_history(self):
+  rows=f.fixture(2)+[self.edge_rev('retireedge1','!about')];i=f.Index(rows)
+  self.assertEqual(i.neighbors('fixture00000001:1'),[]);self.assertFalse(i.contested('fixture00000001:2'));self.assertEqual(len(i.history('fixture0:1')),1)
+ def test_codec_decodes_every_text_column(self):
+  rows=f.fixture(2);r=rows[1]
+  r[7]='~~topic';r[10]='~@handle';r[12]='~=source';r[13]="~'2026"
+  v=f.audit(rows)['versions']['fixture00000001:1']
+  self.assertEqual((v['subject'],v['by'],v['source'],v['at']),('~topic','@handle','=source',"'2026"))
+ def test_unencoded_existing_strings_unchanged(self):
+  rows=f.fixture(2);rows[1][7]='~plain/topic';self.assertEqual(f.audit(rows)['versions']['fixture00000001:1']['subject'],'~plain/topic')
+ def test_get_values_string_numbers_accepted(self):
+  native=f.fixture(2);read=[f.stored_row(r) for r in native]
+  self.assertTrue(all(isinstance(r[1],str) for r in read));self.assertEqual(f.audit(read)['heads'],f.audit(native)['heads'])
+ def test_bad_string_counts_rejected(self):
+  for bad in ('0','01','1.0',' 1','x','101'):
+   r=copy.deepcopy(f.fixture(2));r[1][2]=bad
+   with self.assertRaises(f.Invalid):f.audit(r)
+
+class SheetsLiteralLive(unittest.TestCase):
+ """Grounded in tests/SHEETS_LITERAL_LIVE.json: real append_values/get_values results."""
+ @classmethod
+ def setUpClass(cls):cls.e=json.loads((Path(__file__).parent/'SHEETS_LITERAL_LIVE.json').read_text())
+ def test_wire_cells_match_live_sent(self):
+  # Live run sent "'" for the empty value; wire_cell sends "". Both were stored as an empty cell.
+  self.assertEqual([f.wire_cell(f.encode_literal(v)) or "'" for v in self.e['intended']],self.e['sent_wire'])
+ def test_live_storage_exact_and_decodes(self):
+  for want,stored in zip(self.e['intended'],self.e['stored_apostrophe_codec']):
+   self.assertEqual(f.decode_literal(stored),want)
+ def test_raw_sending_was_corrupted(self):
+  bad=[v for v,s in zip(self.e['intended'],self.e['stored_raw_beyond_grid']) if v!=s]
+  for v in ('=1+1','+abc','007','1e3','(5)','=',"'"):self.assertIn(v,bad)
+ def test_wire_row_shape(self):
+  row=['opWire0001',1,2,'NODE','','','Knowledge','007','','=1+1 is not a formula','@me','S','(5) 3/4 TRUE','2026-11-14']
+  w=f.wire_row(row)
+  self.assertEqual(w[1:3],[1,2])
+  self.assertTrue(all(c=='' or c.startswith("'") for c in w if isinstance(c,str)))
+  # Live behaviour: Sheets strips exactly one leading apostrophe and stores the rest as a string.
+  stored=[c[1:] if isinstance(c,str) and c.startswith("'") else (str(c) if not isinstance(c,str) else c) for c in w]
+  self.assertEqual(stored,f.stored_row(row)+['']*(14-len(f.stored_row(row))))
+  edge=['opWire0001',2,2,'EDGE','','','about','opWire0001:1','opWire0001:1','self link for test','@me','S','t','']
+  v=f.audit([stored,f.stored_row(edge)])['versions']['opWire0001:1']
+  self.assertEqual((v['subject'],v['text'],v['by'],v['source'],v['at']),('007','=1+1 is not a formula','@me','(5) 3/4 TRUE','2026-11-14'))

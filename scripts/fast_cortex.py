@@ -14,6 +14,8 @@ def normalize(row):
     row=row+['']*(14-len(row))
     if len(row)<3 or not isinstance(row[0],str) or not re.fullmatch(r'[A-Za-z0-9_-]{8,128}',row[0]):raise Invalid('operation ID')
     for i in (1,2):
+        # get_values returns formatted strings ("1"); appended JSON numbers stay numbers.
+        if isinstance(row[i],str) and re.fullmatch(r'[1-9][0-9]{0,2}',row[i]):row[i]=int(row[i])
         if type(row[i]) not in (int,float) or int(row[i])!=row[i] or row[i]<1:raise Invalid('part/total')
         row[i]=int(row[i])
     if row[1]>row[2] or row[2]>100:raise Invalid('part bounds')
@@ -33,6 +35,27 @@ def encode_literal(value):
     return '~'+value if value and value[0] in "=+-@'~" else value
 def decode_literal(value):
     return value[1:] if len(value)>1 and value[0]=='~' and value[1] in "=+-@'~" else value
+# Every free-text column carries the ~ codec; decoding is uniform so old rows and new rows agree.
+TEXT_COLUMNS=(7,8,9,10,12,13)  # subject object text by source at
+def wire_cell(value):
+    """Value sent through append_values (USER_ENTERED, no RAW option exposed).
+    A leading apostrophe is Sheets' literal-text marker: stripped on storage, it
+    forces an exact string even in rows beyond the formatted grid. Numbers pass."""
+    if not isinstance(value,str):return value
+    return "'"+value if value else value
+def wire_row(row):
+    """Intended row -> exact append_values cells: ~ codec on text columns, apostrophe on every nonempty string."""
+    out=list(row)
+    for i in TEXT_COLUMNS:
+        if i<len(out) and isinstance(out[i],str):out[i]=encode_literal(out[i])
+    return [wire_cell(v) for v in out]
+def stored_row(row):
+    """Cells as get_values should return them after a correct wire_row append."""
+    out=list(row)
+    for i in TEXT_COLUMNS:
+        if i<len(out) and isinstance(out[i],str):out[i]=encode_literal(out[i])
+    while out and out[-1]=='':out.pop()
+    return [str(v) if not isinstance(v,str) else v for v in out]
 
 def rid(row):return f'{row[0]}:{row[1]}'
 def collect(rows):
@@ -63,7 +86,7 @@ def audit(rows,old=None):
     for r in complete:
         key=rid(r)
         if key in versions:raise Invalid('legacy revision ID collision')
-        versions[key]={'rid':key,'id':r[4] or key,'parents':r[5].split(',') if r[5] else [],'family':r[3] if r[3]!='REVISION' else None,'kind':r[6].removeprefix('!'),'subject':r[7],'object':r[8],'text':decode_literal(r[9]),'by':decode_literal(r[10]),'basis':BASIS[r[11]],'source':decode_literal(r[12]),'at':r[13],'raw':r,'origin':'fast','status':'retired' if r[6].startswith('!') else 'active'}
+        versions[key]={'rid':key,'id':r[4] or key,'parents':r[5].split(',') if r[5] else [],'family':r[3] if r[3]!='REVISION' else None,'kind':r[6].removeprefix('!'),'subject':decode_literal(r[7]),'object':decode_literal(r[8]),'text':decode_literal(r[9]),'by':decode_literal(r[10]),'basis':BASIS[r[11]],'source':decode_literal(r[12]),'at':decode_literal(r[13]),'raw':r,'origin':'fast','status':'retired' if r[6].startswith('!') else 'active'}
     # Resolve revisions topologically, so branches and multi-parent reconciliation survive.
     resolved={k:v for k,v in versions.items() if not v['parents']};todo={k:v for k,v in versions.items() if v['parents']}
     while todo:
@@ -112,7 +135,15 @@ class Index:
     def refresh(self,tail):self.rows.extend(tail);self.rebuild()
     def by_id(self,key):return self.state['heads'].get(key,[])
     def topic(self,key):return [v for entity in self.topics[key] for v in self.by_id(entity)]
-    def neighbors(self,key):return [v for entity in self.links[key] for v in self.by_id(entity)]
+    def neighbors(self,key):
+        """Active traversal: only active EDGE heads. A retired concurrent head is history, never a live link."""
+        return [v for entity in self.links[key] for v in self.by_id(entity) if v['family']=='EDGE' and v['status']=='active']
+    def contested(self,entity):
+        """True when an entity's concurrent heads disagree on retirement; recall must disclose it."""
+        return len({v['status'] for v in self.by_id(entity)})>1
+    def history(self,key):
+        """Every head of every edge touching key, retired included, for explicit history display."""
+        return [v for entity,heads in self.state['heads'].items() for v in heads if v['family']=='EDGE' and key in (v['subject'],v['object'])]
 
 def fixture(count=10):
     rows=[['fixture0',1,1,'NODE','','','People','participant/A','','Alex (synthetic).','Alex','S','disposable fixture','']]
