@@ -4,23 +4,28 @@ The complete ordinary FAST save. No Bash, helpers, hashes, manifests or Director
 
 ## Connect once per chat
 
-Preserve My Drive/config_plugins and the fixed plugin config filename/UUID. `storage_format: sheets-log-v1`, `cortex_schema_version: 1` selects one native spreadsheet's **Memory** tab. Existing sheets-graph-v1, Docs and metadata selections keep their readers; never switch automatically. New authorized setup creates Memory with the header below, initializes actual Self, verifies, then writes/verifies the pointer. Account email is optional. Cache for the chat: spreadsheet ID, the Memory tab's numeric `sheetId` (`get_spreadsheet` fields `sheets.properties`), participant entity and relevant current heads.
+Preserve My Drive/config_plugins and the fixed plugin config filename/UUID. `storage_format: sheets-log-v1`, `cortex_schema_version: 1` selects one native spreadsheet's **Memory** tab. Existing sheets-graph-v1, Docs and metadata selections keep their readers; never switch automatically. New authorized setup creates Memory with the header below, initializes actual Self, verifies, then writes/verifies the pointer. Account email is optional. Cache for the chat: spreadsheet ID, the Memory tab's numeric `sheetId` (for recovery counts), the last read row `E`, participant entity and relevant current heads.
 
 ## Save (warm path)
 
-1. **Reply first.** Write your normal conversational answer, then — in the same message, after the text — issue exactly two calls, in this order:
-   - `mcp__Google_Sheets__append_values` with `{"spreadsheetId":ID,"range":"Memory!A1","values":ROWS}`;
-   - `mcp__Google_Sheets__update_spreadsheet` with `{"spreadsheetId":ID,"requests":[{"findReplace":{"find":OP,"replacement":OP,"sheetId":SHEET,"matchEntireCell":true,"matchCase":true}}]}`.
-   Don't announce the save or narrate it. Don't deliberate over routine rows; use the template below.
-2. **Confirm without positions.** Saved when the append says `status: success`, `updatedRows` = rows sent, `updatedCells` = cells sent, and the count reply's `occurrencesChanged` = rows sent. The count is a server-side scan of the whole Memory sheet for cells exactly equal to OP, so it does not depend on where rows landed. Ignore `updatedRange`: simultaneous writers have been told wrong ranges. A count reply of `findReplace: {}` means 0.
-3. **After the results,** add nothing to the reply when saved. Otherwise:
-   - count 0 with a success receipt → repeat only the count once (the two calls may have run in parallel);
-   - count < rows → pending: run the count again; if still short, follow recovery in [fast-details](fast-details.md);
-   - count > rows → the token already existed (earlier retry or collision): read the rows carrying OP and compare exactly before anything else;
-   - append error or timeout → count first; 0 → re-append the identical rows with the same OP; equal → saved; partial → recovery.
-   Never invent a new OP to retry, never lower `total`, never claim an unverified save. Tell the user only when something remains unresolved.
+Keep `E`, the last Memory row this chat has actually read (from the connect read or the last verified save). It is a lower bound; never take it from a receipt's `updatedRange`.
 
-Why it is exact: every nonempty string is sent with one leading apostrophe (Sheets' literal marker, stripped on storage), so no value is parsed as a formula, number, date or boolean — live-verified for 42 hostile values on new and existing workbooks, including rows beyond the original grid. Column formatting is optional; never rely on it. `append_values` applies all rows of one call together; the count confirms all of them exist.
+1. **Reply first, without claiming a save.** Write your normal conversational answer. It must not say or imply that anything was remembered or saved. Then, in the same message, issue exactly two calls in this order:
+   - `mcp__Google_Sheets__append_values` with `{"spreadsheetId":ID,"range":"Memory!A1","values":ROWS}`;
+   - `mcp__Google_Sheets__get_values` with `{"spreadsheetId":ID,"range":"Memory!A{E+1}:N{E+20}"}`.
+   If `E` is unknown (first save of a chat), send only the append, then read from the receipt's `tableRange` end + 1.
+2. **Verify by content, not position.** Saved when the read contains every part 1..total of OP and each row equals what you sent with the transport apostrophes removed (numbers read back as text, trailing blanks dropped). Other writers' rows may appear in between; that is normal. Set `E` to the last row read.
+3. **After the results,** add nothing when saved. Otherwise:
+   - OP absent and the window has blank rows → read the same window once more (the calls may have run in parallel);
+   - OP absent and all 20 rows are other rows → read the next 20 rows;
+   - some parts present → pending: read further; if still short, follow recovery in [fast-details](fast-details.md);
+   - same op/part with different content → conflict: stop, keep both, tell the user;
+   - append error or timeout → recovery. The column-A count below gives complete coverage of how many rows carry OP.
+   Never invent a new OP to retry, never lower `total`, never claim an unverified save. Mention memory only when something remains unresolved.
+
+**Count tool (recovery only):** `update_spreadsheet` with `{"findReplace":{"find":OP,"replacement":OP,"range":{"sheetId":SHEET,"startColumnIndex":0,"endColumnIndex":1},"matchEntireCell":true,"matchCase":true}}`. Its `occurrencesChanged` is the number of rows holding OP anywhere in column A (`{}` means 0). Never use sheet scope: the token can also appear in other columns. It confirms presence, not content.
+
+Why it is exact: every nonempty string is sent with one leading apostrophe (Sheets' literal marker, stripped on storage), so no value is parsed as a formula, number, date or boolean — live-verified for 42 hostile values on new and existing workbooks, including rows beyond the original grid. Column formatting is optional; never rely on it. `append_values` applies all rows of one call together; the read-back confirms their exact content.
 
 ## Rows (A:N)
 
@@ -41,4 +46,4 @@ Template (synthetic):
 ```
 The endpoint must already exist. Examples never seed real identities.
 
-Only complete operations are memory. Identical op/part/values count once; same op/part with different values, differing totals or unexpected parts are conflicts, never overwrites. Before current recall, refresh new rows and resolve all heads — see [fast-details](fast-details.md). Model tokens are candidates, not guaranteed-unique IDs; the count exposes reuse of a token already stored, not a collision written later. Never describe this store as tamper-proof or exactly-once.
+Only complete operations are memory. Identical op/part/values count once; same op/part with different values, differing totals or unexpected parts are conflicts, never overwrites. Before current recall, refresh new rows and resolve all heads — see [fast-details](fast-details.md). Model tokens are candidates, not guaranteed-unique IDs; a read showing the same op/part with other content is a conflict. Never describe this store as tamper-proof or exactly-once.

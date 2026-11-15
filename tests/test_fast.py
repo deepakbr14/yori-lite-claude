@@ -165,7 +165,8 @@ class FastConfirm042(unittest.TestCase):
  def test_no_count_uncertain(self):self.assertEqual(f.confirm(self.rows,self.rec(),None),'uncertain')
  def test_cell_mismatch_not_verified(self):self.assertNotEqual(f.confirm(self.rows,self.rec(cells=25),2),'verified')
  def test_count_request_shape(self):
-  r=f.count_request('opAbc12345xyz',7)[0]['findReplace'];self.assertEqual((r['find'],r['replacement'],r['sheetId'],r['matchEntireCell'],r['matchCase']),('opAbc12345xyz','opAbc12345xyz',7,True,True))
+  r=f.count_request('opAbc12345xyz',7)[0]['findReplace'];self.assertEqual((r['find'],r['replacement'],r['range'],r['matchEntireCell'],r['matchCase']),('opAbc12345xyz','opAbc12345xyz',{'sheetId':7,'startColumnIndex':0,'endColumnIndex':1},True,True))
+  self.assertNotIn('sheetId',r)  # never whole-sheet scope: live overcount 3 vs 1
  def test_unsafe_tokens_refused(self):
   for bad in ('1e345678','TRUE12345','opshort','op-has-dash12','12345678','=op123456789'):
    self.assertFalse(f.new_op_ok(bad))
@@ -177,3 +178,19 @@ class FastConfirmLive042(unittest.TestCase):
   self.assertEqual(f.count_from_reply({'replies':[{'findReplace':{}}],'status':'success'}),0)
   self.assertEqual(f.count_from_reply({'replies':[{'findReplace':{'valuesChanged':4,'rowsChanged':4,'sheetsChanged':1,'occurrencesChanged':4}}]}),4)
   self.assertIsNone(f.count_from_reply({'replies':[{}]}))
+
+class TailWindow043(unittest.TestCase):
+ """0.4.3: default verification reads a window after the last seen row and matches op + exact content."""
+ def setUp(self):
+  self.n=['opWin123456ab',1,2,'NODE','','','Knowledge','t/x','','=1+1 and 007','me','S','s']
+  self.e=['opWin123456ab',2,2,'EDGE','','','about','opWin123456ab:1','p:1','y','me','S','s']
+  self.w=[f.wire_row(self.n),f.wire_row(self.e)];self.st=[f.stored_row(self.n),f.stored_row(self.e)]
+  self.other=['opOther99999x','1','1','NODE','','','Knowledge','t/o','','o','them','S','s']
+ def test_window_range(self):self.assertEqual(f.window_range(20008),'Memory!A20009:N20028')
+ def test_verified_after_other_writers(self):self.assertEqual(f.locate([self.other,self.other]+self.st,self.w),('verified',3))
+ def test_content_change_detected(self):
+  bad=[list(self.st[0]),self.st[1]];bad[0][9]='edited';self.assertEqual(f.locate(bad,self.w)[0],'conflict')
+ def test_partial(self):self.assertEqual(f.locate([self.st[0]],self.w)[0],'pending')
+ def test_not_seen_short_window(self):self.assertEqual(f.locate([self.other],self.w)[0],'not_seen')
+ def test_beyond_full_window(self):self.assertEqual(f.locate([self.other]*20,self.w)[0],'beyond')
+ def test_receipt_position_never_used(self):self.assertNotIn('updatedRange',open(f.__file__).read().split('0.4.3 default verification')[1])

@@ -1,3 +1,11 @@
+# 0.4.3 — Read-back restored as default; count fixed to column A (development branch)
+
+- Default verification is again a content read-back, now issued in the same message as the append over 20 rows after the last row the chat has read, matched by op and exact content (never the receipt position). The reply still comes first and must not claim a save.
+- The 0.4.2 count is demoted to a recovery tool and scoped to column A: live, sheet scope overcounted (3 for 1) when the token also appeared in other columns. Find-and-replace changed no unrelated values.
+- At 1k/10k memories the count was not faster than a read (~1.8 s vs ~1.5 s); append ~2.9 s at any size; an append start hint did not help.
+- 10k-memory warm save: reply ready median 1.51 s, verified total median 7.62 s.
+- `locate()`, `window_range()`, `expected_read()` with regression tests; evidence `tests/LIVE_043.md`.
+
 # 0.4.2 — Reply-first saves with position-independent confirmation (development branch)
 
 - Normal save: the conversational reply is written first; the same message then sends `append_values` plus a whole-sheet op count (`update_spreadsheet` identity findReplace). The count replaces the positional read-back, ignores the unreliable `updatedRange`, gives complete coverage for recovery and exposes reuse of an existing token.

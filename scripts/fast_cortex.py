@@ -120,16 +120,17 @@ def recover(expected,observed,coverage=False):
     if missing and not coverage:raise Incomplete('window cannot prove absence')
     return {'state':'verified' if not missing else 'retry_original_rows','rows':missing}
 
-# ---- 0.4.2 fast confirmation: append_values + server-side op count (findReplace op->op) ----
+# ---- op-count tool (recovery: complete coverage of an op's rows); 0.4.2 used it as default, reverted in 0.4.3 ----
 NEW_OP=r'op[A-Za-z0-9]{8,40}'
 def new_op_ok(op):
     """New writers use 'op' + letters/digits: never parsed as number/date/bool/formula when re-entered."""
     return bool(re.fullmatch(NEW_OP,op))
 def count_request(op,sheet_id=0):
-    """update_spreadsheet requests: identity find/replace of the op token, whole cells, whole Memory sheet.
+    """update_spreadsheet requests: identity find/replace of the op token, whole cells, column A of Memory.
     The reply's occurrencesChanged counts every stored row of this op, wherever it landed."""
     if not new_op_ok(op):raise Invalid('op token not safe for count')
-    return [{'findReplace':{'find':op,'replacement':op,'sheetId':sheet_id,'matchEntireCell':True,'matchCase':True}}]
+    # Column A only: live test showed sheet scope also counts the token in other columns (overcount can mask a missing row).
+    return [{'findReplace':{'find':op,'replacement':op,'range':{'sheetId':sheet_id,'startColumnIndex':0,'endColumnIndex':1},'matchEntireCell':True,'matchCase':True}}]
 def count_from_reply(reply):
     """update_spreadsheet reply -> int. Live: zero matches return findReplace {} with no field."""
     fr=((reply or {}).get('replies') or [{}])[0].get('findReplace')
@@ -147,6 +148,31 @@ def confirm(wire_rows,receipt,count,recounted=False):
     if count>n:return 'check_duplicates'               # earlier retry or token collision: read and compare the op's rows
     if not ok and count==n:return 'check_duplicates'   # rows exist but this receipt did not prove they are ours
     return 'pending' if count<n else 'uncertain'
+
+# ---- 0.4.3 default verification: same-message tail-window read-back, matched by op and exact content ----
+def window_range(last_end,size=20):
+    """Rows after the last row this chat has seen (a lower bound), never a receipt position."""
+    return f'Memory!A{last_end+1}:N{last_end+size}'
+def locate(window,wire_rows,size=20):
+    """Find the intended op in a get_values window. Returns (state, last_row_offset).
+    verified | not_seen (window not full: read may have preceded the append; read once more) |
+    beyond (window full of other rows: read the next window) | pending (some parts) | conflict."""
+    want=[expected_read(r) for r in wire_rows];op=want[0][0]
+    by_part={int(r[1]):r for r in want};seen={};last=None
+    for i,row in enumerate(window):
+        if row and row[0]==op:
+            p=int(row[1]) if str(row[1]).isdigit() else None
+            if p not in by_part or row!=by_part[p]:return 'conflict',i
+            seen[p]=row;last=i
+    if len(seen)==len(by_part):return 'verified',last
+    if seen:return 'pending',last
+    return ('beyond' if len(window)>=size and all(window) else 'not_seen'),None
+def expected_read(wire):
+    """What get_values returns for a correctly appended wire row: apostrophe consumed, numbers as text, trailing blanks dropped."""
+    out=[str(c) if not isinstance(c,str) else c for c in unwire(wire)]
+    while out and out[-1]=='':out.pop()
+    return out
+def unwire(row):return [c[1:] if isinstance(c,str) and c.startswith("'") else c for c in row]
 
 class Index:
     """Offline model of in-chat index + tail refresh, NOT a hosted/persisted index."""
