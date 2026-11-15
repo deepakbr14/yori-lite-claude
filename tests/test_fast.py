@@ -149,3 +149,31 @@ class SheetsLiteralLive(unittest.TestCase):
   edge=['opWire0001',2,2,'EDGE','','','about','opWire0001:1','opWire0001:1','self link for test','@me','S','t','']
   v=f.audit([stored,f.stored_row(edge)])['versions']['opWire0001:1']
   self.assertEqual((v['subject'],v['text'],v['by'],v['source'],v['at']),('007','=1+1 is not a formula','@me','(5) 3/4 TRUE','2026-11-14'))
+
+class FastConfirm042(unittest.TestCase):
+ """0.4.2: append receipt + whole-sheet op count replaces the positional read-back."""
+ def setUp(self):
+  self.rows=[f.wire_row(r) for r in [['opAbc12345xyz',1,2,'NODE','','','Knowledge','t','','x','me','S','s'],['opAbc12345xyz',2,2,'EDGE','','','about','opAbc12345xyz:1','p:1','y','me','S','s']]]
+ def rec(self,rows=2,cells=26,status='success',rng='Memory!A3:M4'):return {'status':status,'updates':{'updatedRows':rows,'updatedCells':cells,'updatedRange':rng}}
+ def test_verified(self):self.assertEqual(f.confirm(self.rows,self.rec(),2),'verified')
+ def test_wrong_updated_range_ignored(self):self.assertEqual(f.confirm(self.rows,self.rec(rng='Memory!A99:M100'),2),'verified')
+ def test_count_before_append_recounts_once(self):
+  self.assertEqual(f.confirm(self.rows,self.rec(),0),'recount');self.assertEqual(f.confirm(self.rows,self.rec(),0,True),'pending')
+ def test_duplicates_or_collision(self):self.assertEqual(f.confirm(self.rows,self.rec(),4),'check_duplicates')
+ def test_partial(self):self.assertEqual(f.confirm(self.rows,self.rec(rows=1,cells=13),1),'pending')
+ def test_failed_receipt_rows_present_need_check(self):self.assertEqual(f.confirm(self.rows,self.rec(status='error'),2),'check_duplicates')
+ def test_no_count_uncertain(self):self.assertEqual(f.confirm(self.rows,self.rec(),None),'uncertain')
+ def test_cell_mismatch_not_verified(self):self.assertNotEqual(f.confirm(self.rows,self.rec(cells=25),2),'verified')
+ def test_count_request_shape(self):
+  r=f.count_request('opAbc12345xyz',7)[0]['findReplace'];self.assertEqual((r['find'],r['replacement'],r['sheetId'],r['matchEntireCell'],r['matchCase']),('opAbc12345xyz','opAbc12345xyz',7,True,True))
+ def test_unsafe_tokens_refused(self):
+  for bad in ('1e345678','TRUE12345','opshort','op-has-dash12','12345678','=op123456789'):
+   self.assertFalse(f.new_op_ok(bad))
+  with self.assertRaises(f.Invalid):f.count_request('1e345678')
+ def test_new_tokens_still_valid_rows(self):self.assertEqual(len(f.audit([f.stored_row(r[:1]+[1,1]+r[3:]) for r in [['opAbc12345xyz',1,1,'NODE','','','Knowledge','t','','x','me','S','s']]])['heads']),1)
+
+class FastConfirmLive042(unittest.TestCase):
+ def test_live_reply_shapes(self):
+  self.assertEqual(f.count_from_reply({'replies':[{'findReplace':{}}],'status':'success'}),0)
+  self.assertEqual(f.count_from_reply({'replies':[{'findReplace':{'valuesChanged':4,'rowsChanged':4,'sheetsChanged':1,'occurrencesChanged':4}}]}),4)
+  self.assertIsNone(f.count_from_reply({'replies':[{}]}))

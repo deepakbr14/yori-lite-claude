@@ -120,6 +120,34 @@ def recover(expected,observed,coverage=False):
     if missing and not coverage:raise Incomplete('window cannot prove absence')
     return {'state':'verified' if not missing else 'retry_original_rows','rows':missing}
 
+# ---- 0.4.2 fast confirmation: append_values + server-side op count (findReplace op->op) ----
+NEW_OP=r'op[A-Za-z0-9]{8,40}'
+def new_op_ok(op):
+    """New writers use 'op' + letters/digits: never parsed as number/date/bool/formula when re-entered."""
+    return bool(re.fullmatch(NEW_OP,op))
+def count_request(op,sheet_id=0):
+    """update_spreadsheet requests: identity find/replace of the op token, whole cells, whole Memory sheet.
+    The reply's occurrencesChanged counts every stored row of this op, wherever it landed."""
+    if not new_op_ok(op):raise Invalid('op token not safe for count')
+    return [{'findReplace':{'find':op,'replacement':op,'sheetId':sheet_id,'matchEntireCell':True,'matchCase':True}}]
+def count_from_reply(reply):
+    """update_spreadsheet reply -> int. Live: zero matches return findReplace {} with no field."""
+    fr=((reply or {}).get('replies') or [{}])[0].get('findReplace')
+    return None if fr is None else int(fr.get('occurrencesChanged',0))
+def sent_cells(wire_rows):return sum(len(r) for r in wire_rows)
+def confirm(wire_rows,receipt,count,recounted=False):
+    """Decide a save from the append receipt and the op count. Never uses updatedRange.
+    Returns verified | recount | pending | check_duplicates | uncertain."""
+    n=len(wire_rows)
+    u=(receipt or {}).get('updates') or {}
+    ok=(receipt or {}).get('status')=='success' and u.get('updatedRows')==n and u.get('updatedCells')==sent_cells(wire_rows)
+    if count is None:return 'uncertain'
+    if ok and count==n:return 'verified'
+    if ok and count==0 and not recounted:return 'recount'  # count may have run before the append landed
+    if count>n:return 'check_duplicates'               # earlier retry or token collision: read and compare the op's rows
+    if not ok and count==n:return 'check_duplicates'   # rows exist but this receipt did not prove they are ours
+    return 'pending' if count<n else 'uncertain'
+
 class Index:
     """Offline model of in-chat index + tail refresh, NOT a hosted/persisted index."""
     def __init__(self,rows,old=None):self.rows=list(rows);self.old=old;self.rebuild()

@@ -1,3 +1,11 @@
+# 0.4.2 — Reply-first saves with position-independent confirmation (development branch)
+
+- Normal save: the conversational reply is written first; the same message then sends `append_values` plus a whole-sheet op count (`update_spreadsheet` identity findReplace). The count replaces the positional read-back, ignores the unreliable `updatedRange`, gives complete coverage for recovery and exposes reuse of an existing token.
+- New op tokens: `op` + 8–40 letters/digits (safe to re-enter during the count). Older tokens remain readable.
+- `fast-cortex.md` rewritten as a short recipe with a template (8,830 → 5,867 bytes). Readable topic keys in `subject`.
+- Live: reply ready median 1.58 s (was after the whole ~7–10 s turn); full verified turn median 7.98 s vs 7.34 s for 0.4.1 in the same window. Sheets calls still 2. An atomic one-call variant was slower (5.7–6.2 s) and rejected.
+- `confirm()`, `count_request()`, `count_from_reply()`, `new_op_ok()` with regression tests; evidence in `tests/LIVE_042.md`, `tests/CONCURRENCY_042.json`.
+
 # 0.4.1 — FAST correctness fixes (development branch)
 
 - Retired edges never appear in active traversal, even beside a concurrent active head; `contested()` and `history()` expose the disagreement and the retired history explicitly.

@@ -1,0 +1,32 @@
+{
+ "provenance": "4 Claude subagent sessions, same Google account, synchronized start 2026-11-15, append_values + findReplace count per op",
+ "ops": 16,
+ "rows": 32,
+ "counts_all_equal_2": true,
+ "rows_present": 32,
+ "wrong_receipt_ranges": [
+  {
+   "writer": "A",
+   "told": "A41:M42",
+   "actual": "A41:M42"
+  },
+  {
+   "writer": "B",
+   "told": "A41:M42",
+   "actual": "A43:M44"
+  },
+  {
+   "writer": "D",
+   "told": "A41:M42",
+   "actual": "A45:M46"
+  },
+  {
+   "writer": "C",
+   "told": "A39:M40",
+   "actual": "A39:M40"
+  }
+ ],
+ "lost": 0,
+ "overwritten": 0,
+ "note": "Round 1 only; rounds 2-4 receipts matched. Counts were correct for all 16 ops."
+}

@@ -1,43 +1,44 @@
 # FAST Cortex — sheets-log-v1
 
-This is the entire ordinary FAST save procedure. No Bash, helper invocation, hashes, commit manifests, Directory writes or per-cell update_spreadsheet requests. The offline scripts are developer tests, not runtime dependencies. Preserve conversation, Self, selective learning, source fidelity and identity rules in the main Skill. The original personal Yori is always out of scope.
+The complete ordinary FAST save. No Bash, helpers, hashes, manifests or Directory writes; the offline scripts are developer tests. Conversation, Self, selective learning, source fidelity and identity rules live in the main Skill. The original personal Yori is always out of scope.
 
-## Connect and read once
+## Connect once per chat
 
-Preserve My Drive/config_plugins and the fixed plugin config filename/UUID. `storage_format: sheets-log-v1`, `cortex_schema_version: 1` selects one native spreadsheet's **Memory** tab. Existing sheets-graph-v1, Docs and metadata selections keep their existing readers; never switch them automatically. New authorized setup creates Memory with the header below, initializes actual Self and verifies, then writes/verifies the normal pointer. Guide connection of Drive and Sheets; account email is optional, not an approval gate. No mandatory Project or new authorization.
+Preserve My Drive/config_plugins and the fixed plugin config filename/UUID. `storage_format: sheets-log-v1`, `cortex_schema_version: 1` selects one native spreadsheet's **Memory** tab. Existing sheets-graph-v1, Docs and metadata selections keep their readers; never switch automatically. New authorized setup creates Memory with the header below, initializes actual Self, verifies, then writes/verifies the pointer. Account email is optional. Cache for the chat: spreadsheet ID, the Memory tab's numeric `sheetId` (`get_spreadsheet` fields `sheets.properties`), participant entity and relevant current heads.
 
-Use the actual Claude `mcp__Google_Sheets__append_values` interface: known arguments are `spreadsheetId`, `range`, `values`. Inspect current tool definitions, not Codex equivalents. It interprets cells like typed input (no RAW option is exposed): unprotected strings become formulas, numbers, dates or booleans, and a leading apostrophe is consumed. So every nonempty string cell is sent with exactly one leading apostrophe (Sheets' literal-text marker, stripped on storage); part/total are JSON integers. This was verified live on new and existing workbooks, including rows beyond the original grid, where plain-text column formatting is NOT inherited. Column formatting is optional; never rely on it. Never evaluate memory as formulas. No direct API workaround. Initial tab creation/header formatting may use setup tools; ordinary saves never do.
+## Save (warm path)
 
-## One small operation
+1. **Reply first.** Write your normal conversational answer, then — in the same message, after the text — issue exactly two calls, in this order:
+   - `mcp__Google_Sheets__append_values` with `{"spreadsheetId":ID,"range":"Memory!A1","values":ROWS}`;
+   - `mcp__Google_Sheets__update_spreadsheet` with `{"spreadsheetId":ID,"requests":[{"findReplace":{"find":OP,"replacement":OP,"sheetId":SHEET,"matchEntireCell":true,"matchCase":true}}]}`.
+   Don't announce the save or narrate it. Don't deliberate over routine rows; use the template below.
+2. **Confirm without positions.** Saved when the append says `status: success`, `updatedRows` = rows sent, `updatedCells` = cells sent, and the count reply's `occurrencesChanged` = rows sent. The count is a server-side scan of the whole Memory sheet for cells exactly equal to OP, so it does not depend on where rows landed. Ignore `updatedRange`: simultaneous writers have been told wrong ranges. A count reply of `findReplace: {}` means 0.
+3. **After the results,** add nothing to the reply when saved. Otherwise:
+   - count 0 with a success receipt → repeat only the count once (the two calls may have run in parallel);
+   - count < rows → pending: run the count again; if still short, follow recovery in [fast-details](fast-details.md);
+   - count > rows → the token already existed (earlier retry or collision): read the rows carrying OP and compare exactly before anything else;
+   - append error or timeout → count first; 0 → re-append the identical rows with the same OP; equal → saved; partial → recovery.
+   Never invent a new OP to retry, never lower `total`, never claim an unverified save. Tell the user only when something remains unresolved.
 
-1. Reuse this chat's verified config, source, participant and relevant current heads. Each fact is a small node; a preference node is not a new participant. Retrieve established Self before new identity choices. Corrections preserve the entity ID and every observed predecessor; don't pick a timestamp winner.
-2. Choose one fresh stable operation token, then short row arrays below. Prefer a host-exposed unique request/message/provider ID usable as a token; no shell preparation. Otherwise use a fresh opaque 128-bit-shaped token as a **candidate**, not a cryptographic or guaranteed-unique ID. Retain the exact token and row arrays in turn context before sending. Never reuse a token for a different operation. See ID limitations below. Roots/revision IDs are derived as `op:part`; no separate row UUIDs. Preserve meaningful sources and reasons, not repetitive prose. Include actual supported edges in the same operation. Limit ordinary operations to a few rows, not bulk profile edits.
-3. Call append_values once with `range: "Memory!A1"` and all related rows in `values`. Use append, never write to a guessed next row. Do not assume the call is transactional.
-4. Read the receipt's `updatedRange` once and match rows by op/part and exact content, never by position. Simultaneous writers can receive a wrong `updatedRange` (observed live: four writers were all told rows 3-4 while their rows actually landed in 3-10; no data was lost). If the read shows other rows, locate your op in rows after the receipt's `tableRange` end; never re-append before locating it. A success receipt with matching row/cell counts is not by itself proof of a save. Require all distinct parts 1..total, matching counts, exact expected contents/IDs and valid references. An incomplete/mismatched row is pending/corrupt, never saved. A missing receipt/search capability can require extra reads: don't hide these to meet a timing target. No extra read after complete exact verification. No routine narration.
+Why it is exact: every nonempty string is sent with one leading apostrophe (Sheets' literal marker, stripped on storage), so no value is parsed as a formula, number, date or boolean — live-verified for 42 hostile values on new and existing workbooks, including rows beyond the original grid. Column formatting is optional; never rely on it. `append_values` applies all rows of one call together; the count confirms all of them exist.
 
-Only a complete operation is visible to recall. No completion marker is needed: every row declares the expected count. Physical order does not establish completeness. Identical op/part and identical full values count once. Same op/part with different values, differing totals or unexpected parts are conflicts, not overwrite candidates. A count is not a checksum. Ignore pending operations as authoritative memory, but report relevant pending/conflicting learning rather than presenting an unset preference.
-
-## Row order (A:N)
+## Rows (A:N)
 
 `op | part | total | type | id | parents | kind | subject | object | text | by | basis | source | at`
 
-- `op`: stable token, 8–128 letters/digits/underscore/hyphen; never a physical row number. `part`, `total`: positive integer slots/count (max 100). An immutable revision ID is `op:part`.
-- `type`: NODE, EDGE or REVISION. For new NODE/EDGE, `id` and `parents` are empty; entity ID is the derived revision ID. REVISION names its existing entity in `id` and comma-separated exact predecessor revision IDs in `parents`. Revision retains its family's fields. Never create a second identity for a correction.
-- NODE: `kind` is Self/People/Knowledge/Concept; `subject` is a concise topic key, preferably stable person ID/topic for personal facts; `object` empty. `text` is the meaningful full small fact/reason, uncertainty included.
-- EDGE: `kind` is the evidenced relation, `subject`/`object` are stable endpoint entity IDs; `text` explains its evidence. Unchanged edges need no new row. A revised edge is REVISION pointing to the edge entity and its bases.
-- Prefix `kind` with `!` on a deliberate retirement revision (for example `!People` or `!about`), retaining full prior meaning and the reason in text. Keep the retired head/history visible; exclude retired edges from active traversal, including when a concurrent active head of the same edge exists (traverse the active head and disclose the disagreement). Reopening is a deliberate new revision, not deletion.
-- `by`: actual contributor or explicit unknown-speaker label. `basis`: S explicit statement, I Yori inference, D independent decision, E external evidence, M mixed (attribute claims in text), U unknown. Never convert a guessed motive, pronoun or agreement into a statement.
-- `source`: concise original evidence/context or grounded source reference. `at`: reliable recorded UTC time, or blank when unavailable; precise event time remains explicit in source/text, never invented. History is the immutable rows and predecessor links themselves. A revision's text must preserve the current meaning and explain why it changed; do not copy an entire old profile.
-- Retain empty interior cells as `""`; omit only trailing blank `at`. Two layers, in order: (1) in subject, object, text, by, source and at, a value beginning `=`, `+`, `-`, `@`, apostrophe or `~` gets an extra leading `~` (stored form; readers decode exactly one `~` only when the next character is in that set, in all six columns, keeping older rows readable); (2) then every nonempty string cell, in every column, gets one leading apostrophe for transport. Example: text `=1+1 means two` is sent as `'~=1+1 means two`, stored and read back as `~=1+1 means two`, recalled as `=1+1 means two`. `get_values` returns strings (part `"1"`) and drops trailing blank cells. No formula execution. Compare read-back with the stored form, then decode. Never truncate content to meet a payload goal.
+- `op`: fresh per operation, `op` + 8–40 letters/digits (e.g. `opK7m2Qx9Lw4`); this form survives the count call unchanged. Keep the exact OP and rows until confirmed. Never reuse it for different content. Revision/entity IDs are `op:part`. Readers still accept older tokens (8–128 of letters, digits, `_`, `-`).
+- `part`/`total`: JSON integers, slots 1..total (max 100).
+- `type`: NODE, EDGE or REVISION. New NODE/EDGE: `id`, `parents` = `""`. REVISION: `id` = existing entity, `parents` = comma-separated exact predecessor revision IDs (all observed heads). Never create a second identity for a correction.
+- NODE: `kind` Self/People/Knowledge/Concept; `subject` a readable topic key (`project/langtool/mascot`, `person/<id>/favorite_color`), not an entity ID; `object` `""`; `text` the full small fact with uncertainty.
+- EDGE: `kind` the evidenced relation (`about`, `supports`, `contradicts`); `subject`/`object` endpoint entity IDs; `text` the evidence. Unchanged edges need no new row.
+- Retirement: `!` before `kind` on a REVISION (`!People`, `!about`), full meaning and reason retained. Retired edges are never active links, even beside a concurrent active head; disclose the disagreement. Reopening is a new revision.
+- `by` real contributor or explicit unknown label; `basis` S statement, I inference, D decision, E external, M mixed, U unknown; `source` concise grounded evidence; `at` reliable UTC or omitted. Never invent motive, pronoun, agreement or dates.
+- Encoding: in subject, object, text, by, source and at, a value starting `=` `+` `-` `@` `'` `~` gets one extra leading `~`; then every nonempty string gets one leading `'`. Empty interior cells are `""`; omit trailing blank `at`. Readers decode one `~` when followed by one of those characters. Never truncate content.
 
-Example (synthetic, IDs shortened here; don't reuse):
+Template (synthetic):
 ```json
-{"spreadsheetId":"VERIFIED_ID","range":"Memory!A1","values":[["'operation_token_1",1,2,"'NODE","","","'People","'person-id/favorite_color","","'Blue.","'person-id","'S","'Person: my favorite color is blue."],["'operation_token_1",2,2,"'EDGE","","","'about","'operation_token_1:1","'person-id","'Person stated this preference.","'person-id","'S","'Same statement."]]}
+[["'opK7m2Qx9Lw4",1,2,"'NODE","","","'People","'person/p1/favorite_color","","'Blue.","'p1","'S","'p1: my favorite color is blue"],["'opK7m2Qx9Lw4",2,2,"'EDGE","","","'about","'opK7m2Qx9Lw4:1","'p1:1","'Stated by p1.","'p1","'S","'same"]]
 ```
-The person endpoint must already exist in FAST or the configured legacy reader. Examples never seed real identities. Natural introduction and sole-participant defaults still apply; a shared folder does not authenticate anyone.
+The endpoint must already exist. Examples never seed real identities.
 
-## When more context is needed
-
-For an ordinary verified save, stop here. Before current recall, refresh new rows and resolve all heads; a stale row hint or topic hit alone is not authoritative. Use [FAST retrieval, recovery and compatibility](fast-details.md) on fresh-chat retrieval, incomplete writes, concurrency, ID ambiguity or an explicit existing-Cortex switch. Cache the relevant rules instead of rereading every Skill. No complete-cortex text scan on every question.
-
-ID limits apply even on the normal path: candidate model tokens are not guaranteed unique; exact comparison detects observed clashes but not every indistinguishable/complementary collision. Guaranteed uniqueness needs a trusted exposed ID source. Counts detect missing rows, not later well-formed tampering. Never describe this store as tamper-proof or exactly-once.
+Only complete operations are memory. Identical op/part/values count once; same op/part with different values, differing totals or unexpected parts are conflicts, never overwrites. Before current recall, refresh new rows and resolve all heads — see [fast-details](fast-details.md). Model tokens are candidates, not guaranteed-unique IDs; the count exposes reuse of a token already stored, not a collision written later. Never describe this store as tamper-proof or exactly-once.
