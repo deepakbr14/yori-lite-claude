@@ -1,10 +1,10 @@
-# Yori Lite 0.4.0 — FAST Cortex
+# Yori Lite 0.4.1 — FAST Cortex
 
 Yori learns into readable, compact Google Sheets rows. One **Memory** tab stores NODE, EDGE and REVISION records. Facts stay small; relationships, contributor attribution and the history of changes remain intact. No custom MCP, Apps Script, backend, Bash preparation or mandatory Claude Project.
 
 ## Install
 
-Use the existing [GitHub marketplace](https://github.com/deepakbr14/yori-lite-claude), install Yori Lite **0.4.0**, then start a fresh Claude chat. A ZIP is also available. New setup guides connection of Google Drive and Google Sheets. Existing Cortex configuration is reused; installing this version never migrates or resets it.
+Use the existing [GitHub marketplace](https://github.com/deepakbr14/yori-lite-claude), install Yori Lite **0.4.1**, then start a fresh Claude chat. A ZIP is also available. New setup guides connection of Google Drive and Google Sheets. Existing Cortex configuration is reused; installing this version never migrates or resets it.
 
 FAST writes use Claude's actual `append_values` shape: short row arrays, one call for related rows, then one small verification read when receipts/coverage allow. No per-cell wrappers, checksums, duplicate History snapshots or commit manifests. Every row carries an operation token, part and total. Missing rows stay pending; retries preserve IDs; competing revisions remain visible.
 

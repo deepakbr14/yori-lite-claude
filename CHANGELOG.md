@@ -1,3 +1,13 @@
+# 0.4.1 — FAST correctness fixes (development branch)
+
+- Retired edges never appear in active traversal, even beside a concurrent active head; `contested()` and `history()` expose the disagreement and the retired history explicitly.
+- The `~` literal codec is decoded uniformly on subject, object, text, by, source and at (previously only text, by and source).
+- Exact Google Sheets values: the Claude `append_values` connector has no RAW option and parses cells like typed input. Every nonempty string cell is now sent with one leading apostrophe (Sheets' literal marker). Live-verified for 42 hostile values (formulas, leading zeros, scientific-looking strings, dates, times, currency, percents, booleans, error literals, apostrophes, Unicode, newlines, padding) on a new workbook beyond its original 1,000-row grid and on an existing workbook. Plain-text column formatting alone failed beyond the grid and is no longer relied on.
+- Readers accept `get_values` string part/total and trimmed trailing cells.
+- Verification matches rows by op/part/content, not receipt position: in a live test with four simultaneous Claude sessions, 3 of 20 receipts reported a wrong `updatedRange` although no row was lost or overwritten. Receipt-only saves remain disabled; read-back stays the default.
+- New regression tests and live evidence: `tests/SHEETS_LITERAL_LIVE.json`, `tests/CONCURRENCY_LIVE.json`, `tests/LIVE_041.md`.
+- Storage format, config, existing rows and revisions are unchanged; rollback to 0.4.0 needs no data change, but 0.4.0 writers must not be used after 0.4.1 on the same Cortex because they send unprotected strings.
+
 # 0.4.0 — FAST single-tab Cortex
 
 - Adds compact NODE/EDGE/REVISION rows through Claude append_values; one related-row append plus verification when supported.

@@ -1,3 +1,7 @@
+# Roll back 0.4.1
+
+0.4.1 changes no storage format, config or existing row. Reinstalling 0.4.0 can read everything 0.4.1 wrote. Prefer not to write with 0.4.0 afterwards: it sends strings without the apostrophe literal marker, so values such as `007`, dates or formula-looking text can be altered by Google Sheets.
+
 # Roll back 0.4.0
 
 If no FAST pointer was activated, reinstall 0.3.2; existing graph/Docs data and config are unchanged. If FAST learning exists, do not downgrade blindly: 0.3.2 cannot read sheets-log-v1. Retain the workbook, exact config backup, all pending operations and legacy source. Keep 0.4.0 for recall until an explicitly authorized export/reconciliation to the older format has been verified, including every new version, conflicting branch, edge and source. A pointer reset alone is not lossless rollback. Never overwrite an old workbook with a stale backup or delete Memory/legacy tabs. Coordinate writers during any config switch. No existing user Cortex was switched by this release.

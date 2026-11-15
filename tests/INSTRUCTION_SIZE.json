@@ -1,8 +1,8 @@
 {
   "measurement": "UTF-8 bytes on disk, not tokens or response latency",
-  "previous_version": "0.2.1",
-  "version": "0.4.0",
-  "previous_five_skill_bytes": 43817,
+  "previous_version": "0.4.0",
+  "version": "0.4.1",
+  "previous_five_skill_bytes": 41170,
   "new_five_skill_bytes": 41170,
   "new_shared_contract_bytes": 7592,
   "scope": "five SKILL.md files plus shared contract; other task-specific references excluded",
@@ -11,5 +11,5 @@
     "skills/yori-lite/SKILL.md",
     "references/fast-cortex.md"
   ],
-  "graph_normal_route_bytes": 17741
+  "graph_normal_route_bytes": 18881
 }

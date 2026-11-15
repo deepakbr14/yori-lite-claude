@@ -1,0 +1,101 @@
+{
+ "provenance": "4 independent Claude subagent sessions, same connected Google account (enupgames), Google Sheets connector append_values, 2026-11-15; synchronized start",
+ "writers": 4,
+ "ops": 20,
+ "rows": 38,
+ "physical_order": [
+  "C1",
+  "A1",
+  "B1",
+  "D1",
+  "A2",
+  "B2",
+  "D2",
+  "C2",
+  "A3",
+  "B3",
+  "C3",
+  "D3",
+  "A4",
+  "B4",
+  "D4",
+  "C4",
+  "A5",
+  "B5",
+  "C5",
+  "D5"
+ ],
+ "receipts": {
+  "A": [
+   "A3:M4",
+   "A11:M12",
+   "A19:M20",
+   "A27:M28",
+   "A35:M35"
+  ],
+  "B": [
+   "A3:M4",
+   "A13:M14",
+   "A21:M22",
+   "A29:M30",
+   "A36:M36"
+  ],
+  "C": [
+   "A3:M4",
+   "A17:M18",
+   "A23:M24",
+   "A33:M34",
+   "A37:M37"
+  ],
+  "D": [
+   "A3:M4",
+   "A15:M16",
+   "A25:M26",
+   "A31:M32",
+   "A38:M38"
+  ]
+ },
+ "actual_ranges": {
+  "C1": "A3:M4",
+  "A1": "A5:M6",
+  "B1": "A7:M8",
+  "D1": "A9:M10",
+  "A2": "A11:M12",
+  "B2": "A13:M14",
+  "D2": "A15:M16",
+  "C2": "A17:M18",
+  "A3": "A19:M20",
+  "B3": "A21:M22",
+  "C3": "A23:M24",
+  "D3": "A25:M26",
+  "A4": "A27:M28",
+  "B4": "A29:M30",
+  "D4": "A31:M32",
+  "C4": "A33:M34",
+  "A5": "A35:M35",
+  "B5": "A36:M36",
+  "C5": "A37:M37",
+  "D5": "A38:M38"
+ },
+ "wrong_receipts": [
+  [
+   "A1",
+   "A3:M4",
+   "A5:M6"
+  ],
+  [
+   "B1",
+   "A3:M4",
+   "A7:M8"
+  ],
+  [
+   "D1",
+   "A3:M4",
+   "A9:M10"
+  ]
+ ],
+ "lost_rows": 0,
+ "overwritten_rows": 0,
+ "pending": {},
+ "concurrent_heads_on_shared_node": 4
+}
