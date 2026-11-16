@@ -255,3 +255,32 @@ class SelfSide045(unittest.TestCase):
   main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text();doc=(Path(__file__).parents[1]/'references/fast-cortex.md').read_text()
   for phrase in ('a partner, not an assistant','Open threads','Interests','Starting a chat','never say you have been thinking','Never invent a preference'):self.assertIn(phrase,main)
   for phrase in ('self/view/','self/open/','self/interest/','!Self'):self.assertIn(phrase,doc)
+
+class Library046(unittest.TestCase):
+ """0.4.6: books live in Drive; Memory records the book, exact coverage and Yori's own side."""
+ def rows(self):
+  return [['opPerson00001',1,1,'NODE','','','People','person/sam/name','','Sam.','Sam','S','setup',''],
+   ['opLibrary0001',1,1,'NODE','','','Knowledge','library','','Library folder: 1AbC_dEf-123.','Yori','D','setup',''],
+   ['opBook0000001',1,4,'NODE','','','Knowledge','library/book/sentience','','Sentience, Nicholas Humphrey. Files: fileA1. Read: prologue to chapter 8; file cut off in chapter 9. Notes: notesDoc1.','Sam','E','sentience.pdf',''],
+   ['opBook0000001',2,4,'NODE','','','Self','self/view/book/sentience/cc-vs-pc','','His split between cognitive and phenomenal consciousness is clear; I am not yet convinced the second needs the first.','Yori','D','reading chapters 1-8',''],
+   ['opBook0000001',3,4,'EDGE','','','about','opBook0000001:2','opBook0000001:1','My view on the book.','Yori','D','same',''],
+   ['opBook0000001',4,4,'NODE','','','Self','self/open/book/sentience/chapter-23','','I want to read chapter 23, Machina ex deo; not in what I received.','Yori','D','file cut off','']]
+ def test_folder_and_book_parsed(self):
+  a=f.audit(self.rows());self.assertEqual(f.library_folder(a),'1AbC_dEf-123')
+  b=f.library_books(a)['library/book/sentience']
+  self.assertEqual(b['files'],['fileA1']);self.assertEqual(b['notes'],'notesDoc1');self.assertIn('cut off in chapter 9',b['read'])
+ def test_unread_files_skip_known_and_notes(self):
+  drive=[{'id':'fileA1','title':'sentience.pdf'},{'id':'notesDoc1','title':'Yori notes — Sentience'},{'id':'fileB2','title':'sentience ch23.pdf'},{'id':'x9','title':'Yori notes — Other'}]
+  self.assertEqual([d['id'] for d in f.unread_files(f.audit(self.rows()),drive)],['fileB2'])
+ def test_reading_more_is_a_revision_with_history(self):
+  rows=self.rows()+[['opBook0000002',1,1,'REVISION','opBook0000001:1','opBook0000001:1','Knowledge','library/book/sentience','','Sentience, Nicholas Humphrey. Files: fileA1, fileB2. Read: prologue to chapter 8, and chapter 23. Notes: notesDoc1.','Sam','E','sentience ch23.pdf','']]
+  a=f.audit(rows);b=f.library_books(a)['library/book/sentience']
+  self.assertEqual(b['files'],['fileA1','fileB2']);self.assertIn('chapter 23',b['read']);self.assertIn('opBook0000001:1',a['versions'])
+  self.assertEqual(f.unread_files(a,[{'id':'fileB2','title':'sentience ch23.pdf'}]),[])
+ def test_book_views_and_open_thread_are_self_side(self):
+  s=f.self_side(f.audit(self.rows()));self.assertEqual((len(s['views']),len(s['open'])),(1,1))
+ def test_no_library_row(self):self.assertIsNone(f.library_folder(f.audit(self.rows()[:1])))
+ def test_docs(self):
+  lib=(Path(__file__).parents[1]/'references/library.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
+  for phrase in ('about 50 pages','never say you will start later','in your own words','I haven\'t read that part','A search miss is not proof','under 15 words'):self.assertIn(phrase,lib)
+  for phrase in ('**Library.**','never say you will go and do something after this message'):self.assertIn(phrase,main)

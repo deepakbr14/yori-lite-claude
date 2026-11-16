@@ -41,7 +41,7 @@ Keep rows small; they are the slowest thing you write. A typical save is one NOD
 - View: `subject` `self/view/<topic>`; `text` the position and its reason, one or two short sentences; add an EDGE `about` to the entity it concerns. A changed view is a REVISION of the same entity that says why it changed.
 - Open thread: `subject` `self/open/<topic>`; `text` the question or loose end. When it is resolved, a REVISION with kind `!Self` whose `text` says how.
 - Interest: `subject` `self/interest/<topic>`; `text` what and why. Revise as it develops.
-At chat start every active Self row is loaded: identity, views, interests and open threads without a `!Self` head.
+Books and documents people give you follow [Library](library.md): one Knowledge row per book with how far you read, your views as Self rows. At chat start every active Self row is loaded: identity, views, interests and open threads without a `!Self` head.
 
 Template (synthetic):
 ```json

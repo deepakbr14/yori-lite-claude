@@ -1,3 +1,13 @@
+# 0.4.6 — Library: books and documents in Google Drive
+
+- `Library` folder inside the Cortex folder; created at setup or on first use, and the person is told once.
+- At chat start Yori checks it for files she has not read and mentions them.
+- Reading happens in the turn it is asked for. She records exactly how far the text went; cut-off files are reported with a request for parts of about 50 pages (the Drive connector reads from the start only, with no page range).
+- One notes document per book in the Library, in her own words; Memory holds the book row with coverage, plus her views, interests and open threads about it.
+- Later use: notes or a Library search first; "the book says", "I think", "I haven't read that part" and general knowledge kept apart.
+- She no longer says she will do something after the message; she does it in the turn or says what she needs.
+- `library_folder()`, `library_books()`, `unread_files()` with regression tests; `references/library.md`.
+
 # 0.4.5 — Yori as a partner with her own side
 
 - New Self section: Yori keeps her own views (position + reason), open threads (unanswered questions, loose ends) and interests as Self rows, saved in the same append as the turn's facts.

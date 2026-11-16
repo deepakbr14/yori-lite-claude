@@ -202,6 +202,29 @@ def self_side(state):
             out[key].append(v)
     return out
 
+# ---- 0.4.6 Library: books in Drive, coverage in Memory ----
+def library_books(state):
+    """Active book rows: {subject: {'files':[ids], 'read':str, 'notes':id|None, 'text':str}} parsed from the row text."""
+    out={}
+    for heads in state['heads'].values():
+        for v in heads:
+            if v['family']=='NODE' and v['status']=='active' and v['subject'].startswith('library/book/'):
+                t=v['text'];g=lambda k:(re.search(k+r':\s*(.*?)(?:\.\s+(?:Files|Read|Notes):|\.?$)',t) or [None,''])[1].strip()
+                out[v['subject']]={'files':[x.strip() for x in g('Files').split(',') if x.strip()],'read':g('Read'),'notes':g('Notes') or None,'text':t}
+    return out
+def library_folder(state):
+    for heads in state['heads'].values():
+        for v in heads:
+            if v['family']=='NODE' and v['status']=='active' and v['subject']=='library':
+                m=re.search(r'Library folder:\s*([A-Za-z0-9_-]+)',v['text'])
+                if m:return m[1]
+    return None
+def unread_files(state,drive_files):
+    """drive_files: [{'id','title'}] listed from the Library folder. Returns files not named in any book row,
+    skipping Yori's own notes documents."""
+    known={f for b in library_books(state).values() for f in b['files']}|{b['notes'] for b in library_books(state).values() if b['notes']}
+    return [d for d in drive_files if d['id'] not in known and not d['title'].startswith('Yori notes')]
+
 class Index:
     """Offline model of in-chat index + tail refresh, NOT a hosted/persisted index."""
     def __init__(self,rows,old=None):self.rows=list(rows);self.old=old;self.rebuild()
