@@ -1,3 +1,11 @@
+# 0.4.4 — One Sheets call per save, one reply, plain voice
+
+- Ordinary save is a single `append_values`. The write is confirmed from the receipt (success, row count, cell count, Memory column A; row numbers ignored). The exact-content read-back now runs in the same turn only for a chat's first save or an unclean receipt; every other save is audited by content at the chat's next Memory read.
+- The reply is written exactly once: before the call where the host shows such text, otherwise once after the receipt. No repeated or reworded reply after the save.
+- New Voice section: plain, short, honest; no praise or pleasantries, no questions asked to keep the conversation going, says "I don't know" and "I disagree".
+- `receipt_ok()`, `after_append()`, `audit_saved()` with regression tests; evidence `tests/LIVE_044.md`.
+- Residual: a write that fails despite a clean receipt (never observed in 150+ live appends) would not be noticed in the same turn, and is lost if the chat ends before its next read.
+
 # 0.4.3 — Read-back restored as default; count fixed to column A (development branch)
 
 - Default verification is again a content read-back, now issued in the same message as the append over 20 rows after the last row the chat has read, matched by op and exact content (never the receipt position). The reply still comes first and must not claim a save.

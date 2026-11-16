@@ -193,4 +193,33 @@ class TailWindow043(unittest.TestCase):
  def test_partial(self):self.assertEqual(f.locate([self.st[0]],self.w)[0],'pending')
  def test_not_seen_short_window(self):self.assertEqual(f.locate([self.other],self.w)[0],'not_seen')
  def test_beyond_full_window(self):self.assertEqual(f.locate([self.other]*20,self.w)[0],'beyond')
- def test_receipt_position_never_used(self):self.assertNotIn('updatedRange',open(f.__file__).read().split('0.4.3 default verification')[1])
+ def test_receipt_position_never_used(self):self.assertNotIn('updatedRange',open(f.__file__).read().split('0.4.3 default verification')[1].split('# ---- 0.4.4')[0])
+
+class OneCallSave044(unittest.TestCase):
+ """0.4.4: one append per save; clean receipt now, exact-content audit at the next read."""
+ def setUp(self):
+  self.n=['opOne1234abcd',1,2,'NODE','','','People','person/p/favorite_color','','Blue.','p','S','p: my favorite color is blue']
+  self.e=['opOne1234abcd',2,2,'EDGE','','','about','opOne1234abcd:1','p:1','Stated by p.','p','S','same']
+  self.w=[f.wire_row(self.n),f.wire_row(self.e)]
+ def rec(self,rows=2,cells=26,rng='Memory!A20009:M20010',status='success'):return {'status':status,'tableRange':'Memory!A1:N20008','updates':{'updatedRange':rng,'updatedRows':rows,'updatedColumns':13,'updatedCells':cells}}
+ def test_clean_receipt(self):self.assertTrue(f.receipt_ok(self.w,self.rec()))
+ def test_row_numbers_ignored(self):self.assertTrue(f.receipt_ok(self.w,self.rec(rng='Memory!A3:M4')))
+ def test_wrong_counts_tab_column_status(self):
+  for bad in (self.rec(rows=1),self.rec(cells=25),self.rec(rng='Literal!A3:M4'),self.rec(rng='Memory!B3:N4'),self.rec(status='error'),None,{}):
+   self.assertFalse(f.receipt_ok(self.w,bad))
+ def test_first_save_reads_back(self):self.assertEqual(f.after_append(self.w,self.rec(),True),'read_back')
+ def test_later_clean_save_done(self):self.assertEqual(f.after_append(self.w,self.rec(),False),'done')
+ def test_unclean_receipt_reads_back(self):self.assertEqual(f.after_append(self.w,self.rec(rows=1),False),'read_back')
+ def test_deferred_audit_finds_exact_rows_among_others(self):
+  other=['opOther99999x','1','1','NODE','','','Knowledge','t/o','','o','them','S','s']
+  read=[other,f.expected_read(self.w[0]),other,f.expected_read(self.w[1])]
+  self.assertEqual(f.audit_saved(read,[self.w]),{'opOne1234abcd':'verified'})
+ def test_deferred_audit_flags_missing_and_changed(self):
+  changed=f.expected_read(self.w[0]);changed[9]='Green.'
+  self.assertEqual(f.audit_saved([f.expected_read(self.w[0])],[self.w])['opOne1234abcd'],'pending')
+  self.assertEqual(f.audit_saved([changed,f.expected_read(self.w[1])],[self.w])['opOne1234abcd'],'conflict')
+  self.assertEqual(f.audit_saved([],[self.w])['opOne1234abcd'],'not_seen')
+ def test_skill_text_matches_policy(self):
+  doc=(Path(__file__).parents[1]/'references/fast-cortex.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
+  for phrase in ('exactly once','Never write the reply twice','Read back in the same turn only when','Audit at the next read','never says or implies'):self.assertIn(phrase,doc)
+  for phrase in ('## Voice','No praise, pleasantries','I don\'t know'):self.assertIn(phrase,main)

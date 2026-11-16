@@ -174,6 +174,21 @@ def expected_read(wire):
     return out
 def unwire(row):return [c[1:] if isinstance(c,str) and c.startswith("'") else c for c in row]
 
+# ---- 0.4.4 default: one append per save, receipt gate now, content audit at the next read ----
+def receipt_ok(wire_rows,receipt):
+    """Clean append receipt: success, row and cell counts equal what was sent, landed in Memory column A.
+    Row numbers in updatedRange are never used (simultaneous writers were told wrong rows)."""
+    u=(receipt or {}).get('updates') or {}
+    return bool((receipt or {}).get('status')=='success' and u.get('updatedRows')==len(wire_rows)
+                and u.get('updatedCells')==sent_cells(wire_rows) and str(u.get('updatedRange','')).startswith('Memory!A'))
+def after_append(wire_rows,receipt,first_save_in_chat):
+    """'done' (written, count confirmed; audit at next read) or 'read_back' (verify by content now)."""
+    return 'read_back' if first_save_in_chat or not receipt_ok(wire_rows,receipt) else 'done'
+def audit_saved(read_rows,saved_ops):
+    """Deferred audit: read_rows = Memory rows read from E+1; saved_ops = list of wire-row lists kept from this chat.
+    Returns {op: state} using the same exact-content matching as the read-back."""
+    return {unwire(rows[0])[0]:locate(read_rows,rows,size=len(read_rows)+1)[0] for rows in saved_ops}
+
 class Index:
     """Offline model of in-chat index + tail refresh, NOT a hosted/persisted index."""
     def __init__(self,rows,old=None):self.rows=list(rows);self.old=old;self.rebuild()
