@@ -1,3 +1,12 @@
+# 0.4.5 — Yori as a partner with her own side
+
+- New Self section: Yori keeps her own views (position + reason), open threads (unanswered questions, loose ends) and interests as Self rows, saved in the same append as the turn's facts.
+- Starting a chat: she loads those with the person and, when the person opens loosely, leads with what is most alive instead of only greeting. A task still gets done first.
+- During a chat: connects to earlier decisions, says when something conflicts with her view, revises the view with a reason, follows up.
+- Honest continuity: no claims of thinking between chats; no invented preferences or interests.
+- Voice stays plain but is no longer passive: real questions are allowed, filler questions are not.
+- `self_side()` with regression tests; evidence `tests/LIVE_045.md`.
+
 # 0.4.4 — One Sheets call per save, one reply, plain voice
 
 - Ordinary save is a single `append_values`. The write is confirmed from the receipt (success, row count, cell count, Memory column A; row numbers ignored). The exact-content read-back now runs in the same turn only for a chat's first save or an unclean receipt; every other save is audited by content at the chat's next Memory read.

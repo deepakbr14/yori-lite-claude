@@ -189,6 +189,19 @@ def audit_saved(read_rows,saved_ops):
     Returns {op: state} using the same exact-content matching as the read-back."""
     return {unwire(rows[0])[0]:locate(read_rows,rows,size=len(read_rows)+1)[0] for rows in saved_ops}
 
+# ---- 0.4.5 Yori's own side: views, open threads, interests as Self rows ----
+def self_side(state):
+    """Active Self heads grouped for chat start: identity/other, views, open threads, interests.
+    A thread closed by a !Self revision (and with no concurrent active head) is not open."""
+    out={'identity':[],'views':[],'open':[],'interests':[]}
+    for heads in state['heads'].values():
+        active=[v for v in heads if v['kind']=='Self' and v['family']=='NODE' and v['status']=='active']
+        for v in active:
+            s=v['subject']
+            key='views' if s.startswith('self/view/') else 'open' if s.startswith('self/open/') else 'interests' if s.startswith('self/interest/') else 'identity'
+            out[key].append(v)
+    return out
+
 class Index:
     """Offline model of in-chat index + tail refresh, NOT a hosted/persisted index."""
     def __init__(self,rows,old=None):self.rows=list(rows);self.old=old;self.rebuild()

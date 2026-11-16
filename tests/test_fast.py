@@ -223,3 +223,35 @@ class OneCallSave044(unittest.TestCase):
   doc=(Path(__file__).parents[1]/'references/fast-cortex.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
   for phrase in ('exactly once','Never write the reply twice','Read back in the same turn only when','Audit at the next read','never says or implies'):self.assertIn(phrase,doc)
   for phrase in ('## Voice','No praise, pleasantries','I don\'t know'):self.assertIn(phrase,main)
+
+class SelfSide045(unittest.TestCase):
+ """0.4.5: Yori keeps her own views, open threads and interests as Self rows."""
+ def rows(self):
+  P=['opPerson00001',1,1,'NODE','','','People','person/sam/name','','Sam.','Sam','S','setup','']
+  I=['opSelfIdent01',1,1,'NODE','','','Self','self/identity','','I am Yori, a partner.','Yori','D','setup','']
+  J=['opProject0001',1,1,'NODE','','','Knowledge','project/game','','Sam is building a game.','Sam','S','Sam','']
+  T=[['opTurn0000001',1,4,'NODE','','','Self','self/view/project/game/build-order','','Build school years first: it gives players a reason to return.','Yori','D','my reply to the idea list',''],
+     ['opTurn0000001',2,4,'EDGE','','','about','opTurn0000001:1','opProject0001:1','My view on this project.','Yori','D','same',''],
+     ['opTurn0000001',3,4,'NODE','','','Self','self/open/project/game/sunny','','What does sunny in the idea list mean?','Yori','D','my unanswered question',''],
+     ['opTurn0000001',4,4,'NODE','','','Self','self/interest/why-short-matches-hook','','Why short matches keep players: I want to understand the loop.','Yori','D','came up while planning soccer','']]
+  return [P,I,J]+T
+ def test_groups(self):
+  s=f.self_side(f.audit(self.rows()))
+  self.assertEqual({k:len(v) for k,v in s.items()},{'identity':1,'views':1,'open':1,'interests':1})
+  self.assertEqual(s['open'][0]['by'],'Yori')
+ def test_closed_thread_not_open_but_kept(self):
+  rows=self.rows()+[['opClose000001',1,1,'REVISION','opTurn0000001:3','opTurn0000001:3','!Self','self/open/project/game/sunny','','Resolved: sunny is a weather system. Sam explained.','Yori','D','Sam: sunny = weather','']]
+  a=f.audit(rows);self.assertEqual(f.self_side(a)['open'],[])
+  self.assertEqual(a['heads']['opTurn0000001:3'][0]['status'],'retired');self.assertIn('opTurn0000001:3',a['versions'])
+ def test_changed_view_is_revision_with_history(self):
+  rows=self.rows()+[['opRevise00001',1,1,'REVISION','opTurn0000001:1','opTurn0000001:1','Self','self/view/project/game/build-order','','Changed: soccer first. Sam showed it is what testers ask for.','Yori','D','Sam: testers only ask about soccer','']]
+  a=f.audit(rows);v=f.self_side(a)['views']
+  self.assertEqual(len(v),1);self.assertTrue(v[0]['text'].startswith('Changed'));self.assertEqual(v[0]['parents'],['opTurn0000001:1'])
+ def test_view_links_to_topic(self):
+  i=f.Index(self.rows());self.assertEqual([v['subject'] for v in i.neighbors('opProject0001:1')],['opTurn0000001:1'])
+ def test_people_rows_never_counted_as_self(self):
+  s=f.self_side(f.audit(self.rows()));self.assertTrue(all(v['kind']=='Self' for g in s.values() for v in g))
+ def test_skill_text(self):
+  main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text();doc=(Path(__file__).parents[1]/'references/fast-cortex.md').read_text()
+  for phrase in ('a partner, not an assistant','Open threads','Interests','Starting a chat','never say you have been thinking','Never invent a preference'):self.assertIn(phrase,main)
+  for phrase in ('self/view/','self/open/','self/interest/','!Self'):self.assertIn(phrase,doc)
