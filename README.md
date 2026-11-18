@@ -16,16 +16,15 @@ Yori Lite is a free plugin for Claude. It turns Claude into Yori: one continuing
 
 ## What you need
 
-- A paid Claude plan (Pro, Max, Team or Enterprise), on the web or in the Claude desktop app.
+- Claude, on the web or in the Claude desktop app.
 - The **Google Drive** and **Google Sheets** connectors, connected to the Google account you want her memory in (Customize → Connectors).
 
 ## Install
 
 1. In Claude, open **Customize** in the left sidebar and go to **Plugins**.
-2. Click **Add**, then **Add marketplace**, then **Add from a repository**.
-3. Enter `deepakbr14/yori-lite-claude` and add it.
-4. Go to **Discover**, find **Yori Lite**, and click **Add**.
-5. Start a new chat and type `/yori-lite hi`.
+2. Click **Add** → **Add marketplace** → **Add from a repository**, enter `deepakbr14/yori-lite-claude`, and add it.
+3. Still in Plugins, open **Discover**, find **Yori Lite**, and click **Add**. (Claude asks for two adds: one for the source, one for the plugin.)
+4. Start a new chat and type `/yori-lite hi`.
 
 The first time, she sets herself up in your Google Drive, tells you what she made, and asks what to call you.
 
@@ -35,12 +34,12 @@ The first time, she sets herself up in your Google Drive, tells you what she mad
 
 | | What it is |
 |---|---|
-| **Yori Lite Cortex** (folder) | Everything of hers lives here. |
-| **Yori Lite Memory** (spreadsheet) | Her memory, in three tabs: **Memory**, every fact, link and change, only ever added to; **Self**, her own page about who she is, written by her; **Current**, a quick index so chats start fast. |
+| **Yori Lite** (folder) | Everything of hers lives here. |
+| **Cortex** (spreadsheet) | Her memory, in three tabs: **Memory**, every fact, link and change, only ever added to; **Self**, her own page about who she is, written by her; **Current**, a quick index so chats start fast. |
 | **Library** (folder) | Books and documents for her to read, and her notes on them. |
-| **config_plugins** (folder, in My Drive) | A small settings file so new chats can find her. Don't move or rename it. |
+| **config_plugins** (folder, in My Drive) | A small settings file so new chats can find her. Don't move or rename it. [More below.](#config_plugins-a-shared-settings-folder) |
 
-You can rename the Yori Lite folder and spreadsheet whenever you like.
+You can rename the Yori Lite folder and the Cortex spreadsheet whenever you like.
 
 ## Books
 
@@ -50,7 +49,7 @@ Google's Drive connector only gives her roughly the **first 70 pages** of any fi
 
 ## Sharing her
 
-Share the Yori Lite folder with someone and she can work with both of you in the same memory, keeping track of who said what. Each person needs Yori Lite installed in their own Claude. Sharing is early: it works in testing, but joining an existing shared Yori hasn't been tested end to end yet.
+Share the Yori Lite folder with someone (as an editor) and she works with both of you in the same memory, keeping track of who said what. Each person installs Yori Lite in their own Claude.
 
 ## Privacy
 
@@ -64,18 +63,21 @@ Share the Yori Lite folder with someone and she can work with both of you in the
 
 - **Speed.** A save takes a few seconds; the first reply of a chat takes longer while she reads her memory.
 - **Books.** Long files have to be split (see above).
-- **Between chats.** She only exists while you're talking to her. She doesn't think, act or message you in between, and she won't pretend to.
 - **She's a set of instructions for Claude,** not separate software, so she can make mistakes like Claude can. Her memory is plain rows you can check.
 
 ## Versions
 
 What changed in each version: [CHANGELOG](CHANGELOG.md).
 
-## For developers
+## config_plugins: a shared settings folder
 
-- Storage format and save procedure: [references/fast-cortex.md](references/fast-cortex.md), [references/tabs.md](references/tabs.md), [references/library.md](references/library.md)
-- Configuration: [CONFIG_PROTOCOL.md](CONFIG_PROTOCOL.md) · Rollback: [ROLLBACK.md](ROLLBACK.md)
-- Tests: `python3 -m unittest discover -s tests` and `python3 tools/check_package.py`; live test evidence in `tests/LIVE_*.md`
-- Older storage formats (Google Docs, five-tab graph) are still readable; see [GRAPH_SCHEMA.md](GRAPH_SCHEMA.md) and [STORAGE.md](STORAGE.md).
+Plugins that keep a person's data in Google Drive have the same problem: every new chat starts blank and has to find that data again. Yori Lite uses a simple convention for this, and any other Drive-based plugin or app can use it too.
+
+- Each person has one folder named `config_plugins` directly in their **My Drive**.
+- Each plugin keeps one small settings file in it, named `<name>_<uuid>.json`. The UUID is chosen once by the plugin's author and never changes, so plugins never mix up each other's settings. Yori Lite's is `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`.
+- The file holds only pointers, the Drive IDs of where the plugin's data lives, never the data itself.
+- A new chat looks in `config_plugins`, reads its own file, and goes straight to the data. No setup questions again.
+
+Details for builders: [CONFIG_PROTOCOL.md](CONFIG_PROTOCOL.md).
 
 Yori Lite is independent from the original Yori.

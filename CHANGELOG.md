@@ -1,3 +1,8 @@
+# 0.4.8 — New default names
+
+- New Cortex folders are named **Yori Lite**, the spreadsheet inside **Cortex**; the person's own names still win and nothing existing is renamed.
+- README for users: app install steps, config_plugins explained for other app builders.
+
 # 0.4.7 — Self and Current tabs, fast startup, upgrade path
 
 - Three tabs: Memory (the record, add-only), Self (Yori's own page, written and rewritten by her), Current (an append-only index of what is true now, rebuildable from Memory).

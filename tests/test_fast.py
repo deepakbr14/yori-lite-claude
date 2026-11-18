@@ -329,4 +329,4 @@ class Tabs047(unittest.TestCase):
   root=Path(__file__).parents[1];tabs=(root/'references/tabs.md').read_text();doc=(root/'references/fast-cortex.md').read_text()
   main=(root/'skills/yori-lite/SKILL.md').read_text();con=(root/'skills/yori-lite-connect/SKILL.md').read_text()
   for p in ('Self!A1:C80','Current!A1:D2000','lines first, title second','deleteDimension','copy_file','125,000 characters','Ask once'):self.assertIn(p,tabs)
-  self.assertIn('even when you revise a revision',doc);self.assertIn('Your Self page',main);self.assertIn('Yori Lite Cortex',con)
+  self.assertIn('even when you revise a revision',doc);self.assertIn('Your Self page',main);self.assertIn('folder **Yori Lite**',con);self.assertIn('inside it **Cortex**',con)
