@@ -58,16 +58,26 @@ def stored_row(row):
     return [str(v) if not isinstance(v,str) else v for v in out]
 
 def rid(row):return f'{row[0]}:{row[1]}'
-def collect(rows):
-    ops=defaultdict(dict);totals={}
+def collect(rows,quarantine=None):
+    """quarantine=None: raise on conflicts (strict). A dict: record conflicting ops there and leave them out."""
+    ops=defaultdict(dict);totals={};bad=set()
     for raw in rows:
-        r=normalize(raw);op,p,n=r[:3]
-        if op in totals and totals[op]!=n:raise Invalid('operation size collision')
+        try:r=normalize(raw)
+        except Invalid as e:
+            if quarantine is None:raise
+            quarantine[str(raw[0] if raw else '?')]=f'malformed row: {e}';continue
+        op,p,n=r[:3]
+        if op in totals and totals[op]!=n:
+            if quarantine is None:raise Invalid('operation size collision')
+            bad.add(op);quarantine[op]='operation size collision';continue
         totals[op]=n
-        if p in ops[op] and ops[op][p]!=r:raise Invalid('same operation/part, different contents')
+        if p in ops[op] and ops[op][p]!=r:
+            if quarantine is None:raise Invalid('same operation/part, different contents')
+            bad.add(op);quarantine[op]='same operation/part, different contents';continue
         ops[op][p]=r
     complete=[];pending={}
     for op,parts in ops.items():
+        if op in bad:continue
         missing=sorted(set(range(1,totals[op]+1))-parts.keys())
         if missing:pending[op]=missing
         else:complete.extend(parts[p] for p in sorted(parts))
@@ -81,8 +91,10 @@ def legacy_records(book):
             out[r['revision_id']]={'rid':r['revision_id'],'id':r[key],'parents':json.loads(r['base_revision_ids'] or '[]'),'family':family,'kind':r.get('kind',r.get('relation')),'subject':r.get('subject',r.get('from_node_id','')),'object':r.get('to_node_id',''),'text':r.get('content',r.get('evidence','')),'by':r['contributor'],'basis':r['attribution'],'source':r.get('source',r.get('evidence','')),'at':r.get('updated_at',r.get('created_at','')),'raw':copy.deepcopy(r),'origin':'legacy','status':r['status']}
     return out
 
-def audit(rows,old=None):
-    complete,pending=collect(rows);versions=legacy_records(old) if old is not None else {}
+def audit(rows,old=None,strict=True):
+    """strict=False: a bad operation is set aside in 'quarantine' with its reason instead of failing the whole read."""
+    q=None if strict else {}
+    complete,pending=collect(rows,q);versions=legacy_records(old) if old is not None else {}
     for r in complete:
         key=rid(r)
         if key in versions:raise Invalid('legacy revision ID collision')
@@ -91,21 +103,37 @@ def audit(rows,old=None):
     resolved={k:v for k,v in versions.items() if not v['parents']};todo={k:v for k,v in versions.items() if v['parents']}
     while todo:
         ready=[k for k,v in todo.items() if all(p in resolved for p in v['parents'])]
-        if not ready:raise Incomplete('missing/cyclic predecessor; dependent recall is incomplete')
+        if not ready:
+            if strict:raise Incomplete('missing/cyclic predecessor; dependent recall is incomplete')
+            for k in todo:q[k]='missing or cyclic predecessor'
+            break
         for k in ready:
             v=todo.pop(k);parents=[resolved[p] for p in v['parents']]
-            if any(p['id']!=v['id'] for p in parents):raise Invalid('cross-entity predecessor')
-            family=parents[0]['family']
-            if any(p['family']!=family for p in parents) or v['family'] not in (None,family):raise Invalid('family change')
+            # Repair a known writer slip: a revision of a revision that names the previous REVISION ID as its
+            # entity. The parent pins the entity unambiguously, so read it as that entity and flag it.
+            if v['id'] in resolved and resolved[v['id']]['id']!=v['id'] and v['id'] in v['parents']:
+                v['repaired']=f"id named revision {v['id']}; read as entity {resolved[v['id']]['id']}";v['id']=resolved[v['id']]['id']
+            try:
+                if any(p['id']!=v['id'] for p in parents):raise Invalid('cross-entity predecessor')
+                family=parents[0]['family']
+                if any(p['family']!=family for p in parents) or v['family'] not in (None,family):raise Invalid('family change')
+            except Invalid as e:
+                if strict:raise
+                q[k]=str(e);continue
             v['family']=family;resolved[k]=v
     consumed={p for v in resolved.values() for p in v['parents']};heads=defaultdict(list)
     for k,v in resolved.items():
         if v['family']=='NODE' and v['object']:raise Invalid('node object')
         if k not in consumed:heads[v['id']].append(v)
     node_ids={v['id'] for v in resolved.values() if v['family']=='NODE'}
-    for v in resolved.values():
-        if v['family']=='EDGE' and (v['subject'] not in node_ids or v['object'] not in node_ids):raise Incomplete('edge endpoint missing')
-    return {'versions':resolved,'heads':dict(heads),'pending':pending,'legacy_history':legacy.committed(old)['History'] if old is not None else []}
+    for v in list(resolved.values()):
+        if v['family']=='EDGE' and (v['subject'] not in node_ids or v['object'] not in node_ids):
+            if strict:raise Incomplete('edge endpoint missing')
+            q[v['rid']]='edge endpoint missing'
+            if v in heads.get(v['id'],[]):heads[v['id']].remove(v)
+    out={'versions':resolved,'heads':{k:h for k,h in heads.items() if h},'pending':pending,'legacy_history':legacy.committed(old)['History'] if old is not None else []}
+    if not strict:out['quarantine']=q
+    return out
 
 def recover(expected,observed,coverage=False):
     expected=[normalize(r) for r in expected];full,pending=collect(expected)
@@ -224,6 +252,56 @@ def unread_files(state,drive_files):
     skipping Yori's own notes documents."""
     known={f for b in library_books(state).values() for f in b['files']}|{b['notes'] for b in library_books(state).values() if b['notes']}
     return [d for d in drive_files if d['id'] not in known and not d['title'].startswith('Yori notes')]
+
+# ---- 0.4.7 summary tabs: Current (cache of what is true now) and Self (Yori's own page) ----
+CURRENT_HEADER=['kind','subject','entity','row','text']
+def head_rows(rows):
+    """Map revision ID -> Memory sheet row number (header is row 1)."""
+    return {f'{r[0]}:{r[1]}':i+2 for i,r in enumerate(rows) if len(r)>1}
+def short(text,limit=160):
+    t=' '.join(str(text).split());return t if len(t)<=limit else t[:limit-1].rstrip()+'…'
+def build_current(rows,through=None):
+    """Rows for the Current tab from Memory data rows (row 2 onward). Active People/Knowledge/Concept NODE heads only:
+    no Self (that is Yori's own page), no edges, no retired items. Text is shortened: a summary, never the record."""
+    st=audit(rows,strict=False);where=head_rows(rows);through=through or len(rows)+1
+    order={'People':0,'Knowledge':1,'Concept':2}
+    out=[]
+    for ent,heads in st['heads'].items():
+        for v in heads:
+            if v['family']=='NODE' and v['status']=='active' and v['kind'] in order:
+                out.append([v['kind'],v['subject'],ent,str(where.get(v['rid'],'')),short(v['text'],120)+(' [concurrent versions]' if len(heads)>1 else '')])
+    out.sort(key=lambda r:(order[r[0]],r[1],int(r[3] or 0)))
+    title=[f'Current: summary built by Yori from Memory rows 2-{through}. Memory is the record; this tab can be rebuilt.','','','','']
+    return [title,CURRENT_HEADER]+out
+def read_current(lines):
+    """Current tab lines (after title and header) -> {entity: line}. Append-only: the last line for an entity wins;
+    kind 'retired' removes it."""
+    out={}
+    for r in lines:
+        r=list(r)+['']*(5-len(r))
+        if not r[2]:continue
+        if r[0]=='retired':out.pop(r[2],None)
+        else:out[r[2]]=r
+    return out
+def current_delta(tail_rows,first_row):
+    """Lines to append to Current for Memory rows after its title N. tail_rows start at sheet row first_row.
+    Revisions of an entity give a fresh line for that entity; a retirement gives a 'retired' line."""
+    out=[];order={'People','Knowledge','Concept'}
+    for i,raw in enumerate(tail_rows):
+        r=list(raw)+['']*(14-len(raw))
+        if r[3] not in ('NODE','REVISION'):continue
+        kind=r[6].removeprefix('!')
+        if kind not in order:continue
+        ent=r[4] or f'{r[0]}:{r[1]}'
+        if r[6].startswith('!'):out.append(['retired',decode_literal(r[7]),ent,str(first_row+i),short(decode_literal(r[9]),120)])
+        else:out.append([kind,decode_literal(r[7]),ent,str(first_row+i),short(decode_literal(r[9]),120)])
+    return out
+def through_row(title_cell):
+    m=re.search(r'rows 2-(\d+)',title_cell or '');return int(m[1]) if m else None
+def self_material(rows):
+    """What Yori consolidates into her Self page: active Self heads grouped, with Memory rows."""
+    st=audit(rows,strict=False);where=head_rows(rows);side=self_side(st)
+    return {k:[(v['subject'],v['entity'] if 'entity' in v else v['id'],where.get(v['rid']),v['text']) for v in vs] for k,vs in side.items()}
 
 class Index:
     """Offline model of in-chat index + tail refresh, NOT a hosted/persisted index."""

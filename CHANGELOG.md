@@ -1,3 +1,14 @@
+# 0.4.7 — Self and Current tabs, fast startup, upgrade path
+
+- Three tabs: Memory (the record, add-only), Self (Yori's own page, written and rewritten by her), Current (an append-only index of what is true now, rebuildable from Memory).
+- Chat start reads Self, Current's index columns and only the Memory rows newer than them, instead of all of Memory. On the user's real 606-row Cortex: about 21K characters for the index instead of about 199K for a full read.
+- Topic detail is read by row when it comes up; Current text is never saved from.
+- Forgetting on request now deletes rows (versions and touching edges), removes them from the summaries and confirms.
+- Older Cortexes upgrade on the first chat: ask once, back up the spreadsheet, add the tabs, build Current, write the Self page, correct the wrong 10 MB book rule, record the upgrade.
+- New Cortex folder defaults to "Yori Lite Cortex"; the person's own name wins; never imitates an existing folder.
+- Reader fix from real data: a revision of a revision that put the previous revision ID where the entity ID belongs (two rows in the user's Cortex) is read as the intended entity and flagged; instructions now spell out the rule. Tolerant reading sets bad operations aside instead of failing the whole read.
+- `build_current`, `current_delta`, `read_current`, `self_material`, tolerant `audit(strict=False)` with tests; `references/tabs.md`.
+
 # 0.4.6 — Library: books and documents in Google Drive
 
 - `Library` folder inside the Cortex folder; created at setup or on first use, and the person is told once.

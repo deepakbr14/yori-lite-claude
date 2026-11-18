@@ -284,3 +284,49 @@ class Library046(unittest.TestCase):
   lib=(Path(__file__).parents[1]/'references/library.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
   for phrase in ('about 50 pages','never say you will start later','in your own words','I haven\'t read that part','A search miss is not proof','under 15 words'):self.assertIn(phrase,lib)
   for phrase in ('**Library.**','never say you will go and do something after this message'):self.assertIn(phrase,main)
+
+class Tabs047(unittest.TestCase):
+ """0.4.7: Self and Current tabs; tolerant reader; repair of revision IDs; real-data regression."""
+ def base(self):
+  return [['opPerson00001',1,1,'NODE','','','People','person/sam/name','','Sam.','Sam','S','setup',''],
+   ['opSelf0000001',1,1,'NODE','','','Self','self/identity','','I am Yori.','Yori','D','setup',''],
+   ['opView0000001',1,1,'NODE','','','Self','self/view/game/roommate','','Default roommate is a stranger.','Yori','D','talk',''],
+   ['opRev00000001',1,1,'REVISION','opView0000001:1','opView0000001:1','Self','self/view/game/roommate','','Stranger by default; invites bring friends.','Yori','D','talk',''],
+   ['opProj0000001',1,1,'NODE','','','Knowledge','project/game','','Sam builds a game.','Sam','S','Sam','']]
+ def test_revision_of_revision_naming_revision_id_is_repaired(self):
+  # Real slip seen in a user's Cortex (rows 383 and 398): id = previous revision, parents = previous revision.
+  rows=self.base()+[['opRev00000002',1,1,'REVISION','opRev00000001:1','opRev00000001:1','Self','self/view/game/roommate','','Corrected: friend or stranger.','Yori','D','talk','']]
+  a=f.audit(rows);h=a['heads']['opView0000001:1']
+  self.assertEqual([v['rid'] for v in h],['opRev00000002:1']);self.assertIn('repaired',h[0]);self.assertNotIn('opRev00000001:1',a['heads'])
+ def test_strict_still_rejects_real_cross_entity(self):
+  rows=self.base()+[['opBad00000001',1,1,'REVISION','opProj0000001:1','opView0000001:1','Knowledge','x','','bad','Yori','D','t','']]
+  with self.assertRaises(f.Invalid):f.audit(rows)
+ def test_tolerant_quarantines_bad_op_and_keeps_rest(self):
+  rows=self.base()+[['opBad00000001',1,1,'REVISION','opProj0000001:1','opView0000001:1','Knowledge','x','','bad','Yori','D','t',''],
+   ['opDup00000001',1,1,'NODE','','','Knowledge','y','','one','Yori','D','t',''],['opDup00000001',1,1,'NODE','','','Knowledge','y','','two','Yori','D','t','']]
+  a=f.audit(rows,strict=False)
+  self.assertIn('opBad00000001:1',a['quarantine']);self.assertIn('opDup00000001',a['quarantine']);self.assertIn('opProj0000001:1',a['heads'])
+ def test_current_has_no_self_no_edges_no_retired(self):
+  rows=self.base()+[['opEdge0000001',1,1,'EDGE','','','about','opView0000001:1','opProj0000001:1','e','Yori','D','t',''],
+   ['opGone0000001',1,1,'NODE','','','Knowledge','project/old','','old','Sam','S','t',''],
+   ['opGone0000002',1,1,'REVISION','opGone0000001:1','opGone0000001:1','!Knowledge','project/old','','dropped','Sam','S','t','']]
+  cur=f.build_current(rows);lines=cur[2:]
+  self.assertEqual(cur[1],f.CURRENT_HEADER);self.assertEqual(f.through_row(cur[0][0]),len(rows)+1)
+  self.assertEqual(sorted(r[1] for r in lines),['person/sam/name','project/game'])
+  self.assertEqual([r[3] for r in lines if r[1]=='project/game'],['6'])
+ def test_current_delta_and_reader(self):
+  cur=f.build_current(self.base());idx=f.read_current(cur[2:])
+  tail=[['opProj0000002',1,1,'REVISION','opProj0000001:1','opProj0000001:1','Knowledge','project/game','','Sam builds a college game.','Sam','S','t'],
+        ['opNew00000001',1,1,'NODE','','','People','person/sam/city','','Austin.','Sam','S','t'],
+        ['opSelfX000001',1,1,'NODE','','','Self','self/view/x','','mine','Yori','D','t'],
+        ['opPerson00002',1,1,'REVISION','opPerson00001:1','opPerson00001:1','!People','person/sam/name','','retired','Sam','S','t']]
+  d=f.current_delta(tail,7);idx2=f.read_current(cur[2:]+d)
+  self.assertEqual(idx2['opProj0000001:1'][4],'Sam builds a college game.');self.assertEqual(idx2['opNew00000001:1'][3],'8')
+  self.assertNotIn('opPerson00001:1',idx2);self.assertFalse(any(r[2]=='opSelfX000001:1' for r in d));self.assertIn('opPerson00001:1',idx)
+ def test_self_material_groups(self):
+  m=f.self_material(self.base());self.assertEqual((len(m['identity']),len(m['views'])),(1,1));self.assertEqual(m['views'][0][2],5)
+ def test_docs(self):
+  root=Path(__file__).parents[1];tabs=(root/'references/tabs.md').read_text();doc=(root/'references/fast-cortex.md').read_text()
+  main=(root/'skills/yori-lite/SKILL.md').read_text();con=(root/'skills/yori-lite-connect/SKILL.md').read_text()
+  for p in ('Self!A1:C80','Current!A1:D2000','lines first, title second','deleteDimension','copy_file','125,000 characters','Ask once'):self.assertIn(p,tabs)
+  self.assertIn('even when you revise a revision',doc);self.assertIn('Your Self page',main);self.assertIn('Yori Lite Cortex',con)
