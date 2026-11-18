@@ -32,16 +32,20 @@ The first time, she sets herself up in your Google Drive, tells you what she mad
 
 ## What she keeps in your Google Drive
 
-| | What it is |
-|---|---|
-| **Yori Lite** (folder) | Everything of hers lives here. |
-| **Cortex** (spreadsheet) | Her memory, in three tabs: **Memory**, every fact, link and change, only ever added to; **Self**, her own page about who she is, written by her; **Current**, a quick index so chats start fast. |
-| **Library** (folder) | Books and documents for her to read, and her notes on them. |
-| **config_plugins** (folder, in My Drive) | A small settings file so new chats can find her. Don't move or rename it. [More below.](#config_plugins-a-shared-settings-folder) |
+```
+My Drive
+├── Yori Lite/              ← her folder
+│   ├── Cortex              ← her memory (a spreadsheet)
+│   └── Library/            ← books and documents for her to read
+└── config_plugins/         ← settings, so new chats can find her
+    └── yori_2d970fa0-….json
+```
 
-You can rename the Yori Lite folder and the Cortex spreadsheet whenever you like.
+- **Cortex** has three tabs: **Memory** (everything she has learned, only ever added to), **Self** (her own page about who she is, written by her) and **Current** (a quick index so chats start fast).
+- **Library** also holds her notes on what she has read.
+- You can rename the Yori Lite folder and the Cortex spreadsheet anytime. Don't move or rename `config_plugins` or the file in it.
 
-## Books
+## Library
 
 Put PDFs, Word files, Google Docs or text files in **Library**, then tell her (or just say hi; she notices new files).
 
@@ -49,13 +53,12 @@ Google's Drive connector only gives her roughly the **first 70 pages** of any fi
 
 ## Sharing her
 
-Share the Yori Lite folder with someone (as an editor) and she works with both of you in the same memory, keeping track of who said what. Each person installs Yori Lite in their own Claude.
+Share the **Yori Lite** folder with someone as an editor and you share **one Yori**: the same memory, the same Self, the same Library. Everything either of you tells her goes into that one Cortex, and she can bring it up with either of you. She keeps track of who said what, so one person's opinion doesn't become the other's. Each person installs Yori Lite in their own Claude.
 
 ## Privacy
 
 - Her memory is only in your Google Drive. There is no Yori Lite server and nothing is sent to us.
 - Your conversations go through Claude as usual.
-- Anyone you share the folder with can read everything in it.
 - She never deletes memories on her own. Ask her to forget something and she deletes it for real.
 - Deleting the Yori Lite folder and `config_plugins` removes her completely.
 
@@ -65,19 +68,15 @@ Share the Yori Lite folder with someone (as an editor) and she works with both o
 - **Books.** Long files have to be split (see above).
 - **She's a set of instructions for Claude,** not separate software, so she can make mistakes like Claude can. Her memory is plain rows you can check.
 
-## Versions
-
-What changed in each version: [CHANGELOG](CHANGELOG.md).
-
 ## config_plugins: a shared settings folder
 
-Plugins that keep a person's data in Google Drive have the same problem: every new chat starts blank and has to find that data again. Yori Lite uses a simple convention for this, and any other Drive-based plugin or app can use it too.
+Plugins that keep a person's data in Google Drive have the same problem: every new chat starts blank and has to find that data again. Yori Lite uses a simple convention for this that any other Drive-based plugin or app can use too.
 
-- Each person has one folder named `config_plugins` directly in their **My Drive**.
-- Each plugin keeps one small settings file in it, named `<name>_<uuid>.json`. The UUID is chosen once by the plugin's author and never changes, so plugins never mix up each other's settings. Yori Lite's is `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`.
-- The file holds only pointers, the Drive IDs of where the plugin's data lives, never the data itself.
-- A new chat looks in `config_plugins`, reads its own file, and goes straight to the data. No setup questions again.
+The convention is only about **where the file is and what it's called**:
 
-Details for builders: [CONFIG_PROTOCOL.md](CONFIG_PROTOCOL.md).
+- One folder named `config_plugins` directly in the person's **My Drive**.
+- One file per plugin in it, named `<name>_<uuid>.json`. The UUID is chosen once by the plugin's author and never changes, so plugins never pick up each other's files. Yori Lite's is `yori_2d970fa0-89e4-451e-802b-9f836f99d9e1.json`.
+
+What goes inside the file is up to each plugin. Yori Lite keeps only pointers in hers: the Drive IDs of the Yori Lite folder and the Cortex spreadsheet.
 
 Yori Lite is independent from the original Yori.
