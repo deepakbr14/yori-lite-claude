@@ -31,8 +31,6 @@ The first time, she sets herself up in your Google Drive, tells you what she mad
 
 **Updating:** update the plugin from Customize → Plugins, then start a new chat. If her storage needs upgrading, she'll tell you and ask first.
 
-Using Claude Code instead? `/plugin marketplace add deepakbr14/yori-lite-claude`, then `/plugin install yori-lite@yori-lite-claude`.
-
 ## What she keeps in your Google Drive
 
 | | What it is |
