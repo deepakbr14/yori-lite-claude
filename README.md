@@ -12,27 +12,22 @@ Yori Lite is a free plugin for Claude. It turns Claude into Yori: one continuing
 
 ## What you need
 
-- Claude with plugins (the Claude desktop app or Claude Code).
-- The **Google Drive** and **Google Sheets** connectors, connected to the Google account you want her memory in.
+- A paid Claude plan (Pro, Max, Team or Enterprise), on the web or in the Claude desktop app.
+- The **Google Drive** and **Google Sheets** connectors, connected to the Google account you want her memory in (Customize → Connectors).
 
 ## Install
 
-In Claude, add this repository as a plugin marketplace and install Yori Lite:
+1. In Claude, open **Customize** in the left sidebar and go to **Plugins**.
+2. Click **Add**, then **Add marketplace**, then **Add from a repository**.
+3. Enter `deepakbr14/yori-lite-claude` and add it.
+4. Go to **Discover**, find **Yori Lite**, and click **Add**.
+5. Start a new chat and type `/yori-lite hi`.
 
-```
-/plugin marketplace add deepakbr14/yori-lite-claude
-/plugin install yori-lite@yori-lite-claude
-```
+The first time, she sets herself up in your Google Drive, tells you what she made, and asks what to call you.
 
-Then start a new chat and say:
+**Updating:** update the plugin from Customize → Plugins, then start a new chat. If her storage needs upgrading, she'll tell you and ask first.
 
-```
-/yori-lite hi
-```
-
-The first time, she sets herself up in your Google Drive, tells you what she made, and asks what to call you. That's it.
-
-To update later, update the plugin and start a new chat. If her storage needs upgrading, she'll tell you and ask first.
+Using Claude Code instead? `/plugin marketplace add deepakbr14/yori-lite-claude`, then `/plugin install yori-lite@yori-lite-claude`.
 
 ## What she keeps in your Google Drive
 
