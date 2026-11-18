@@ -2,7 +2,7 @@
   "name": "yori-lite",
   "displayName": "Yori Lite",
   "version": "0.4.7",
-  "description": "Compact single-tab node/edge/revision memory, selective learning and legacy Cortex readers.",
+  "description": "Memory and identity for your Claude. All data stored on your Google Drive. Private and forever free.",
   "author": {
     "name": "Deepak Deo"
   },

@@ -3,12 +3,12 @@
   "owner": {
     "name": "Deepak Deo"
   },
-  "description": "Independent Yori Lite skills for Claude with Google Drive memory.",
+  "description": "Memory and identity for your Claude. All data stored on your Google Drive. Private and forever free.",
   "plugins": [
     {
       "name": "yori-lite",
       "source": "./",
-      "description": "Yori Lite with granular graph memories and verified batch learning.",
+      "description": "Memory and identity for your Claude. All data stored on your Google Drive. Private and forever free.",
       "strict": true
     }
   ]
