@@ -1,15 +1,16 @@
 {
   "measurement": "UTF-8 bytes on disk, not tokens or response latency",
-  "previous_version": "0.4.7",
-  "version": "0.4.8",
-  "previous_five_skill_bytes": 46793,
-  "new_five_skill_bytes": 46781,
-  "new_shared_contract_bytes": 7623,
+  "previous_version": "0.4.8",
+  "version": "0.4.9",
+  "previous_five_skill_bytes": 46781,
+  "new_five_skill_bytes": 39538,
+  "new_shared_contract_bytes": 7654,
   "scope": "five SKILL.md files plus shared contract; other task-specific references excluded",
   "note": "Declared FAST normal route, not measured Claude reads. Fresh-chat retrieval and exceptions may load fast-details; legacy selection loads its own protocol.",
   "graph_normal_instruction_files": [
     "skills/yori-lite/SKILL.md",
-    "references/fast-cortex.md"
+    "skills/yori-lite/references/fast-cortex.md",
+    "skills/yori-lite/references/tabs.md"
   ],
-  "graph_normal_route_bytes": 23504
+  "graph_normal_route_bytes": 21742
 }

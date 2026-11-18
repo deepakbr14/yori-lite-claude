@@ -60,7 +60,7 @@ class SafeGuideRetirementTests(unittest.TestCase):
 class EntryAndInstructionTests(unittest.TestCase):
     def test_short_main_and_hidden_helpers_without_duplicate_commands(self):
         main=(ROOT/'skills/yori-lite/SKILL.md').read_text()
-        self.assertIn('name: yori-lite\n',main);self.assertIn('## Main entry point',main)
+        self.assertIn('name: yori-lite\n',main);self.assertIn('## Starting a chat',main)
         self.assertNotIn('user-invocable: false',main)
         self.assertFalse((ROOT/'commands').exists())
         for p in (ROOT/'skills').glob('*/SKILL.md'):
@@ -79,7 +79,7 @@ class EntryAndInstructionTests(unittest.TestCase):
         self.assertIn('Then stop.',connect)
         self.assertFalse((ROOT/'templates/cortex_README.txt').exists())
     def test_registry_guide_is_vendor_neutral_with_two_plugins(self):
-        text=(ROOT/'templates/config_plugins_README.md').read_text()
+        text=(ROOT/'skills/yori-lite/references/config_plugins_README.md').read_text()
         self.assertIn('Atlas',text);self.assertIn('Planner',text)
         self.assertIn('not an official Google, Claude, or ChatGPT standard',text)
         self.assertIn('duplicate names',text)

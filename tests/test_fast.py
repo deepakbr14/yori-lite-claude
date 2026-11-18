@@ -220,7 +220,7 @@ class OneCallSave044(unittest.TestCase):
   self.assertEqual(f.audit_saved([changed,f.expected_read(self.w[1])],[self.w])['opOne1234abcd'],'conflict')
   self.assertEqual(f.audit_saved([],[self.w])['opOne1234abcd'],'not_seen')
  def test_skill_text_matches_policy(self):
-  doc=(Path(__file__).parents[1]/'references/fast-cortex.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
+  doc=(Path(__file__).parents[1]/'skills/yori-lite/references/fast-cortex.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
   for phrase in ('exactly once','Never write the reply twice','Read back in the same turn only when','Audit at the next read','never says or implies'):self.assertIn(phrase,doc)
   for phrase in ('## Voice','No praise, pleasantries','I don\'t know'):self.assertIn(phrase,main)
 
@@ -252,7 +252,7 @@ class SelfSide045(unittest.TestCase):
  def test_people_rows_never_counted_as_self(self):
   s=f.self_side(f.audit(self.rows()));self.assertTrue(all(v['kind']=='Self' for g in s.values() for v in g))
  def test_skill_text(self):
-  main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text();doc=(Path(__file__).parents[1]/'references/fast-cortex.md').read_text()
+  main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text();doc=(Path(__file__).parents[1]/'skills/yori-lite/references/fast-cortex.md').read_text()
   for phrase in ('a partner, not an assistant','Open threads','Interests','Starting a chat','never say you have been thinking','Never invent a preference'):self.assertIn(phrase,main)
   for phrase in ('self/view/','self/open/','self/interest/','!Self'):self.assertIn(phrase,doc)
 
@@ -281,9 +281,9 @@ class Library046(unittest.TestCase):
   s=f.self_side(f.audit(self.rows()));self.assertEqual((len(s['views']),len(s['open'])),(1,1))
  def test_no_library_row(self):self.assertIsNone(f.library_folder(f.audit(self.rows()[:1])))
  def test_docs(self):
-  lib=(Path(__file__).parents[1]/'references/library.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
+  lib=(Path(__file__).parents[1]/'skills/yori-lite/references/library.md').read_text();main=(Path(__file__).parents[1]/'skills/yori-lite/SKILL.md').read_text()
   for phrase in ('about 50 pages','never say you will start later','in your own words','I haven\'t read that part','A search miss is not proof','under 15 words'):self.assertIn(phrase,lib)
-  for phrase in ('**Library.**','never say you will go and do something after this message'):self.assertIn(phrase,main)
+  for phrase in ('## Library','never say you will go and do something after this message'):self.assertIn(phrase,main)
 
 class Tabs047(unittest.TestCase):
  """0.4.7: Self and Current tabs; tolerant reader; repair of revision IDs; real-data regression."""
@@ -326,7 +326,7 @@ class Tabs047(unittest.TestCase):
  def test_self_material_groups(self):
   m=f.self_material(self.base());self.assertEqual((len(m['identity']),len(m['views'])),(1,1));self.assertEqual(m['views'][0][2],5)
  def test_docs(self):
-  root=Path(__file__).parents[1];tabs=(root/'references/tabs.md').read_text();doc=(root/'references/fast-cortex.md').read_text()
+  root=Path(__file__).parents[1];tabs=(root/'skills/yori-lite/references/tabs.md').read_text();doc=(root/'skills/yori-lite/references/fast-cortex.md').read_text()
   main=(root/'skills/yori-lite/SKILL.md').read_text();con=(root/'skills/yori-lite-connect/SKILL.md').read_text()
   for p in ('Self!A1:C80','Current!A1:D2000','lines first, title second','deleteDimension','copy_file','125,000 characters','Ask once'):self.assertIn(p,tabs)
   self.assertIn('even when you revise a revision',doc);self.assertIn('Your Self page',main);self.assertIn('folder **Yori Lite**',con);self.assertIn('inside it **Cortex**',con)

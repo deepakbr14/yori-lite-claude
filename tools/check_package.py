@@ -28,7 +28,7 @@ def validate(value,schema):
 def check():
     manifest=json.loads((ROOT/'.claude-plugin/plugin.json').read_text())
     assert set(manifest)=={'name','displayName','version','description','author','repository','metadata'}
-    assert manifest['name']=='yori-lite' and manifest['version']=='0.4.8'
+    assert manifest['name']=='yori-lite' and manifest['version']=='0.4.9'
     market=json.loads((ROOT/'.claude-plugin/marketplace.json').read_text())
     assert market['name']=='yori-lite-claude' and market['owner']['name']
     assert len(market['plugins'])==1
@@ -49,6 +49,17 @@ def check():
     skills=list((ROOT/'skills').glob('*/SKILL.md'));assert len(skills)==5
     for p in skills:
         s=p.read_text();assert s.startswith('---\n') and pid in s
+        for link in re.findall(r'\]\(([^)]+)\)',s):
+            if '://' not in link: assert (p.parent/link).resolve().is_file(), (p,link)
+        if p.parent.name=='yori-lite':
+            # Lean main entry (0.4.9): everything its normal route needs lives inside its own folder.
+            for phrase in ('Never silently switch or merge Cortexes.','One question at a time','Don\'t offer three choices','Never claim a save','## Self','## Voice'):assert phrase in s,phrase
+            for link in re.findall(r'\]\(([^)]+)\)',s):
+                if '://' not in link and not link.startswith('../../references/'): assert not link.startswith('..'),(p,link)
+            for r in (p.parent/'references').glob('*.md'):
+                for link in re.findall(r'\]\(([^)]+)\)',r.read_text()):
+                    if '://' not in link: assert (r.parent/link).resolve().is_file() and not link.startswith('..'),(r,link)
+            continue
         assert 'Conversation and scope — always apply' in s
         assert 'Never silently switch or merge Cortexes.' in s
         assert ('read-back' in s or 'read back' in s) and 'operation_id' in s

@@ -1,3 +1,11 @@
+# 0.4.9 — Everything travels with her; clearer setup and updates
+
+- Everything the everyday route needs now lives inside the `yori-lite` skill folder (`skills/yori-lite/references/`), so Claude surfaces that load only the skill folder still work. Older-format instructions stay outside and are only read for older Cortexes.
+- Main instructions rewritten lean: 14 KB to 7 KB; everyday route 21 KB.
+- New `setup.md`: checks Google Drive and Google Sheets first and, if one is missing, shows Claude's connect card (or plain steps) and creates nothing; finds the Cortex; first-time setup creates the Yori Lite folder, Library, the Cortex spreadsheet with Memory, Self and Current tabs, and the settings file.
+- Setup, upgrade and what's-new messages come on their own, formatted to be scanned.
+- What's new: each person sees a short note once after an update.
+
 # 0.4.8 — New default names
 
 - New Cortex folders are named **Yori Lite**, the spreadsheet inside **Cortex**; the person's own names still win and nothing existing is renamed.

@@ -24,7 +24,7 @@ When a topic comes up, look at its Current lines and read those Memory rows (`Me
 ## Keeping Current up to date
 
 Current is append-only too. At chat start, if 100 or more Memory rows are newer than its title, bring it up to date in that turn:
-1. `append_values` to `Current!A1` one line per new or changed People, Knowledge or Concept item in those rows: `[kind, subject, entity, Memory row, text up to about 120 characters]`. A retirement gets kind `retired`. Sent with the same apostrophe rule as Memory.
+1. `append_values` to `Current!A1` one line per new or changed People, Knowledge or Concept item in those rows: `[kind, subject, entity, Memory row, text up to about 120 characters]`. A retirement gets kind `retired`. Sent with the same apostrophe rule as Memory (it applies to every tab).
 2. Then `update_values` `Current!A1` with the new title, N = the last Memory row you included.
 Reading Current: the last line for an entity wins; `retired` removes it. Order matters: lines first, title second, so a title never claims rows that are not in.
 
@@ -49,7 +49,18 @@ Deleting moves later rows up, so Current's row hints after that point are off by
 ## Upgrading an older Cortex (no Self or Current tab)
 
 At chat start the Self or Current read fails because the tab does not exist. Then, in that turn:
-1. Tell the person in one sentence that the Cortex is on the old layout and you'll upgrade it now; memories stay as they are. Ask once. On yes:
+1. Ask once, with only this message (nothing else in it):
+
+   > **I need to upgrade your Cortex first.** It's on an older layout that makes every chat start slowly.
+   >
+   > - **What changes:** I add two tabs: my own page and a quick index.
+   > - **What doesn't:** none of your memories are changed or removed.
+   > - **Backup:** I copy the current file into your Yori Lite folder first.
+   > - **Time:** a few minutes, this once.
+   >
+   > Should I go ahead?
+
+   On yes:
 2. Back up: `copy_file` the spreadsheet into the Cortex folder as `<spreadsheet name> backup before upgrade <date>`.
 3. Read all of Memory (it is the last time a startup needs to).
 4. `update_spreadsheet` with two `addSheet` requests, `Self` and `Current`. If a tab already exists (someone else is upgrading), skip creating it.
@@ -57,4 +68,10 @@ At chat start the Self or Current read fails because the tab does not exist. The
 6. Write your Self page from your active Self rows.
 7. Fix what you know was wrong: if a saved view or open thread blames a 10 MB limit for cut-off books, revise it — the Drive read returns about the first 125,000 characters (roughly 70 pages) of any file, whatever its size.
 8. Save one Knowledge row in Memory: `subject` `cortex/layout`, `text` `Upgraded to Memory, Self and Current tabs; backup <fileId>.`
-Then carry on with whatever the person said. This turn is slower; later chats start faster.
+Then tell them, only this:
+
+> **Upgrade done.** Your memories are unchanged.
+> - **Backup:** `<backup file name>` in the Yori Lite folder.
+> - **New:** a **Self** tab (my own page) and a **Current** tab (a quick index). Chats start faster from now on.
+
+Pick up the conversation in the next reply.
