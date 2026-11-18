@@ -53,7 +53,7 @@ Google's Drive connector only gives her roughly the **first 70 pages** of any fi
 
 ## Sharing her
 
-Share the **Yori Lite** folder with someone as an editor and you share **one Yori**: the same memory, the same Self, the same Library. Everything either of you tells her goes into that one Cortex, and she can bring it up with either of you. She keeps track of who said what, so one person's opinion doesn't become the other's. Each person installs Yori Lite in their own Claude.
+Share the **Yori Lite** folder as an editor with as many people as you like, such as a family, a team or a whole company, and everyone shares **one Yori**: the same memory, the same Self, the same Library. Everything anyone tells her goes into that one Cortex, and she can bring it up with any of them. She keeps track of who said what, so one person's opinion doesn't become someone else's. Each person installs Yori Lite in their own Claude.
 
 ## Privacy
 
