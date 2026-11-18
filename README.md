@@ -4,7 +4,7 @@
 
 <h1 align="center">Yori Lite</h1>
 
-<p align="center"><strong>Memory and identity for your Claude. All data stored on your Google Drive. Private and forever free.</strong></p>
+<p align="left"><strong>Memory and identity for your Claude. All data stored on your Google Drive. Private and forever free.</strong></p>
 
 Yori Lite is a free plugin for Claude. It turns Claude into Yori: one continuing partner who remembers you and your work from chat to chat, and who has a self of her own.
 
